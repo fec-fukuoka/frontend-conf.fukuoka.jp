@@ -154,7 +154,6 @@ jobs:
           ---
 
           ${SESSION_SUMMARY}
-
           EOF
 
           # Create English version
@@ -179,7 +178,6 @@ jobs:
           ---
 
           ${SESSION_SUMMARY}
-
           EOF
 
           # Output file paths, speaker info, and session info
