@@ -1,19 +1,17 @@
 name: Proposal_一般 / General
 description: 一般公募のセッションプロポーザル
-title: "[General] "
+title: "[General] Title of Your Session"
 labels: ["2026-proposal:general"]
 body:
   - type: markdown
     attributes:
       value: |
-        ## 📢 一般プロポーザル
-
-        Frontend Conf Fukuoka 2026での登壇を希望される方のプロポーザルフォームです。
+        一般公募用プロポーザル提出フォーム
   - type: input
     id: speaker-name
     attributes:
       label: 登壇者名 / Speaker Name
-      description: あなたの名前
+      description: ハンドルネームやニックネームでも可 / Can be a handle or nickname
     validations:
       required: true
 
@@ -21,7 +19,7 @@ body:
     id: speaker-name-en
     attributes:
       label: 登壇者名（英語） / Speaker Name (English)
-      description: ローマ字表記 / Roman alphabet notation
+      description: ローマ字表記 / Roman alphabet notation / description: ハンドルネームやニックネームでも可 / Can be a handle name or nickname
     validations:
       required: false
 
@@ -29,7 +27,7 @@ body:
     id: bio
     attributes:
       label: プロフィール / Bio
-      description: あなたの自己紹介（300文字以内） / Your biography (max 300 characters)
+      description: 登壇者のプロフィール（300文字以内） / Your Bio (max 300 characters)
     validations:
       required: true
 
@@ -53,7 +51,7 @@ body:
     id: session-title
     attributes:
       label: セッションタイトル / Session Title
-      description: 提案するセッションのタイトル / Title of the proposed session
+      description: セッションタイトル / Title of the proposed session
     validations:
       required: true
 
@@ -61,7 +59,7 @@ body:
     id: session-category
     attributes:
       label: セッションカテゴリー / Session Category
-      description: セッションの内容に最も適したカテゴリーを選択してください / Please select the most appropriate category for your session
+      description: セッションの内容・専門を示すカテゴリーを選択してください / Please select the most appropriate category for your session
       options:
         - CSS
         - Accessibility

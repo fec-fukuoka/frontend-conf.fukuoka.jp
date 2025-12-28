@@ -59,11 +59,6 @@ jobs:
               'セッション概要 / Session Summary': /###\s*セッション概要 \/ Session Summary\s*\n+([\s\S]+?)(?=###|$)/,
             };
 
-            // Additional required field for guest proposals
-            if (isGuest) {
-              requiredFields['依頼理由 / Why Invite'] = /###\s*依頼理由 \/ Why Invite\s*\n+([\s\S]+?)(?=###|$)/;
-            }
-
             for (const [fieldName, pattern] of Object.entries(requiredFields)) {
               const match = body.match(pattern);
               if (!match || match[1].trim() === '' || match[1].trim() === '_No response_') {
