@@ -222,8 +222,8 @@ jobs:
             const githubHandle = '${{ steps.parse.outputs.github_handle }}';
 
             const message = [
-              `## 🎉 Thank you for your proposal, @${githubHandle}!\n\n`,
-              'Your proposal has been approved and a pull request has been created to add it to our website.',
+              `## 🎉 Your proposal has been approved!\n\n`,
+              'Your proposal has been approved, @${githubHandle}. A pull request has been created to add it to our website.',
               `📝 [View Pull Request #${prNumber}](${repoUrl}/pull/${prNumber})`
             ].join('\n');
 
