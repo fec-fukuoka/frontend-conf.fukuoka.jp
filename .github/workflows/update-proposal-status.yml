@@ -48,13 +48,13 @@ jobs:
           echo "filepath_en=$FILEPATH_EN" >> "$GITHUB_OUTPUT"
 
           # Extract year and speaker ID from filepath (e.g., src/content/ja/2026/speakers/tanaka-taro.md)
-          YEAR=$(echo "$FILEPATH_JA" | grep -oP 'content/ja/\K[0-9]{4}')
+          YEAR=$(echo "$FILEPATH_JA" | sed -n 's|.*content/ja/\([0-9]\{4\}\).*|\1|p')
           SPEAKER_ID=$(basename "$FILEPATH_JA" .md)
           echo "year=$YEAR" >> "$GITHUB_OUTPUT"
           echo "speaker_id=$SPEAKER_ID" >> "$GITHUB_OUTPUT"
 
           # Get the issue number from PR body
-          ISSUE_NUMBER=$(gh pr view ${{ github.event.pull_request.number }} --json body --jq '.body' | grep -oP '(?<=#)\d+' | head -1)
+          ISSUE_NUMBER=$(gh pr view ${{ github.event.pull_request.number }} --json body --jq '.body' | sed -n 's/.*#\([0-9]\+\).*/\1/p' | head -1)
           echo "issue_number=$ISSUE_NUMBER" >> "$GITHUB_OUTPUT"
         env:
           GH_TOKEN: ${{ steps.generate_token.outputs.token }}
@@ -69,7 +69,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '🎉 Proposal has been accepted! It will be published on the website shortly.'
+              body: '🎉 Proposal has been merged! It will be published on the website shortly.'
             });
 
       - name: Comment on original issue
@@ -95,14 +95,13 @@ jobs:
               `- Japanese: [${filepathJa}](${repoUrl}/blob/main/${filepathJa})`,
               `- English: [${filepathEn}](${repoUrl}/blob/main/${filepathEn})`,
               '',
-              `Official website (Japanese): https://frontend-conf.fukuoka.jp/ja/${year}/speakers/${speakerId}`,
-              `Official website (English): https://frontend-conf.fukuoka.jp/en/${year}/speakers/${speakerId}`,
+              `Official website: https://frontend-conf.fukuoka.jp/${year}/speakers/${speakerId}`,
               '',
               '---',
               '',
-              '## ✏️ Future Updates',
+              '## ✏️ Your Proposal is still Editable!!',
               '',
-              'If you need to update your session content, you can edit this Issue directly.',
+              'If you want to update your session content, you can edit this Issue directly.',
               'For more details, see [Call for Proposals Workflow](https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/wiki/Call-for-Proposals-Workflow).',
               '',
               '---',
