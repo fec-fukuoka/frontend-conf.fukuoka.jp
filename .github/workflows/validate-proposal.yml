@@ -81,6 +81,39 @@ jobs:
               }
             }
 
+            // Validate session category enum value
+            const categoryMatch = body.match(/###\s*セッションカテゴリー \/ Session Category\s*\n+((?:(?!###)[^\n])+)/);
+            if (categoryMatch && categoryMatch[1]) {
+              const categoryValue = categoryMatch[1].trim();
+              const validCategories = [
+                "CSS",
+                "Accessibility",
+                "Performance",
+                "ECMAScript/Web API",
+                "Server-side JS",
+                "Privacy&Security",
+                "FE Ecosystem/Tooling",
+                "Testing",
+                "Design Engineering",
+                "Architecture",
+                "Browsers",
+                "Web Standards"
+              ];
+              if (categoryValue && !validCategories.includes(categoryValue)) {
+                validationErrors.push(`Invalid session category: "${categoryValue}". Must be one of: ${validCategories.join(', ')}`);
+              }
+            }
+
+            // Validate language enum value
+            const languageMatch = body.match(/###\s*登壇言語 \/ Presentation Language\s*\n+((?:(?!###)[^\n])+)/);
+            if (languageMatch && languageMatch[1]) {
+              const languageValue = languageMatch[1].trim();
+              const validLanguages = ["ja", "en"];
+              if (languageValue && !validLanguages.includes(languageValue)) {
+                validationErrors.push(`Invalid language: "${languageValue}". Must be "ja" or "en"`);
+              }
+            }
+
             // Check if checkboxes are checked
             const termsChecked = body.match(/- \[x\]/gi);
             const expectedCheckboxes = isGeneral ? 3 : 2;
