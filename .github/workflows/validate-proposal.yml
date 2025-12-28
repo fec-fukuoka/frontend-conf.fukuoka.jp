@@ -35,7 +35,7 @@ jobs:
             const proposalLabel = labels.find(l => l.match(/^(\d{4}-)?proposal:(guest|general)$/));
             if (!proposalLabel) {
               validationErrors.push('Proposal type label is not assigned');
-              return { valid: false, errors: validationErrors };
+              return { valid: false, errors: validationErrors, warnings: validationWarnings, success: validationSuccess };
             }
 
             const match = proposalLabel.match(/^(?:(\d{4})-)?proposal:(guest|general)$/);
@@ -48,7 +48,7 @@ jobs:
 
             if (!isGuest && !isGeneral) {
               validationErrors.push('Proposal type label is not assigned');
-              return { valid: false, errors: validationErrors };
+              return { valid: false, errors: validationErrors, warnings: validationWarnings, success: validationSuccess };
             }
 
             // Required fields validation
