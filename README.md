@@ -42,5 +42,3 @@ Frontend Conference Fukuoka is MIT licensed or CC BY-NC 4.0 licensed.
 
 - Source code: [MIT License](LICENSE-MIT)
 - Content: [CC BY-NC 4.0](LICENSE-CC-BY-NC)
-
-See [LICENSE](LICENSE) for details.
