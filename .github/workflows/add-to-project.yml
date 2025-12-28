@@ -11,17 +11,24 @@ jobs:
     runs-on: ubuntu-latest
     if: contains(join(github.event.issue.labels.*.name, ','), 'proposal:') || contains(join(github.event.pull_request.labels.*.name, ','), 'proposal:')
     steps:
+      - name: Generate token
+        id: generate_token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.FEC_BOT_APP_ID }}
+          private_key: ${{ secrets.FEC_BOT_PRIVATE_KEY }}
+
       - name: Add to project
         id: add_to_project
         uses: actions/add-to-project@v0.5.0
         with:
           project-url: https://github.com/orgs/fec-fukuoka/projects/1
-          github-token: ${{ secrets.ADD_TO_PROJECT_TOKEN }}
+          github-token: ${{ steps.generate_token.outputs.token }}
 
       - name: Get project item ID
         id: get_item_id
         env:
-          GITHUB_TOKEN: ${{ secrets.ADD_TO_PROJECT_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
           ITEM_NODE_ID: ${{ github.event.issue.node_id || github.event.pull_request.node_id }}
           PROJECT_ID: 'PVT_kwDODuLtq84BLbF7'
         run: |
@@ -59,7 +66,7 @@ jobs:
       - name: Update project fields
         if: steps.get_item_id.outputs.item_id
         env:
-          GITHUB_TOKEN: ${{ secrets.ADD_TO_PROJECT_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
           PROJECT_ID: 'PVT_kwDODuLtq84BLbF7'
           ITEM_ID: ${{ steps.get_item_id.outputs.item_id }}
         run: |
