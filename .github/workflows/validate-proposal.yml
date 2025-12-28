@@ -121,8 +121,8 @@ jobs:
             let commentBody = '<!-- validation-comment -->\n';
 
             if (result.valid) {
-              commentBody += '## ✅ Validation Successful\n\n';
-              commentBody += 'All required fields have been filled in. Please wait for the organizing team to review your proposal.\n\n';
+              commentBody += '## Thank you for your proposal!\n\n';
+              commentBody += 'Your speaking proposal has been successfully received. We will review it and get back to you shortly.\n\n';
 
               if (result.warnings.length > 0) {
                 commentBody += '### ⚠️ Recommendations\n\n';

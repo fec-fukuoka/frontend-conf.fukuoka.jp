@@ -2,14 +2,12 @@ name: Add Proposal to Project
 
 on:
   issues:
-    types: [opened, labeled]
-  pull_request:
-    types: [opened, labeled]
+    types: [opened, labeled, unlabeled]
 
 jobs:
   add-to-project:
     runs-on: ubuntu-latest
-    if: contains(join(github.event.issue.labels.*.name, ','), 'proposal:') || contains(join(github.event.pull_request.labels.*.name, ','), 'proposal:')
+    if: contains(join(github.event.issue.labels.*.name, ','), 'proposal:')
     steps:
       - name: Generate token
         id: generate_token
@@ -29,24 +27,14 @@ jobs:
         id: get_item_id
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
-          ITEM_NODE_ID: ${{ github.event.issue.node_id || github.event.pull_request.node_id }}
-          PROJECT_ID: 'PVT_kwDODuLtq84BLbF7'
+          ITEM_NODE_ID: ${{ github.event.issue.node_id }}
+          PROJECT_ID: ${{ vars.PROJECT_ID || 'PVT_kwDODuLtq84BLbF7' }}
         run: |
-          # Get the project item ID for the newly added issue/PR
+          # Get the project item ID for the newly added issue
           QUERY='
           query($nodeId: ID!) {
             node(id: $nodeId) {
               ... on Issue {
-                projectItems(first: 10) {
-                  nodes {
-                    id
-                    project {
-                      id
-                    }
-                  }
-                }
-              }
-              ... on PullRequest {
                 projectItems(first: 10) {
                   nodes {
                     id
@@ -67,11 +55,11 @@ jobs:
         if: steps.get_item_id.outputs.item_id
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
-          PROJECT_ID: 'PVT_kwDODuLtq84BLbF7'
+          PROJECT_ID: ${{ vars.PROJECT_ID || 'PVT_kwDODuLtq84BLbF7' }}
           ITEM_ID: ${{ steps.get_item_id.outputs.item_id }}
         run: |
           # Get labels
-          LABELS="${{ join(github.event.issue.labels.*.name, ',') }}${{ join(github.event.pull_request.labels.*.name, ',') }}"
+          LABELS="${{ join(github.event.issue.labels.*.name, ',') }}"
 
           # Determine Proposal Type
           if echo "$LABELS" | grep -qE "(^|,)([0-9]{4}-)?proposal:guest"; then
@@ -89,9 +77,12 @@ jobs:
           elif echo "$LABELS" | grep -q "status: approved"; then
             PROPOSAL_STATUS_ID="1a1742e9"  # Approved
             STATUS_ID="47fc9ee4"            # In Progress
+          elif echo "$LABELS" | grep -q "status: rejected"; then
+            PROPOSAL_STATUS_ID="ba597925"  # Rejected
+            STATUS_ID="98236657"            # Done
           elif echo "$LABELS" | grep -q "status: reviewing"; then
             PROPOSAL_STATUS_ID="962ce256"  # Under Review
-            STATUS_ID="47fc9ee4"            # In Progress
+            STATUS_ID="f75ad846"            # Todo
           elif echo "$LABELS" | grep -q "needs-fix"; then
             PROPOSAL_STATUS_ID="56493a1a"  # Draft
             STATUS_ID="f75ad846"            # Todo

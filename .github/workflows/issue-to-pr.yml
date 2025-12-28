@@ -155,8 +155,6 @@ jobs:
 
           ${SESSION_SUMMARY}
 
-          ---
-
           EOF
 
           # Create English version
@@ -171,7 +169,7 @@ jobs:
           language: "${LANGUAGE}"
           track: "N/A"
           startTime: "00:00"
-          endTime: "10:30"
+          endTime: "00:00"
           bio: "${BIO}"
           twitter: "${TWITTER_HANDLE}"
           github: "${GITHUB_HANDLE}"
@@ -182,15 +180,16 @@ jobs:
 
           ${SESSION_SUMMARY}
 
-          ---
-
           EOF
 
-          # Output file paths and speaker ID
+          # Output file paths, speaker info, and session info
           {
             echo "filepath_ja=$FILEPATH_JA"
             echo "filepath_en=$FILEPATH_EN"
             echo "speaker_id=$FILENAME"
+            echo "speaker_name=$SPEAKER_NAME_EN"
+            echo "session_title=$SESSION_TITLE"
+            echo "github_handle=$GITHUB_HANDLE"
           } >> "$GITHUB_OUTPUT"
 
       - name: Create Pull Request
@@ -201,12 +200,15 @@ jobs:
           token: ${{ steps.generate_token.outputs.token }}
           branch: ${{ steps.parse.outputs.branch_name }}
           delete-branch: false
-          title: '${{ github.event.issue.title }}'
+          title: "[${{ steps.check.outputs.type == 'guest' && 'Guest' || 'General' }}][${{ steps.parse.outputs.speaker_name }}] ${{ steps.parse.outputs.session_title }}"
           body: |
-            This PR was automatically generated from Issue #${{ github.event.issue.number }}.
+            Related to #${{ github.event.issue.number }}
 
-            **Year:** ${{ steps.check.outputs.year }}
+            This PR was automatically generated from the proposal issue.
+
+            **Speaker:** @${{ steps.parse.outputs.github_handle }}
             **Type:** ${{ steps.check.outputs.type }}
+            **Year:** ${{ steps.check.outputs.year }}
           labels: ${{ steps.check.outputs.year }}-proposal:${{ steps.check.outputs.type }}
           commit-message: 'Add proposal from issue #${{ github.event.issue.number }}'
 
@@ -219,10 +221,11 @@ jobs:
             const issueNumber = context.issue.number;
             const prNumber = '${{ steps.create_pr.outputs.pull-request-number }}';
             const repoUrl = 'https://github.com/${{ github.repository }}';
+            const githubHandle = '${{ steps.parse.outputs.github_handle }}';
 
             const message = [
-              '🎉 Proposal has been approved! A PR has been automatically generated.',
-              '',
+              `## 🎉 Thank you for your proposal, @${githubHandle}!\n\n`,
+              'Your proposal has been approved and a pull request has been created to add it to our website.',
               `📝 [View Pull Request #${prNumber}](${repoUrl}/pull/${prNumber})`
             ].join('\n');
 
