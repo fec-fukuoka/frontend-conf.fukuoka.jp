@@ -87,7 +87,7 @@ jobs:
 
             // Comment on the original issue
             const commentBody = [
-              '🎉 Congratulations! Your proposal has been accepted and published on the website!',
+              '🎉 Your proposal has been published on the website!',
               '',
               '## 📝 Published Page',
               '',
