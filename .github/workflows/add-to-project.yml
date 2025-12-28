@@ -1,0 +1,157 @@
+name: Add Proposal to Project
+
+on:
+  issues:
+    types: [opened, labeled]
+  pull_request:
+    types: [opened, labeled]
+
+jobs:
+  add-to-project:
+    runs-on: ubuntu-latest
+    if: contains(join(github.event.issue.labels.*.name, ','), 'proposal:') || contains(join(github.event.pull_request.labels.*.name, ','), 'proposal:')
+    steps:
+      - name: Add to project
+        id: add_to_project
+        uses: actions/add-to-project@v0.5.0
+        with:
+          project-url: https://github.com/orgs/fec-fukuoka/projects/1
+          github-token: ${{ secrets.ADD_TO_PROJECT_TOKEN }}
+
+      - name: Get project item ID
+        id: get_item_id
+        env:
+          GITHUB_TOKEN: ${{ secrets.ADD_TO_PROJECT_TOKEN }}
+          ITEM_NODE_ID: ${{ github.event.issue.node_id || github.event.pull_request.node_id }}
+          PROJECT_ID: "PVT_kwDODuLtq84BLbF7"
+        run: |
+          # Get the project item ID for the newly added issue/PR
+          QUERY='
+          query($nodeId: ID!) {
+            node(id: $nodeId) {
+              ... on Issue {
+                projectItems(first: 10) {
+                  nodes {
+                    id
+                    project {
+                      id
+                    }
+                  }
+                }
+              }
+              ... on PullRequest {
+                projectItems(first: 10) {
+                  nodes {
+                    id
+                    project {
+                      id
+                    }
+                  }
+                }
+              }
+            }
+          }'
+
+          ITEM_ID=$(gh api graphql -f query="$QUERY" -f nodeId="$ITEM_NODE_ID" --jq ".data.node.projectItems.nodes[] | select(.project.id == \"$PROJECT_ID\") | .id")
+          echo "item_id=$ITEM_ID" >> "$GITHUB_OUTPUT"
+          echo "Project Item ID: $ITEM_ID"
+
+      - name: Update project fields
+        if: steps.get_item_id.outputs.item_id
+        env:
+          GITHUB_TOKEN: ${{ secrets.ADD_TO_PROJECT_TOKEN }}
+          PROJECT_ID: "PVT_kwDODuLtq84BLbF7"
+          ITEM_ID: ${{ steps.get_item_id.outputs.item_id }}
+        run: |
+          # Get labels
+          LABELS="${{ join(github.event.issue.labels.*.name, ',') }}${{ join(github.event.pull_request.labels.*.name, ',') }}"
+
+          # Determine Proposal Type
+          if echo "$LABELS" | grep -qE "(^|,)([0-9]{4}-)?proposal:guest"; then
+            PROPOSAL_TYPE_ID="2f705bcd"
+            PROPOSAL_TYPE_NAME="Guest"
+          elif echo "$LABELS" | grep -qE "(^|,)([0-9]{4}-)?proposal:general"; then
+            PROPOSAL_TYPE_ID="57b07895"
+            PROPOSAL_TYPE_NAME="General"
+          fi
+
+          # Determine Proposal Status based on labels
+          if echo "$LABELS" | grep -q "accepted-proposal"; then
+            PROPOSAL_STATUS_ID="30083581"  # In Progress
+            STATUS_ID="98236657"            # Done
+          elif echo "$LABELS" | grep -q "status: approved"; then
+            PROPOSAL_STATUS_ID="1a1742e9"  # Approved
+            STATUS_ID="47fc9ee4"            # In Progress
+          elif echo "$LABELS" | grep -q "status: reviewing"; then
+            PROPOSAL_STATUS_ID="962ce256"  # Under Review
+            STATUS_ID="47fc9ee4"            # In Progress
+          elif echo "$LABELS" | grep -q "needs-fix"; then
+            PROPOSAL_STATUS_ID="56493a1a"  # Draft
+            STATUS_ID="f75ad846"            # Todo
+          else
+            PROPOSAL_STATUS_ID="56493a1a"  # Draft (default)
+            STATUS_ID="f75ad846"            # Todo (default)
+          fi
+
+          echo "Setting Proposal Type: $PROPOSAL_TYPE_NAME ($PROPOSAL_TYPE_ID)"
+          echo "Setting Proposal Status: ID $PROPOSAL_STATUS_ID"
+          echo "Setting Status: ID $STATUS_ID"
+
+          # Update Proposal Type field
+          if [ -n "$PROPOSAL_TYPE_ID" ]; then
+            gh api graphql -f query='
+              mutation($projectId: ID!, $itemId: ID!, $fieldId: ID!, $optionId: String!) {
+                updateProjectV2ItemFieldValue(input: {
+                  projectId: $projectId
+                  itemId: $itemId
+                  fieldId: $fieldId
+                  value: { singleSelectOptionId: $optionId }
+                }) {
+                  projectV2Item {
+                    id
+                  }
+                }
+              }' \
+              -f projectId="$PROJECT_ID" \
+              -f itemId="$ITEM_ID" \
+              -f fieldId="PVTSSF_lADODuLtq84BLbF7zg7AJlw" \
+              -f optionId="$PROPOSAL_TYPE_ID"
+          fi
+
+          # Update Proposal Status field
+          gh api graphql -f query='
+            mutation($projectId: ID!, $itemId: ID!, $fieldId: ID!, $optionId: String!) {
+              updateProjectV2ItemFieldValue(input: {
+                projectId: $projectId
+                itemId: $itemId
+                fieldId: $fieldId
+                value: { singleSelectOptionId: $optionId }
+              }) {
+                projectV2Item {
+                  id
+                }
+              }
+            }' \
+            -f projectId="$PROJECT_ID" \
+            -f itemId="$ITEM_ID" \
+            -f fieldId="PVTSSF_lADODuLtq84BLbF7zg7AHEU" \
+            -f optionId="$PROPOSAL_STATUS_ID"
+
+          # Update Status field
+          gh api graphql -f query='
+            mutation($projectId: ID!, $itemId: ID!, $fieldId: ID!, $optionId: String!) {
+              updateProjectV2ItemFieldValue(input: {
+                projectId: $projectId
+                itemId: $itemId
+                fieldId: $fieldId
+                value: { singleSelectOptionId: $optionId }
+              }) {
+                projectV2Item {
+                  id
+                }
+              }
+            }' \
+            -f projectId="$PROJECT_ID" \
+            -f itemId="$ITEM_ID" \
+            -f fieldId="PVTSSF_lADODuLtq84BLbF7zg7AG3U" \
+            -f optionId="$STATUS_ID"

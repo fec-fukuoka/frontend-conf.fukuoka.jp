@@ -1,0 +1,213 @@
+name: Validate Proposal
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    if: contains(join(github.event.issue.labels.*.name, ','), 'proposal:')
+    steps:
+      - name: Generate token
+        id: generate_token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.FEC_BOT_APP_ID }}
+          private_key: ${{ secrets.FEC_BOT_PRIVATE_KEY }}
+
+      - name: Validate proposal content
+        id: validate
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ steps.generate_token.outputs.token }}
+          script: |
+            const issue = context.payload.issue;
+            const body = issue.body || '';
+            const labels = issue.labels.map(l => l.name);
+
+            const validationErrors = [];
+            const validationWarnings = [];
+            const validationSuccess = [];
+
+            // Extract year and type from proposal labels
+            // Supports both YYYY-proposal:type and proposal:type formats
+            const proposalLabel = labels.find(l => l.match(/^(\d{4}-)?proposal:(guest|general)$/));
+            if (!proposalLabel) {
+              validationErrors.push('Proposal type label is not assigned');
+              return { valid: false, errors: validationErrors };
+            }
+
+            const match = proposalLabel.match(/^(?:(\d{4})-)?proposal:(guest|general)$/);
+            const year = match[1] || new Date().getFullYear().toString();
+            const type = match[2];
+
+            // Check proposal type
+            const isGuest = type === 'guest';
+            const isGeneral = type === 'general';
+
+            if (!isGuest && !isGeneral) {
+              validationErrors.push('Proposal type label is not assigned');
+              return { valid: false, errors: validationErrors };
+            }
+
+            // Required fields validation
+            const requiredFields = {
+              '登壇者名 / Speaker Name': /###\s*登壇者名 \/ Speaker Name\s*\n+(.+)/,
+              'プロフィール / Bio': /###\s*プロフィール \/ Bio\s*\n+([\s\S]+?)(?=###|$)/,
+              'セッションタイトル / Session Title': /###\s*セッションタイトル \/ Session Title\s*\n+(.+)/,
+              'セッション概要 / Session Summary': /###\s*セッション概要 \/ Session Summary\s*\n+([\s\S]+?)(?=###|$)/,
+            };
+
+            // Additional required field for guest proposals
+            if (isGuest) {
+              requiredFields['依頼理由 / Why Invite'] = /###\s*依頼理由 \/ Why Invite\s*\n+([\s\S]+?)(?=###|$)/;
+            }
+
+            for (const [fieldName, pattern] of Object.entries(requiredFields)) {
+              const match = body.match(pattern);
+              if (!match || match[1].trim() === '' || match[1].trim() === '_No response_') {
+                validationErrors.push(`**${fieldName}** is not filled in`);
+              } else {
+                validationSuccess.push(`✅ ${fieldName}`);
+              }
+            }
+
+            // Check bio length
+            const bioMatch = body.match(/###\s*プロフィール \/ Bio\s*\n+([\s\S]+?)(?=###|$)/);
+            if (bioMatch && bioMatch[1]) {
+              const bioLength = bioMatch[1].trim().length;
+              if (bioLength > 300) {
+                validationErrors.push(`Bio is too long (current: ${bioLength} characters, max: 300 characters)`);
+              }
+            }
+
+            // Check if checkboxes are checked
+            const termsChecked = body.match(/- \[x\]/gi);
+            const expectedCheckboxes = isGeneral ? 3 : 2;
+            if (!termsChecked || termsChecked.length < expectedCheckboxes) {
+              validationErrors.push('Not all confirmation checkboxes are checked');
+            }
+
+            return {
+              valid: validationErrors.length === 0,
+              errors: validationErrors,
+              warnings: validationWarnings,
+              success: validationSuccess
+            };
+
+      - name: Add validation comment
+        if: steps.validate.outputs.result
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ steps.generate_token.outputs.token }}
+          script: |
+            const result = ${{ steps.validate.outputs.result }};
+            const issue_number = context.issue.number;
+
+            // Remove previous validation comments
+            const comments = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue_number,
+            });
+
+            for (const comment of comments.data) {
+              if (comment.body.includes('<!-- validation-comment -->')) {
+                await github.rest.issues.deleteComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: comment.id,
+                });
+              }
+            }
+
+            // Create validation status message
+            let commentBody = '<!-- validation-comment -->\n';
+
+            if (result.valid) {
+              commentBody += '## ✅ Validation Successful\n\n';
+              commentBody += 'All required fields have been filled in. Please wait for the organizing team to review your proposal.\n\n';
+
+              if (result.warnings.length > 0) {
+                commentBody += '### ⚠️ Recommendations\n\n';
+                for (const warning of result.warnings) {
+                  commentBody += `- ${warning}\n`;
+                }
+                commentBody += '\n';
+              }
+            } else {
+              commentBody += '## ❌ Validation Failed\n\n';
+              commentBody += 'Please fix the following issues:\n\n';
+
+              for (const error of result.errors) {
+                commentBody += `- ${error}\n`;
+              }
+              commentBody += '\n';
+
+              if (result.warnings.length > 0) {
+                commentBody += '### ⚠️ Recommendations\n\n';
+                for (const warning of result.warnings) {
+                  commentBody += `- ${warning}\n`;
+                }
+                commentBody += '\n';
+              }
+
+              commentBody += '---\n\n';
+              commentBody += 'Edit this issue to fix the problems above, and it will be automatically re-validated.\n';
+            }
+
+            // Add comment
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue_number,
+              body: commentBody
+            });
+
+      - name: Add validation labels
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ steps.generate_token.outputs.token }}
+          script: |
+            const result = ${{ steps.validate.outputs.result }};
+            const issue_number = context.issue.number;
+
+            // Remove validation-related and old status labels
+            const currentLabels = context.payload.issue.labels.map(l => l.name);
+            const labelsToRemove = currentLabels.filter(l =>
+              l === 'needs-fix' ||
+              l === 'status: reviewing'
+            );
+
+            for (const label of labelsToRemove) {
+              try {
+                await github.rest.issues.removeLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue_number,
+                  name: label
+                });
+              } catch (error) {
+                // Label might not exist, ignore
+              }
+            }
+
+            // Add appropriate label based on validation result
+            if (result.valid) {
+              // Validation passed - move to reviewing status
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue_number,
+                labels: ['status: reviewing']
+              });
+            } else {
+              // Validation failed - add needs-fix label
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue_number,
+                labels: ['needs-fix']
+              });
+            }

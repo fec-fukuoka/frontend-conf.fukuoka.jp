@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: プロポーザル投稿ガイド/Proposal Submission Guide
+    url: https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/wiki/Call-for-Proposals-Workflow
+    about: プロポーザルの投稿方法について/How to submit a proposal
+  - name: Website
+    url: https://frontend-conf.fukuoka.jp
+    about: 公式ウェブサイト/Official website

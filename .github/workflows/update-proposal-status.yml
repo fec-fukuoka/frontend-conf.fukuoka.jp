@@ -1,0 +1,140 @@
+name: Update Proposal Status
+
+on:
+  pull_request_review:
+    types: [submitted]
+  pull_request:
+    types: [closed]
+
+jobs:
+  update-status:
+    runs-on: ubuntu-latest
+    if: contains(join(github.event.pull_request.labels.*.name, ','), 'proposal:')
+    steps:
+      - name: Check PR status
+        id: check
+        run: |
+          if [ "${{ github.event.pull_request.merged }}" == "true" ]; then
+            echo "status=Approved" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event.pull_request.state }}" == "closed" ]; then
+            echo "status=Rejected" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event.review.state }}" == "changes_requested" ]; then
+            echo "status=Under Review" >> "$GITHUB_OUTPUT"
+          else
+            echo "status=Draft" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Generate token
+        if: github.event.pull_request.merged == true
+        id: generate_token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.FEC_BOT_APP_ID }}
+          private_key: ${{ secrets.FEC_BOT_PRIVATE_KEY }}
+
+      - name: Checkout repository
+        if: github.event.pull_request.merged == true
+        uses: actions/checkout@v4
+
+      - name: Get proposal file path
+        if: github.event.pull_request.merged == true
+        id: get_filepath
+        run: |
+          # Get the proposal files from PR changes (should have both ja and en files)
+          FILEPATH_JA=$(gh pr view ${{ github.event.pull_request.number }} --json files --jq '.files[].path | select(startswith("src/content/ja/") and contains("/speakers/"))' | head -1)
+          FILEPATH_EN=$(gh pr view ${{ github.event.pull_request.number }} --json files --jq '.files[].path | select(startswith("src/content/en/") and contains("/speakers/"))' | head -1)
+
+          echo "filepath_ja=$FILEPATH_JA" >> "$GITHUB_OUTPUT"
+          echo "filepath_en=$FILEPATH_EN" >> "$GITHUB_OUTPUT"
+
+          # Extract year and speaker ID from filepath (e.g., src/content/ja/2026/speakers/tanaka-taro.md)
+          YEAR=$(echo "$FILEPATH_JA" | grep -oP 'content/ja/\K[0-9]{4}')
+          SPEAKER_ID=$(basename "$FILEPATH_JA" .md)
+          echo "year=$YEAR" >> "$GITHUB_OUTPUT"
+          echo "speaker_id=$SPEAKER_ID" >> "$GITHUB_OUTPUT"
+
+          # Get the issue number from PR body
+          ISSUE_NUMBER=$(gh pr view ${{ github.event.pull_request.number }} --json body --jq '.body' | grep -oP '(?<=#)\d+' | head -1)
+          echo "issue_number=$ISSUE_NUMBER" >> "$GITHUB_OUTPUT"
+        env:
+          GH_TOKEN: ${{ steps.generate_token.outputs.token }}
+
+      - name: Comment on merged PR
+        if: github.event.pull_request.merged == true
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ steps.generate_token.outputs.token }}
+          script: |
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '🎉 Proposal has been accepted! It will be published on the website shortly.'
+            });
+
+      - name: Comment on original issue
+        if: github.event.pull_request.merged == true && steps.get_filepath.outputs.issue_number
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ steps.generate_token.outputs.token }}
+          script: |
+            const issueNumber = ${{ steps.get_filepath.outputs.issue_number }};
+            const filepathJa = '${{ steps.get_filepath.outputs.filepath_ja }}';
+            const filepathEn = '${{ steps.get_filepath.outputs.filepath_en }}';
+            const year = '${{ steps.get_filepath.outputs.year }}';
+            const speakerId = '${{ steps.get_filepath.outputs.speaker_id }}';
+            const repoUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}`;
+
+            // Comment on the original issue
+            const commentBody = [
+              '🎉 Congratulations! Your proposal has been accepted and published on the website!',
+              '',
+              '## 📝 Published Page',
+              '',
+              'Your proposal has been published as:',
+              `- Japanese: [${filepathJa}](${repoUrl}/blob/main/${filepathJa})`,
+              `- English: [${filepathEn}](${repoUrl}/blob/main/${filepathEn})`,
+              '',
+              `Official website (Japanese): https://frontend-conf.fukuoka.jp/ja/${year}/speakers/${speakerId}`,
+              `Official website (English): https://frontend-conf.fukuoka.jp/en/${year}/speakers/${speakerId}`,
+              '',
+              '---',
+              '',
+              '## ✏️ Future Updates',
+              '',
+              'If you need to update your session content, you can edit this Issue directly.',
+              'For more details, see [Call for Proposals Workflow](https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/wiki/Call-for-Proposals-Workflow).',
+              '',
+              '---',
+              '',
+              `Looking forward to your session at Frontend Conf Fukuoka ${year}!`
+            ].join('\n');
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              body: commentBody
+            });
+
+            // Add accepted-proposal label and remove status: approved
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              labels: ['accepted-proposal']
+            });
+
+            // Remove status: approved since the proposal is now published
+            // This allows the update flow: edit issue -> validation -> status: approved -> new PR
+            try {
+              await github.rest.issues.removeLabel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                name: 'status: approved'
+              });
+            } catch (error) {
+              // Label might not exist, ignore
+              console.log('status: approved label not found, skipping removal');
+            }

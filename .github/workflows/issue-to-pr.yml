@@ -1,0 +1,244 @@
+name: Convert Approved Proposal to PR
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    if: "github.event.label.name == 'status: approved'"
+    steps:
+      - name: Check if proposal issue
+        id: check
+        run: |
+          LABELS="${{ join(github.event.issue.labels.*.name, ',') }}"
+
+          # Extract year and type from label (supports both YYYY-proposal:type and proposal:type)
+          if echo "$LABELS" | grep -qE "(^|,)([0-9]{4}-)?proposal:(guest|general)"; then
+            echo "is_proposal=true" >> "$GITHUB_OUTPUT"
+
+            # Extract the proposal label
+            PROPOSAL_LABEL=$(echo "$LABELS" | grep -oE "(^|,)([0-9]{4}-)?proposal:(guest|general)" | sed 's/^,//')
+
+            # Extract year (use current year if not specified)
+            if echo "$PROPOSAL_LABEL" | grep -qE "^[0-9]{4}-"; then
+              YEAR=$(echo "$PROPOSAL_LABEL" | grep -oE "^[0-9]{4}")
+            else
+              YEAR=$(date +%Y)
+            fi
+            echo "year=$YEAR" >> "$GITHUB_OUTPUT"
+
+            # Extract type
+            if echo "$PROPOSAL_LABEL" | grep -q "proposal:guest"; then
+              echo "type=guest" >> "$GITHUB_OUTPUT"
+            else
+              echo "type=general" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo "is_proposal=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Generate token
+        if: steps.check.outputs.is_proposal == 'true'
+        id: generate_token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.FEC_BOT_APP_ID }}
+          private_key: ${{ secrets.FEC_BOT_PRIVATE_KEY }}
+
+      - name: Checkout repository
+        if: steps.check.outputs.is_proposal == 'true'
+        uses: actions/checkout@v4
+        with:
+          token: ${{ steps.generate_token.outputs.token }}
+          ref: main
+
+      - name: Parse issue body and create proposal file
+        if: steps.check.outputs.is_proposal == 'true'
+        id: parse
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          PROPOSAL_TYPE: ${{ steps.check.outputs.type }}
+          PROPOSAL_YEAR: ${{ steps.check.outputs.year }}
+          ISSUE_AUTHOR: ${{ github.event.issue.user.login }}
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+        run: |
+          # Parse issue body and extract fields
+          # Create speaker markdown files for both ja and en
+
+          # Create unique branch name with timestamp
+          TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+          BRANCH_NAME="proposal-${ISSUE_NUMBER}-${TIMESTAMP}"
+          echo "branch_name=$BRANCH_NAME" >> "$GITHUB_OUTPUT"
+
+          # Create speakers directories if they don't exist
+          mkdir -p "src/content/ja/${PROPOSAL_YEAR}/speakers"
+          mkdir -p "src/content/en/${PROPOSAL_YEAR}/speakers"
+
+          # Extract fields from issue body
+          extract_field() {
+            local field_name="$1"
+            echo "$ISSUE_BODY" | grep -A2 "### ${field_name}" | tail -n1 | sed 's/^[[:space:]]*//' || echo ""
+          }
+
+          # Extract speaker information
+          SPEAKER_NAME_JA=$(extract_field "登壇者名 / Speaker Name")
+          SPEAKER_NAME_EN=$(extract_field "登壇者名（英語） / Speaker Name (English)")
+          BIO=$(extract_field "プロフィール / Bio")
+          TWITTER=$(extract_field "Twitter/X")
+          SESSION_TITLE=$(extract_field "セッションタイトル / Session Title")
+          SESSION_CATEGORY=$(extract_field "セッションカテゴリー / Session Category")
+          LANGUAGE=$(extract_field "登壇言語 / Presentation Language")
+          SESSION_SUMMARY=$(extract_field "セッション概要 / Session Summary")
+
+          # Auto-capture GitHub username and avatar from issue author
+          GITHUB_HANDLE="${ISSUE_AUTHOR}"
+
+          # Fetch user avatar from GitHub API
+          USER_AVATAR=$(curl -s -H "Authorization: token ${GITHUB_TOKEN}" \
+            "https://api.github.com/users/${ISSUE_AUTHOR}" | \
+            grep -o '"avatar_url": "[^"]*"' | \
+            cut -d'"' -f4)
+
+          # Use avatar if available, otherwise use placeholder
+          if [ -n "$USER_AVATAR" ]; then
+            SPEAKER_IMAGE="${USER_AVATAR}"
+          else
+            SPEAKER_IMAGE="/images/speakers/placeholder.jpg"
+          fi
+
+          # Use English name as fallback, or generate from issue number
+          if [ -z "$SPEAKER_NAME_EN" ] || [ "$SPEAKER_NAME_EN" = "_No response_" ]; then
+            SPEAKER_NAME_EN="${SPEAKER_NAME_JA}"
+          fi
+          if [ -z "$SPEAKER_NAME_EN" ] || [ "$SPEAKER_NAME_EN" = "_No response_" ]; then
+            SPEAKER_NAME_EN="speaker-${ISSUE_NUMBER}"
+          fi
+
+          # Sanitize filename (use English name for URL-friendly slug)
+          FILENAME=$(echo "$SPEAKER_NAME_EN" | sed 's/[^a-zA-Z0-9]/-/g' | tr '[:upper:]' '[:lower:]')
+
+          # Extract social media handles
+          TWITTER_HANDLE=$(echo "$TWITTER" | grep -oE '@?[a-zA-Z0-9_]+$' | sed 's/^@//' || echo "")
+
+          # Set default values
+          [ -z "$SPEAKER_NAME_JA" ] || [ "$SPEAKER_NAME_JA" = "_No response_" ] && SPEAKER_NAME_JA="${SPEAKER_NAME_EN}"
+          [ -z "$BIO" ] || [ "$BIO" = "_No response_" ] && BIO="No bio provided."
+          [ -z "$SESSION_TITLE" ] || [ "$SESSION_TITLE" = "_No response_" ] && SESSION_TITLE="Untitled Session"
+          [ -z "$SESSION_CATEGORY" ] || [ "$SESSION_CATEGORY" = "_No response_" ] && SESSION_CATEGORY="frontend"
+          [ -z "$LANGUAGE" ] || [ "$LANGUAGE" = "_No response_" ] && LANGUAGE="ja"
+          [ -z "$SESSION_SUMMARY" ] || [ "$SESSION_SUMMARY" = "_No response_" ] && SESSION_SUMMARY="No description provided."
+
+          # Create Japanese version
+          FILEPATH_JA="src/content/ja/${PROPOSAL_YEAR}/speakers/${FILENAME}.md"
+          cat > "$FILEPATH_JA" <<EOF
+          ---
+          name: "${SPEAKER_NAME_JA}"
+          nameEn: "${SPEAKER_NAME_EN}"
+          image: "${SPEAKER_IMAGE}"
+          sessionTitle: "${SESSION_TITLE}"
+          sessionCategory: "${SESSION_CATEGORY}"
+          language: "${LANGUAGE}"
+          track: "N/A"
+          startTime: "00:00"
+          endTime: "00:00"
+          bio: "${BIO}"
+          twitter: "${TWITTER_HANDLE}"
+          github: "${GITHUB_HANDLE}"
+          locale: "ja"
+          year: ${PROPOSAL_YEAR}
+          draft: true
+          ---
+
+          ${SESSION_SUMMARY}
+
+          ---
+
+          EOF
+
+          # Create English version
+          FILEPATH_EN="src/content/en/${PROPOSAL_YEAR}/speakers/${FILENAME}.md"
+          cat > "$FILEPATH_EN" <<EOF
+          ---
+          name: "${SPEAKER_NAME_EN}"
+          nameEn: "${SPEAKER_NAME_EN}"
+          image: "${SPEAKER_IMAGE}"
+          sessionTitle: "${SESSION_TITLE}"
+          sessionCategory: "${SESSION_CATEGORY}"
+          language: "${LANGUAGE}"
+          track: "N/A"
+          startTime: "00:00"
+          endTime: "10:30"
+          bio: "${BIO}"
+          twitter: "${TWITTER_HANDLE}"
+          github: "${GITHUB_HANDLE}"
+          locale: "en"
+          year: ${PROPOSAL_YEAR}
+          draft: true
+          ---
+
+          ${SESSION_SUMMARY}
+
+          ---
+
+          EOF
+
+          # Output file paths and speaker ID
+          {
+            echo "filepath_ja=$FILEPATH_JA"
+            echo "filepath_en=$FILEPATH_EN"
+            echo "speaker_id=$FILENAME"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Create Pull Request
+        if: steps.check.outputs.is_proposal == 'true'
+        id: create_pr
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ steps.generate_token.outputs.token }}
+          branch: ${{ steps.parse.outputs.branch_name }}
+          delete-branch: false
+          title: "${{ github.event.issue.title }}"
+          body: |
+            This PR was automatically generated from Issue #${{ github.event.issue.number }}.
+
+            **Year:** ${{ steps.check.outputs.year }}
+            **Type:** ${{ steps.check.outputs.type }}
+          labels: ${{ steps.check.outputs.year }}-proposal:${{ steps.check.outputs.type }}
+          commit-message: "Add proposal from issue #${{ github.event.issue.number }}"
+
+      - name: Comment on issue
+        if: steps.check.outputs.is_proposal == 'true' && steps.create_pr.outputs.pull-request-number
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ steps.generate_token.outputs.token }}
+          script: |
+            const issueNumber = context.issue.number;
+            const prNumber = '${{ steps.create_pr.outputs.pull-request-number }}';
+            const repoUrl = 'https://github.com/${{ github.repository }}';
+
+            const message = [
+              '🎉 Proposal has been approved! A PR has been automatically generated.',
+              '',
+              `📝 [View Pull Request #${prNumber}](${repoUrl}/pull/${prNumber})`
+            ].join('\n');
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              body: message
+            });
+
+      - name: Update issue labels
+        if: steps.check.outputs.is_proposal == 'true'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ steps.generate_token.outputs.token }}
+          script: |
+            // Note: Keep status: approved label to allow future updates
+            // The label will be removed when the PR is merged (see update-proposal-status.yml)
+            console.log('PR created successfully. status: approved label is kept for future updates.');

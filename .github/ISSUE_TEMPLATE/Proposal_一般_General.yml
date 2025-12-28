@@ -1,0 +1,120 @@
+name: Proposal_一般 / General
+description: 一般公募のセッションプロポーザル
+title: "[General] "
+labels: ["2026-proposal:general"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 📢 一般プロポーザル
+
+        Frontend Conf Fukuoka 2026での登壇を希望される方のプロポーザルフォームです。
+  - type: input
+    id: speaker-name
+    attributes:
+      label: 登壇者名 / Speaker Name
+      description: あなたの名前
+    validations:
+      required: true
+
+  - type: input
+    id: speaker-name-en
+    attributes:
+      label: 登壇者名（英語） / Speaker Name (English)
+      description: ローマ字表記 / Roman alphabet notation
+    validations:
+      required: false
+
+  - type: textarea
+    id: bio
+    attributes:
+      label: プロフィール / Bio
+      description: あなたの自己紹介（300文字以内） / Your biography (max 300 characters)
+    validations:
+      required: true
+
+  - type: input
+    id: twitter
+    attributes:
+      label: Twitter/X
+      description: TwitterアカウントのURL（任意） / Twitter account URL (optional)
+    validations:
+      required: false
+
+  - type: input
+    id: website
+    attributes:
+      label: ウェブサイト / Website
+      description: 個人サイトやブログのURL（任意） / Personal site or blog URL (optional)
+    validations:
+      required: false
+
+  - type: input
+    id: session-title
+    attributes:
+      label: セッションタイトル / Session Title
+      description: 提案するセッションのタイトル / Title of the proposed session
+    validations:
+      required: true
+
+  - type: dropdown
+    id: session-category
+    attributes:
+      label: セッションカテゴリー / Session Category
+      description: セッションの内容に最も適したカテゴリーを選択してください / Please select the most appropriate category for your session
+      options:
+        - CSS
+        - Accessibility
+        - Performance
+        - ECMAScript/Web API
+        - Server-side JS
+        - Privacy&Security
+        - FE Ecosystem/Tooling
+        - Testing
+        - Design Engineering
+        - Architecture
+        - Browsers
+        - Web Standards
+    validations:
+      required: true
+
+  - type: dropdown
+    id: language
+    attributes:
+      label: 登壇言語 / Presentation Language
+      description: 登壇で使用する言語を選択してください / Please select the language you will use for your presentation
+      options:
+        - ja
+        - en
+        - ja/en
+    validations:
+      required: true
+
+  - type: textarea
+    id: session-summary
+    attributes:
+      label: セッション概要 / Session Summary
+      description: セッションの内容を説明してください / Please describe the session content
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-notes
+    attributes:
+      label: 補足事項 / Additional Notes
+      description: その他、運営チームに伝えたいことがあれば記載してください / Any other information you would like to share with the organizing team
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: 確認事項 / Confirmation
+      description: 以下を確認してください / Please confirm the following
+      options:
+        - label: 上記の情報に間違いがないことを確認しました / I have confirmed that the information above is correct
+          required: true
+        - label: このプロポーザルが採択された場合、Frontend Conf Fukuoka 2026で登壇することを約束します / I commit to speaking at Frontend Conf Fukuoka 2026 if this proposal is accepted
+          required: true
+        - label: プロポーザルの内容がサイトに掲載されることを了承します / I understand that the proposal content will be published on the website
+          required: true
