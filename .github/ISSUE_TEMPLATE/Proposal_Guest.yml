@@ -22,7 +22,7 @@ body:
       label: 登壇者名（英語） / Speaker Name (English)
       description: ローマ字表記 / Roman alphabet notation. ハンドルネームやニックネームでも可 / Can be a handle name or nickname
     validations:
-      required: false
+      required: true
 
   - type: textarea
     id: bio

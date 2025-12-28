@@ -54,14 +54,18 @@ jobs:
             // Required fields validation
             const requiredFields = {
               '登壇者名 / Speaker Name': /###\s*登壇者名 \/ Speaker Name\s*\n+(.+)/,
+              '登壇者名（英語） / Speaker Name (English)': /###\s*登壇者名（英語） \/ Speaker Name \(English\)\s*\n+(.+)/,
               'プロフィール / Bio': /###\s*プロフィール \/ Bio\s*\n+([\s\S]+?)(?=###|$)/,
               'セッションタイトル / Session Title': /###\s*セッションタイトル \/ Session Title\s*\n+(.+)/,
+              'セッションカテゴリー / Session Category': /###\s*セッションカテゴリー \/ Session Category\s*\n+(.+)/,
+              '登壇言語 / Presentation Language': /###\s*登壇言語 \/ Presentation Language\s*\n+(.+)/,
               'セッション概要 / Session Summary': /###\s*セッション概要 \/ Session Summary\s*\n+([\s\S]+?)(?=###|$)/,
             };
 
             for (const [fieldName, pattern] of Object.entries(requiredFields)) {
               const match = body.match(pattern);
-              if (!match || match[1].trim() === '' || match[1].trim() === '_No response_') {
+              const content = match && match[1] ? match[1].trim() : '';
+              if (!match || !content || content === '_No response_') {
                 validationErrors.push(`**${fieldName}** is not filled in`);
               } else {
                 validationSuccess.push(`✅ ${fieldName}`);
@@ -71,9 +75,9 @@ jobs:
             // Check bio length
             const bioMatch = body.match(/###\s*プロフィール \/ Bio\s*\n+([\s\S]+?)(?=###|$)/);
             if (bioMatch && bioMatch[1]) {
-              const bioLength = bioMatch[1].trim().length;
-              if (bioLength > 300) {
-                validationErrors.push(`Bio is too long (current: ${bioLength} characters, max: 300 characters)`);
+              const bioContent = bioMatch[1].trim();
+              if (bioContent && bioContent.length > 300) {
+                validationErrors.push(`Bio is too long (current: ${bioContent.length} characters, max: 300 characters)`);
               }
             }
 
