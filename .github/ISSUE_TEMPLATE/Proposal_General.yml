@@ -1,7 +1,7 @@
 name: Proposal_General
 description: 一般公募のセッションプロポーザル
-title: '[General] Title of Your Session'
-labels: ['2026-proposal:general']
+title: "[General] Title of Your Session"
+labels: ["2026-proposal:general"]
 body:
   - type: markdown
     attributes:

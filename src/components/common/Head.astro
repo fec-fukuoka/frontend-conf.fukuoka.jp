@@ -1,29 +1,29 @@
 ---
-import { site } from '../../data/site';
+import { site } from "../../data/site";
 
 export interface Props {
   title?: string;
   description?: string;
-  lang?: 'ja' | 'en';
+  lang?: "ja" | "en";
   ogImage?: string;
 }
 
 const {
   title = site.title,
   description = site.description,
-  lang = 'ja',
+  lang = "ja",
   ogImage = `${site.url}/og-image.png`,
 } = Astro.props;
 
 const pageTitle = title === site.title ? title : `${title} | ${site.title}`;
 const canonicalURL = new URL(Astro.url.pathname, site.url);
-canonicalURL.searchParams.set('hl', lang);
+canonicalURL.searchParams.set("hl", lang);
 
 // Alternate language URLs
 const jaUrl = new URL(Astro.url.pathname, site.url);
-jaUrl.searchParams.set('hl', 'ja');
+jaUrl.searchParams.set("hl", "ja");
 const enUrl = new URL(Astro.url.pathname, site.url);
-enUrl.searchParams.set('hl', 'en');
+enUrl.searchParams.set("hl", "en");
 ---
 
 <meta charset="UTF-8" />
@@ -43,10 +43,10 @@ enUrl.searchParams.set('hl', 'en');
 <meta property="og:description" content={description} />
 <meta property="og:image" content={ogImage} />
 <meta property="og:site_name" content={site.title} />
-<meta property="og:locale" content={lang === 'ja' ? 'ja_JP' : 'en_US'} />
+<meta property="og:locale" content={lang === "ja" ? "ja_JP" : "en_US"} />
 <meta
   property="og:locale:alternate"
-  content={lang === 'ja' ? 'en_US' : 'ja_JP'}
+  content={lang === "ja" ? "en_US" : "ja_JP"}
 />
 
 <!-- Twitter Card -->

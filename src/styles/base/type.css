@@ -1,4 +1,4 @@
-@import './font.css';
+@import "./font.css";
 
 /*
 ----------------------------------------------------------------------------
@@ -43,8 +43,8 @@ html {
 }
 
 @property --base-font-family {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
   /* stylelint-disable-next-line value-keyword-case */
-  initial-value: 'Zen Kaku Gothic New', 'Bayon', sans-serif;
+  initial-value: "Zen Kaku Gothic New", "Bayon", sans-serif;
 }

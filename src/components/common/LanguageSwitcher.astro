@@ -3,7 +3,7 @@ import {
   getLangFromRequest,
   getAlternateLanguage,
   getAlternateUrl,
-} from '../../i18n/utils';
+} from "../../i18n/utils";
 
 const lang = getLangFromRequest(Astro.request, Astro.url);
 const alternateLang = getAlternateLanguage(lang);
@@ -13,8 +13,8 @@ const alternatePath = getAlternateUrl(Astro.url, alternateLang);
 <div class="language-switcher">
   <a
     href={alternatePath}
-    aria-label={`Switch to ${alternateLang === 'ja' ? '日本語' : 'English'}`}
+    aria-label={`Switch to ${alternateLang === "ja" ? "日本語" : "English"}`}
   >
-    {alternateLang === 'ja' ? '日本語' : 'English'}
+    {alternateLang === "ja" ? "日本語" : "English"}
   </a>
 </div>

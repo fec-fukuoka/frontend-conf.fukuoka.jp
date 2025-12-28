@@ -208,7 +208,7 @@ jobs:
             **Type:** ${{ steps.check.outputs.type }}
             **Year:** ${{ steps.check.outputs.year }}
           labels: ${{ steps.check.outputs.year }}-proposal:${{ steps.check.outputs.type }}
-          commit-message: 'Add proposal from issue #${{ github.event.issue.number }}'
+          commit-message: "Add proposal from issue #${{ github.event.issue.number }}"
 
       - name: Comment on issue
         if: steps.check.outputs.is_proposal == 'true' && steps.create_pr.outputs.pull-request-number

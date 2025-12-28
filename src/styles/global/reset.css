@@ -47,7 +47,7 @@ html {
 }
 
 :is(ol, ul)[class] {
-  list-style-type: '';
+  list-style-type: "";
 }
 
 ol ol {
@@ -62,7 +62,7 @@ ol ol ol {
   padding-inline-start: var(--gutter-l);
 }
 
-:where([type='submit'], label, summary) {
+:where([type="submit"], label, summary) {
   cursor: pointer;
 }
 
@@ -123,7 +123,7 @@ hr {
 }
 
 /* :focus. */
-:where(a, button, summary, [role='region'][tabindex]) {
+:where(a, button, summary, [role="region"][tabindex]) {
   &:focus-visible {
     box-shadow: var(--focus-shadow);
     outline: var(--focus-outline);

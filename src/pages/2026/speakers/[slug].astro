@@ -1,23 +1,23 @@
 ---
-import { getCollection, render } from 'astro:content';
-import PageLayout from '../../../layouts/PageLayout.astro';
-import { getLangFromRequest, useTranslations } from '../../../i18n/utils';
+import { getCollection, render } from "astro:content";
+import PageLayout from "../../../layouts/PageLayout.astro";
+import { getLangFromRequest, useTranslations } from "../../../i18n/utils";
 
 const lang = getLangFromRequest(Astro.request, Astro.url);
 const t = useTranslations(lang);
 const { slug } = Astro.params;
 
 // Find the speaker by slug and language
-const speakers = await getCollection('speakers', ({ data }) => {
+const speakers = await getCollection("speakers", ({ data }) => {
   return data.locale === lang && data.year === 2026 && !data.draft;
 });
 
 const speaker = speakers.find(
-  (s) => s.id.replace(/^.*\//, '').replace('.md', '') === slug
+  (s) => s.id.replace(/^.*\//, "").replace(".md", "") === slug
 );
 
 if (!speaker) {
-  return Astro.redirect('/404');
+  return Astro.redirect("/404");
 }
 
 const { Content } = await render(speaker);
@@ -90,7 +90,7 @@ const { Content } = await render(speaker);
             {speaker.data.startTime} - {speaker.data.endTime}
           </span>
           <span class="language">
-            {t('label.language')}: {speaker.data.language}
+            {t("label.language")}: {speaker.data.language}
           </span>
         </div>
         <div class="session-description">

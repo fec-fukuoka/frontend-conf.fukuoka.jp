@@ -21,22 +21,22 @@ CSS Cascade Layers.
 2. Base scaffold, containing "semantic" design tokens.
 ----------------------------------------------------------------------------
 */
-@import 'tokens/index.css' layer(baseStyle) screen;
-@import 'base/index.css' layer(baseStyle) screen;
+@import "tokens/index.css" layer(baseStyle) screen;
+@import "base/index.css" layer(baseStyle) screen;
 
 /*
 ----------------------------------------------------------------------------
 Global (including reset).
 ----------------------------------------------------------------------------
 */
-@import 'global/index.css' layer(global) screen;
+@import "global/index.css" layer(global) screen;
 
 /*
 ----------------------------------------------------------------------------
 Layout.
 ----------------------------------------------------------------------------
 */
-@import 'layout/index.css' layer(layout) screen;
+@import "layout/index.css" layer(layout) screen;
 
 /*
 ----------------------------------------------------------------------------
@@ -53,7 +53,7 @@ Forms, components and web components.
 Utilities.
 ----------------------------------------------------------------------------
 */
-@import 'utilities/index.css' layer(utils) screen;
+@import "utilities/index.css" layer(utils) screen;
 
 /*
 ----------------------------------------------------------------------------

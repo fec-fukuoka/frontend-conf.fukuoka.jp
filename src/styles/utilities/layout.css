@@ -17,13 +17,13 @@ Center content.
 Margins.
 ----------------------------------------------------------------------------
 */
-[class*='u-m-block'] {
+[class*="u-m-block"] {
   --marg-block-gutter: var(--gutter-m);
 
   margin-block: var(--marg-block-gutter, 1rem);
 }
 
-[class*='u-m-inline'] {
+[class*="u-m-inline"] {
   --marg-inline-gutter: var(--gutter-m);
 
   margin-inline: var(--marg-inline-gutter, 1rem);
@@ -74,13 +74,13 @@ Margins.
 Padding.
 ----------------------------------------------------------------------------
 */
-[class*='u-p-block'] {
+[class*="u-p-block"] {
   --pad-block-gutter: var(--gutter-m);
 
   padding-block: var(--pad-block-gutter, 1rem);
 }
 
-[class*='u-p-inline'] {
+[class*="u-p-inline"] {
   --pad-inline-gutter: var(--gutter-m);
 
   padding-inline: var(--pad-inline-gutter, 1rem);

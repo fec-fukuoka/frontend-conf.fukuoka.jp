@@ -1,4 +1,4 @@
-[class*='grid'] {
+[class*="grid"] {
   --grid-auto-layout: auto-fit;
   --grid-gap: var(--gutter-m);
   --grid-item-min-width: 12.5rem;
@@ -19,7 +19,7 @@
 }
 
 /* Asymmetric 2-col grid (with default column widths). */
-[class*='asymmetric'] {
+[class*="asymmetric"] {
   --grid-asymmetric-col1: 66.66%;
   --grid-asymmetric-col2: 33.33%;
   --grid-container-width: 25rem; /* --grid-item-min-width * 2 */

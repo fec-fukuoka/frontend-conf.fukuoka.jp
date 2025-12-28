@@ -1,7 +1,7 @@
 name: Proposal_Guest
 description: ゲストスピーカーのセッションプロポーザル
-title: '[General] Title of Your Session'
-labels: ['2026-proposal:guest']
+title: "[General] Title of Your Session"
+labels: ["2026-proposal:guest"]
 body:
   - type: markdown
     attributes:

@@ -3,16 +3,16 @@ import {
   defaultLang,
   type SupportedLang,
   type TranslationKeys,
-} from './ui';
+} from "./ui";
 
 /**
  * Parse Accept-Language header to determine preferred language
  */
 function parseAcceptLanguage(header: string): string | null {
-  const languages = header.split(',').map((lang) => {
-    const [code, qValue] = lang.trim().split(';q=');
+  const languages = header.split(",").map((lang) => {
+    const [code, qValue] = lang.trim().split(";q=");
     return {
-      code: code.split('-')[0].toLowerCase(), // 'ja-JP' -> 'ja'
+      code: code.split("-")[0].toLowerCase(), // 'ja-JP' -> 'ja'
       q: qValue ? parseFloat(qValue) : 1.0,
     };
   });
@@ -33,13 +33,13 @@ function parseAcceptLanguage(header: string): string | null {
  */
 export function getLangFromRequest(request: Request, url: URL): SupportedLang {
   // 1. Check query parameter
-  const hlParam = url.searchParams.get('hl');
+  const hlParam = url.searchParams.get("hl");
   if (hlParam && hlParam in ui) {
     return hlParam as SupportedLang;
   }
 
   // 2. Check Accept-Language header
-  const acceptLanguage = request.headers.get('Accept-Language');
+  const acceptLanguage = request.headers.get("Accept-Language");
   if (acceptLanguage) {
     const preferredLang = parseAcceptLanguage(acceptLanguage);
     if (preferredLang && preferredLang in ui) {
@@ -55,7 +55,7 @@ export function getLangFromRequest(request: Request, url: URL): SupportedLang {
  * Static: Determine language from URL (for backwards compatibility)
  */
 export function getLangFromUrl(url: URL): SupportedLang {
-  const hlParam = url.searchParams.get('hl');
+  const hlParam = url.searchParams.get("hl");
   if (hlParam && hlParam in ui) {
     return hlParam as SupportedLang;
   }
@@ -72,8 +72,8 @@ export function useTranslations(lang: SupportedLang) {
  * Generate localized path with query parameter
  */
 export function getLocalizedPath(path: string, lang: SupportedLang): string {
-  const basePath = path.split('?')[0];
-  const cleanPath = basePath.startsWith('/') ? basePath : `/${basePath}`;
+  const basePath = path.split("?")[0];
+  const cleanPath = basePath.startsWith("/") ? basePath : `/${basePath}`;
   return `${cleanPath}?hl=${lang}`;
 }
 
@@ -85,12 +85,12 @@ export function getAlternateUrl(
   targetLang: SupportedLang
 ): string {
   const newUrl = new URL(currentUrl);
-  newUrl.searchParams.set('hl', targetLang);
+  newUrl.searchParams.set("hl", targetLang);
   return newUrl.pathname + newUrl.search;
 }
 
 export function getAlternateLanguage(
   currentLang: SupportedLang
 ): SupportedLang {
-  return currentLang === 'ja' ? 'en' : 'ja';
+  return currentLang === "ja" ? "en" : "ja";
 }

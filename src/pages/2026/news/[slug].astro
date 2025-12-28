@@ -1,23 +1,23 @@
 ---
-import { getCollection, render } from 'astro:content';
-import PageLayout from '../../../layouts/PageLayout.astro';
-import { getLangFromRequest, useTranslations } from '../../../i18n/utils';
+import { getCollection, render } from "astro:content";
+import PageLayout from "../../../layouts/PageLayout.astro";
+import { getLangFromRequest, useTranslations } from "../../../i18n/utils";
 
 const lang = getLangFromRequest(Astro.request, Astro.url);
 const t = useTranslations(lang);
 const { slug } = Astro.params;
 
 // Find the news item by slug and language
-const newsItems = await getCollection('news', ({ data }) => {
+const newsItems = await getCollection("news", ({ data }) => {
   return data.locale === lang && data.year === 2026 && !data.draft;
 });
 
 const item = newsItems.find(
-  (n) => n.id.replace(/^.*\//, '').replace('.md', '') === slug
+  (n) => n.id.replace(/^.*\//, "").replace(".md", "") === slug
 );
 
 if (!item) {
-  return Astro.redirect('/404');
+  return Astro.redirect("/404");
 }
 
 const { Content } = await render(item);
@@ -34,7 +34,7 @@ const { Content } = await render(item);
         <time datetime={item.data.pubDate.toISOString()}>
           {
             item.data.pubDate.toLocaleDateString(
-              lang === 'ja' ? 'ja-JP' : 'en-US'
+              lang === "ja" ? "ja-JP" : "en-US"
             )
           }
         </time>
@@ -46,7 +46,7 @@ const { Content } = await render(item);
       </div>
       <footer>
         <a href={`/2026/news?hl=${lang}`} class="back-link">
-          {t('news.backToList')}
+          {t("news.backToList")}
         </a>
       </footer>
     </article>

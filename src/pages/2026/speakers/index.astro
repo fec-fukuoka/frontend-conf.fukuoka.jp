@@ -1,13 +1,13 @@
 ---
-import { getCollection } from 'astro:content';
-import PageLayout from '../../../layouts/PageLayout.astro';
-import { getLangFromRequest, useTranslations } from '../../../i18n/utils';
+import { getCollection } from "astro:content";
+import PageLayout from "../../../layouts/PageLayout.astro";
+import { getLangFromRequest, useTranslations } from "../../../i18n/utils";
 
 const lang = getLangFromRequest(Astro.request, Astro.url);
 const t = useTranslations(lang);
 
 // Get speakers for the detected language
-const speakers = await getCollection('speakers', ({ data }) => {
+const speakers = await getCollection("speakers", ({ data }) => {
   return data.locale === lang && data.year === 2026 && !data.draft;
 });
 
@@ -21,20 +21,20 @@ const sortedSpeakers = speakers.sort((a, b) => {
 ---
 
 <PageLayout
-  title={t('speakers.title')}
-  description={t('speakers.description')}
+  title={t("speakers.title")}
+  description={t("speakers.description")}
   lang={lang}
 >
   <div class="container">
-    <h1>{t('speakers.title')}</h1>
-    <p class="description">{t('speakers.description')}</p>
+    <h1>{t("speakers.title")}</h1>
+    <p class="description">{t("speakers.description")}</p>
 
     <div class="speakers-grid">
       {
         sortedSpeakers.map((speaker) => (
           <article class="speaker-card">
             <a
-              href={`/2026/speakers/${speaker.id.replace(/^.*\//, '').replace('.md', '')}?hl=${lang}`}
+              href={`/2026/speakers/${speaker.id.replace(/^.*\//, "").replace(".md", "")}?hl=${lang}`}
             >
               {speaker.data.image && (
                 <img

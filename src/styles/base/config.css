@@ -56,5 +56,5 @@ html {
 
   /* Miscellaneous. */
   --media-aspect-ratio: 16 / 9;
-  --base-image-path: '../images/interface';
+  --base-image-path: "../images/interface";
 }

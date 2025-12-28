@@ -1,17 +1,17 @@
 ---
-name: 'Loem ipsum'
-nameEn: 'Loem ipsum'
-image: 'https://http.cat/200'
-sessionTitle: 'Loem ipsum'
-sessionCategory: 'CSS'
-language: 'ja'
-track: 'N/A'
-startTime: '00:00'
-endTime: '00:00'
-bio: 'Loem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-twitter: 'hogefuga'
-github: 'hogefuga'
-locale: 'ja'
+name: "Loem ipsum"
+nameEn: "Loem ipsum"
+image: "https://http.cat/200"
+sessionTitle: "Loem ipsum"
+sessionCategory: "CSS"
+language: "ja"
+track: "N/A"
+startTime: "00:00"
+endTime: "00:00"
+bio: "Loem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+twitter: "hogefuga"
+github: "hogefuga"
+locale: "ja"
 year: 2026
 draft: false
 ---
@@ -78,13 +78,13 @@ _斜体テキスト_
 ## リンク
 
 [リンクテキスト](https://example.com)
-[タイトル付きリンク](https://example.com 'リンクのタイトル')
+[タイトル付きリンク](https://example.com "リンクのタイトル")
 <https://example.com>
 [参照リンク][1]
 [別の参照リンク][link-label]
 
-[1]: https://example.com '参照リンク1'
-[link-label]: https://example.com '参照リンク2'
+[1]: https://example.com "参照リンク1"
+[link-label]: https://example.com "参照リンク2"
 
 ## コード
 
@@ -96,7 +96,7 @@ _斜体テキスト_
 
 ```javascript
 // JavaScript のコード
-const greeting = 'Hello, World!';
+const greeting = "Hello, World!";
 console.log(greeting);
 
 function add(a, b) {
@@ -112,7 +112,7 @@ interface User {
 }
 
 const user: User = {
-  name: 'John',
+  name: "John",
   age: 30,
 };
 ```
@@ -262,7 +262,7 @@ HTML は HyperText Markup Language の略です。
 
 ```javascript
 // コードも含められます
-console.log('詳細内のコード');
+console.log("詳細内のコード");
 ```
 
 </details>
@@ -283,12 +283,12 @@ console.log('詳細内のコード');
 ```md
 <!-- これはHTMLコメントで、表示されません -->
 
-[//]: # 'これもコメントの別の書き方です'
+[//]: # "これもコメントの別の書き方です"
 ```
 
 <!-- これはHTMLコメントで、表示されません -->
 
-[//]: # 'これもコメントの別の書き方です'
+[//]: # "これもコメントの別の書き方です"
 
 ## 特殊文字
 

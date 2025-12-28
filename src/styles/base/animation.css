@@ -1,11 +1,11 @@
 @property --ease-in-out {
-  syntax: '<timing-function>';
+  syntax: "<timing-function>";
   inherits: false;
   initial-value: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @property --default-transition-timing-function {
-  syntax: '<timing-function>';
+  syntax: "<timing-function>";
   inherits: false;
   initial-value: cubic-bezier(0.4, 0, 0.2, 1);
 }
