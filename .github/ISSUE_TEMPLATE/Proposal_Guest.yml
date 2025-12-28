@@ -1,12 +1,13 @@
-name: Proposal_一般 / General
-description: 一般公募のセッションプロポーザル
-title: "[General] Title of Your Session"
-labels: ["2026-proposal:general"]
+name: Proposal_Guest
+description: ゲストスピーカーのセッションプロポーザル
+title: '[General] Title of Your Session'
+labels: ['2026-proposal:guest']
 body:
   - type: markdown
     attributes:
       value: |
-        一般公募用プロポーザル提出フォーム
+        ゲストスピーカー用プロポーザル提出フォーム
+
   - type: input
     id: speaker-name
     attributes:
@@ -19,7 +20,7 @@ body:
     id: speaker-name-en
     attributes:
       label: 登壇者名（英語） / Speaker Name (English)
-      description: ローマ字表記 / Roman alphabet notation / description: ハンドルネームやニックネームでも可 / Can be a handle name or nickname
+      description: ローマ字表記 / Roman alphabet notation. ハンドルネームやニックネームでも可 / Can be a handle name or nickname
     validations:
       required: false
 
@@ -84,7 +85,6 @@ body:
       options:
         - ja
         - en
-        - ja/en
     validations:
       required: true
 
@@ -112,7 +112,5 @@ body:
       options:
         - label: 上記の情報に間違いがないことを確認しました / I have confirmed that the information above is correct
           required: true
-        - label: このプロポーザルが採択された場合、Frontend Conf Fukuoka 2026で登壇することを約束します / I commit to speaking at Frontend Conf Fukuoka 2026 if this proposal is accepted
-          required: true
-        - label: プロポーザルの内容がサイトに掲載されることを了承します / I understand that the proposal content will be published on the website
+        - label: このプロポーザルが採択された場合、サイトに掲載されることを了承します / I understand that if this proposal is accepted, it will be published on the website
           required: true

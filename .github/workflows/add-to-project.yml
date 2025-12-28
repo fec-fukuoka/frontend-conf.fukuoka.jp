@@ -23,7 +23,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.ADD_TO_PROJECT_TOKEN }}
           ITEM_NODE_ID: ${{ github.event.issue.node_id || github.event.pull_request.node_id }}
-          PROJECT_ID: "PVT_kwDODuLtq84BLbF7"
+          PROJECT_ID: 'PVT_kwDODuLtq84BLbF7'
         run: |
           # Get the project item ID for the newly added issue/PR
           QUERY='
@@ -60,7 +60,7 @@ jobs:
         if: steps.get_item_id.outputs.item_id
         env:
           GITHUB_TOKEN: ${{ secrets.ADD_TO_PROJECT_TOKEN }}
-          PROJECT_ID: "PVT_kwDODuLtq84BLbF7"
+          PROJECT_ID: 'PVT_kwDODuLtq84BLbF7'
           ITEM_ID: ${{ steps.get_item_id.outputs.item_id }}
         run: |
           # Get labels

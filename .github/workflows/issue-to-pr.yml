@@ -201,14 +201,14 @@ jobs:
           token: ${{ steps.generate_token.outputs.token }}
           branch: ${{ steps.parse.outputs.branch_name }}
           delete-branch: false
-          title: "${{ github.event.issue.title }}"
+          title: '${{ github.event.issue.title }}'
           body: |
             This PR was automatically generated from Issue #${{ github.event.issue.number }}.
 
             **Year:** ${{ steps.check.outputs.year }}
             **Type:** ${{ steps.check.outputs.type }}
           labels: ${{ steps.check.outputs.year }}-proposal:${{ steps.check.outputs.type }}
-          commit-message: "Add proposal from issue #${{ github.event.issue.number }}"
+          commit-message: 'Add proposal from issue #${{ github.event.issue.number }}'
 
       - name: Comment on issue
         if: steps.check.outputs.is_proposal == 'true' && steps.create_pr.outputs.pull-request-number
