@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACMR)
+
+if [ -z "$STAGED_FILES" ]; then
+  exit 0
+fi
+
+TS_FILES=$(echo "$STAGED_FILES" | grep -E '\.(ts|js|astro)$' || true)
+if [ -n "$TS_FILES" ]; then
+  pnpm run typecheck || exit 1
+  echo "$TS_FILES" | xargs pnpm run lint:eslint -- || exit 1
+fi
+
+MD_FILES=$(echo "$STAGED_FILES" | grep -E '\.md$' || true)
+if [ -n "$MD_FILES" ]; then
+  echo "$MD_FILES" | xargs pnpm run lint:markdown -- || exit 1
+
+  CONTENT_MD_FILES=$(echo "$MD_FILES" | grep -E '^src/content/' || true)
+  if [ -n "$CONTENT_MD_FILES" ]; then
+    echo "$CONTENT_MD_FILES" | xargs pnpm run lint:text -- || exit 1
+  fi
+fi
+
+echo "$STAGED_FILES" | xargs pnpm run format:check -- || {
+  exit 1
+}
+
+echo "✅ Passed!"

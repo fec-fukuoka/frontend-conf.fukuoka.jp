@@ -1,0 +1,239 @@
+/*
+----------------------------------------------------------------------------
+"Primitive" design tokens for dynamic theming.
+----------------------------------------------------------------------------
+*/
+
+/* sakupi01.com color palette */
+
+:where(*) {
+  /* Hues. */
+  --hue-red: 9.99;
+  --hue-purple: 322;
+  --hue-violet: 290;
+  --hue-blue: 271;
+  --hue-cyan: 242;
+  --hue-green: 168;
+  --hue-orange: 36;
+  --hue-selected: 9.99;
+  --hue-gray: 90;
+  --hue-ivory: 90.1;
+
+  /* Lightness. */
+  --lightness: 68%;
+
+  /* Chromas. */
+  --chroma-0: 0.03;
+  --chroma-1: 0.12;
+  --chroma-2: 0.17;
+  --chroma-3: 0.15;
+  --chroma-4: 0.12;
+  --chroma-gray: 0.01;
+  --chroma-ivory: 0.0054;
+
+  /* Colors. */
+  --selected-color: oklch(0% 0 var(--hue-selected, 0));
+  --color-selected-0: oklch(
+    from var(--color-selected-2) calc(l + 0.99) var(--chroma-0, 0.03) h
+  );
+  --color-selected-1: oklch(
+    from var(--color-selected-2) calc(l + 0.88) var(--chroma-1, 0.12) h
+  );
+  --color-selected-2: oklch(
+    var(--lightness, 66%) var(--chroma-2, 0.17) var(--hue-selected, 0)
+  );
+  --color-selected-3: oklch(
+    from var(--color-selected-2) calc(l * 0.53) var(--chroma-3, 0.2) h
+  );
+  --color-selected-4: oklch(
+    from var(--color-selected-2) calc(l * 0.27) var(--chroma-4, 0.12) h
+  );
+  --color-selected-5: oklch(
+    from var(--color-selected-2) calc(l * 0.14) var(--chroma-4, 0.08) h
+  );
+  --color-red-0: oklch(
+    from var(--color-red-2) calc(l + 0.99) var(--chroma-0, 0.03) h
+  );
+  --color-red-1: oklch(
+    from var(--color-red-2) calc(l + 0.88) var(--chroma-1, 0.12) h
+  );
+  --color-red-2: oklch(
+    var(--lightness, 66%) var(--chroma-2, 0.17) var(--hue-red, 0)
+  );
+  --color-red-3: oklch(
+    from var(--color-red-2) calc(l * 0.53) var(--chroma-3, 0.2) h
+  );
+  --color-red-4: oklch(
+    from var(--color-red-2) calc(l * 0.27) var(--chroma-4, 0.12) h
+  );
+  --color-red-5: oklch(
+    from var(--color-red-2) calc(l * 0.14) var(--chroma-4, 0.08) h
+  );
+  --color-purple-0: oklch(
+    from var(--color-purple-2) calc(l + 0.99) var(--chroma-0, 0.03) h
+  );
+  --color-purple-1: oklch(
+    from var(--color-purple-2) calc(l + 0.88) var(--chroma-1, 0.12) h
+  );
+  --color-purple-2: oklch(
+    var(--lightness, 66%) var(--chroma-2, 0.17) var(--hue-purple, 0)
+  );
+  --color-purple-3: oklch(
+    from var(--color-purple-2) calc(l * 0.53) var(--chroma-3, 0.2) h
+  );
+  --color-purple-4: oklch(
+    from var(--color-purple-2) calc(l * 0.27) var(--chroma-4, 0.12) h
+  );
+  --color-purple-5: oklch(
+    from var(--color-purple-2) calc(l * 0.14) var(--chroma-4, 0.08) h
+  );
+  --color-violet-0: oklch(
+    from var(--color-violet-2) calc(l + 0.99) var(--chroma-0, 0.03) h
+  );
+  --color-violet-1: oklch(
+    from var(--color-violet-2) calc(l + 0.88) var(--chroma-1, 0.12) h
+  );
+  --color-violet-2: oklch(
+    var(--lightness, 66%) var(--chroma-2, 0.17) var(--hue-violet, 0)
+  );
+  --color-violet-3: oklch(
+    from var(--color-violet-2) calc(l * 0.53) var(--chroma-3, 0.2) h
+  );
+  --color-violet-4: oklch(
+    from var(--color-violet-2) calc(l * 0.27) var(--chroma-4, 0.12) h
+  );
+  --color-violet-5: oklch(
+    from var(--color-violet-2) calc(l * 0.14) var(--chroma-4, 0.08) h
+  );
+  --color-blue-0: oklch(
+    from var(--color-blue-2) calc(l + 0.99) var(--chroma-0, 0.03) h
+  );
+  --color-blue-1: oklch(
+    from var(--color-blue-2) calc(l + 0.88) var(--chroma-1, 0.12) h
+  );
+  --color-blue-2: oklch(
+    var(--lightness, 66%) var(--chroma-2, 0.17) var(--hue-blue, 0)
+  );
+  --color-blue-3: oklch(
+    from var(--color-blue-2) calc(l * 0.53) var(--chroma-3, 0.2) h
+  );
+  --color-blue-4: oklch(
+    from var(--color-blue-2) calc(l * 0.27) var(--chroma-4, 0.12) h
+  );
+  --color-blue-5: oklch(
+    from var(--color-blue-2) calc(l * 0.14) var(--chroma-4, 0.08) h
+  );
+  --color-cyan-0: oklch(
+    from var(--color-cyan-2) calc(l + 0.99) var(--chroma-0, 0.03) h
+  );
+  --color-cyan-1: oklch(
+    from var(--color-cyan-2) calc(l + 0.88) var(--chroma-1, 0.12) h
+  );
+  --color-cyan-2: oklch(var(--lightness, 66%) 0.08 var(--hue-cyan, 0));
+  --color-cyan-3: oklch(
+    from var(--color-cyan-2) calc(l * 0.53) var(--chroma-3, 0.2) h
+  );
+  --color-cyan-4: oklch(
+    from var(--color-cyan-2) calc(l * 0.27) var(--chroma-4, 0.12) h
+  );
+  --color-cyan-5: oklch(
+    from var(--color-cyan-2) calc(l * 0.14) var(--chroma-4, 0.08) h
+  );
+  --color-green-0: oklch(
+    from var(--color-green-2) calc(l + 0.99) var(--chroma-0, 0.03) h
+  );
+  --color-green-1: oklch(
+    from var(--color-green-2) calc(l + 0.88) var(--chroma-1, 0.12) h
+  );
+  --color-green-2: oklch(
+    var(--lightness, 66%) var(--chroma-2, 0.17) var(--hue-green, 0)
+  );
+  --color-green-3: oklch(
+    from var(--color-green-2) calc(l * 0.53) var(--chroma-3, 0.2) h
+  );
+  --color-green-4: oklch(
+    from var(--color-green-2) calc(l * 0.27) var(--chroma-4, 0.12) h
+  );
+  --color-green-5: oklch(
+    from var(--color-green-2) calc(l * 0.14) var(--chroma-4, 0.08) h
+  );
+  --color-orange-0: oklch(
+    from var(--color-orange-2) calc(l + 0.99) var(--chroma-0, 0.03) h
+  );
+  --color-orange-1: oklch(
+    from var(--color-orange-2) calc(l + 0.88) var(--chroma-1, 0.12) h
+  );
+  --color-orange-2: oklch(
+    var(--lightness, 66%) var(--chroma-2, 0.17) var(--hue-orange, 0)
+  );
+  --color-orange-3: oklch(
+    from var(--color-orange-2) calc(l * 0.53) var(--chroma-3, 0.2) h
+  );
+  --color-orange-4: oklch(
+    from var(--color-orange-2) calc(l * 0.27) var(--chroma-4, 0.12) h
+  );
+  --color-orange-5: oklch(
+    from var(--color-orange-2) calc(l * 0.14) var(--chroma-4, 0.08) h
+  );
+  --color-gray-0: oklch(98% var(--chroma-gray, none) var(--hue-gray, none));
+  --color-gray-1: oklch(94% var(--chroma-gray, none) var(--hue-gray, none));
+  --color-gray-2: oklch(
+    var(--lightness, 67%) var(--chroma-gray, none) var(--hue-gray, none)
+  );
+  --color-gray-3: oklch(49% var(--chroma-gray, none) var(--hue-gray, none));
+  --color-gray-4: oklch(45% var(--chroma-gray, none) var(--hue-gray, none));
+  --color-gray-5: oklch(25% var(--chroma-gray, none) var(--hue-gray, none));
+  --color-gray-6: oklch(18% var(--chroma-gray, none) var(--hue-gray, none));
+  --color-gray-7: oklch(10% var(--chroma-gray, none) var(--hue-gray, none));
+  --color-ivory-0: oklch(98% var(--chroma-ivory, none) var(--hue-ivory, none));
+  --color-ivory-1: oklch(94% var(--chroma-ivory, none) var(--hue-ivory, none));
+  --color-ivory-2: oklch(
+    var(--lightness, 67%) var(--chroma-ivory, none) var(--hue-ivory, none)
+  );
+  --color-ivory-3: oklch(49% var(--chroma-ivory, none) var(--hue-ivory, none));
+  --color-ivory-4: oklch(32% var(--chroma-ivory, none) var(--hue-ivory, none));
+  --color-ivory-5: oklch(25% var(--chroma-ivory, none) var(--hue-ivory, none));
+  --color-ivory-6: oklch(18% var(--chroma-ivory, none) var(--hue-ivory, none));
+  --color-ivory-7: oklch(10% var(--chroma-ivory, none) var(--hue-ivory, none));
+
+  /* Typography. */
+  --font-san-serif-fallback: arial, helvetica, sans-serif;
+  --font-fallback-cartograph: 'Fallback for Cartograph?';
+  --font-fallback-cascadia: 'Fallback for Cascadia?';
+  --font-fallback-alegreya: 'Fallback for Alegreya?';
+  --font-family-inter: inter;
+  --font-family-operator: operator;
+  --font-family-cartograph: cartograph;
+  --font-family-cascadia: cascadia;
+  --font-family-alegreya: alegreya;
+
+  /* Fluid type scale.
+  /* @link https://utopia.fyi/type/calculator?c=480,16,1.125,1440,20,1.2,6,1,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+
+  --step-05: clamp(0.7778rem, 0.75rem + 0.0926vw, 0.8333rem);
+  --step-0: clamp(0.875rem, 0.8325rem + 0.3083vw, 1rem);
+  --step-1: clamp(0.9844rem, 0.8766rem + 0.3594vw, 1.2rem);
+  --step-2: clamp(1.1074rem, 0.9411rem + 0.5543vw, 1.44rem);
+  --step-3: clamp(1.2458rem, 1.0048rem + 0.8036vw, 1.728rem);
+  --step-4: clamp(1.4016rem, 1.0656rem + 1.12vw, 2.0736rem);
+  --step-5: clamp(1.802rem, 0.5096rem + 4.3081vw, 4.3869rem);
+  --step-6: clamp(2.0273rem, 0.2991rem + 5.7606vw, 5.4836rem);
+
+  /* Fluid space scale. */
+
+  /* @link https://utopia.fyi/space/calculator?c=480,16,1.25,1440,20,1.333,6,1,&s=0.75|0.5,1.5|2|3,s-l&g=s,l,xl,12 */
+
+  /* One-up pairs */
+  --space-2xs-xs: clamp(0.5rem, 0.2813rem + 0.7292vw, 0.9375rem);
+  --space-xs-s: clamp(0.75rem, 0.5rem + 0.8333vw, 1.25rem);
+  --space-s-m: clamp(1rem, 0.5625rem + 1.4583vw, 1.875rem);
+  --space-m-l: clamp(1.5rem, 1rem + 1.6667vw, 2.5rem);
+  --space-l-xl: clamp(2rem, 1.125rem + 2.9167vw, 3.75rem);
+
+  /* One-up pairs */
+  --lh-2xs-xs: 0.3lh;
+  --lh-xs-s: 0.5lh;
+  --lh-s-m: 1lh;
+  --lh-m-l: 1.2lh;
+  --lh-l-xl: 1.5lh;
+}

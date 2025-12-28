@@ -1,0 +1,65 @@
+/*
+----------------------------------------------------------------------------
+Color settings.
+
+1. Copy the CSS custom properties inside the 'html {}' ruleset, along with their JSDoc comments, into 'base/colors-to-json.scss'.
+2. Replace '--' with '$'.
+3. The 'sass-export' Node package then correctly exports all the colors as JSON for consumption by Storybook.
+
+TODO:
+- Write custom Node script to convert these values into JSON without the manual copy/paste step into a Sass file.
+----------------------------------------------------------------------------
+*/
+html {
+  /**
+   * main theme colours
+   */
+  --color-primary-light: var(--color-selected-1);
+  --color-primary-medium: var(--color-selected-2);
+  --color-primary-dark: var(--color-selected-3);
+
+  /**
+   * base colours
+   */
+  --color-base-lightest: var(--color-ivory-0);
+  --color-base-light: var(--color-ivory-1);
+  --color-base-medium: var(--color-ivory-2);
+  --color-base-dark: var(--color-gray-4);
+  --color-base-darkest: var(--color-gray-5);
+  --color-text: light-dark(var(--color-base-dark), var(--color-base-light));
+  --color-text-reverse: light-dark(
+    var(--color-base-light),
+    var(--color-base-dark)
+  );
+  --link-border: light-dark(
+    color-mix(in oklch, var(--color-base-dark), white 50%),
+    color-mix(in oklch, var(--color-base-light), black 30%)
+  );
+
+  /**
+   * other accent colours
+   */
+  --color-success-light: var(--color-green-1);
+  --color-success-medium: var(--color-green-2);
+  --color-success-dark: var(--color-green-3);
+  --color-expression-light: var(--color-orange-1);
+  --color-expression-medium: var(--color-orange-2);
+  --color-expression-dark: var(--color-orange-3);
+  --color-code-light: var(--color-violet-2);
+  --color-code-dark: var(--color-red-2);
+  --color-notify-light: var(--color-cyan-1);
+  --color-notify-medium: var(--color-cyan-2);
+  --color-notify-dark: var(--color-cyan-3);
+  --color-memo-light: var(--color-violet-1);
+  --color-memo-medium: var(--color-violet-2);
+  --color-memo-dark: var(--color-violet-3);
+  --color-focus: var(--color-red-2);
+
+  /**
+   * scrollbar colours
+   */
+  --scrollbar-thumb-light: var(--color-gray-2);
+  --scrollbar-thumb-dark: var(--color-gray-4);
+  --scrollbar-bg-light: var(--color-gray-0);
+  --scrollbar-bg-dark: var(--color-gray-5);
+}

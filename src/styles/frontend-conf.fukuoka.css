@@ -1,0 +1,107 @@
+@import 'index.css';
+
+/*
+----------------------------------------------------------------------------
+Base Styles under frontend-conf.fukuoka.com
+----------------------------------------------------------------------------
+*/
+html {
+  scrollbar-color: light-dark(
+      var(--scrollbar-thumb-light),
+      var(--scrollbar-thumb-dark)
+    )
+    light-dark(var(--scrollbar-bg-light), var(--scrollbar-bg-dark));
+  * {
+    ::selection {
+      color: light-dark(white, black);
+      background-color: light-dark(
+        var(--color-base-darkest),
+        var(--color-base-lightest)
+      );
+    }
+  }
+
+  hr {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12' preserveAspectRatio='none'%3E%3Cpath d='M2 6 Q 35 10 70 4 Q 105 -2 140 7 Q 175 14 198 6' fill='none' stroke='%23999999' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+    height: 12px;
+    border: 0;
+    opacity: 0.5;
+    width: 20%;
+    margin: 5cqi auto;
+  }
+
+  /*
+  ----------------------------------------------------------------------------
+  Links
+  ----------------------------------------------------------------------------
+  */
+  a {
+    text-decoration-line: none;
+    word-wrap: break-word;
+    transition: all 0.15s linear;
+    padding: 0.05rem 0.1rem;
+    border-bottom: 1px solid var(--link-border);
+
+    &:hover {
+      border-bottom: 1px solid deeppink;
+    }
+  }
+
+  /*
+  ----------------------------------------------------------------------------
+  Table
+  ----------------------------------------------------------------------------
+  */
+  table {
+    width: 100%;
+    table-layout: fixed;
+    margin-bottom: 1.5rem;
+    border: 1.5px solid
+      light-dark(
+        color-mix(in oklch, var(--color-base-dark), white 60%),
+        color-mix(in oklch, var(--color-base-light), black 60%)
+      );
+    color: var(--color-text);
+    background: light-dark(var(--color-gray-1), var(--color-gray-0));
+
+    th {
+      border-right: 1.5px solid
+        light-dark(
+          color-mix(in oklch, var(--color-base-dark), white 50%),
+          color-mix(in oklch, var(--color-base-light), black 50%)
+        );
+      padding: 0.5rem;
+      color: #fff;
+      background-color: var(--color-expression-medium);
+      word-break: break-all;
+      vertical-align: middle;
+    }
+
+    td {
+      border-right: 1.5px solid
+        light-dark(
+          color-mix(in oklch, var(--color-base-dark), white 50%),
+          color-mix(in oklch, var(--color-base-light), black 50%)
+        );
+      padding: 0.5rem;
+      word-break: break-all;
+      vertical-align: middle;
+    }
+
+    thead tr {
+      border-bottom: 1.5px solid
+        light-dark(
+          color-mix(in oklch, var(--color-base-dark), white 50%),
+          color-mix(in oklch, var(--color-base-light), black 50%)
+        );
+      border-radius: 0.25rem;
+    }
+
+    tbody tr:last-child {
+      border: none;
+    }
+  }
+}

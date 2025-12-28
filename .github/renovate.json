@@ -1,0 +1,87 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":timezone(Asia/Tokyo)",
+    ":prHourlyLimit4",
+    ":prConcurrentLimit10"
+  ],
+  "labels": ["dependencies"],
+  "packageRules": [
+    {
+      "description": "mise管理のNode.jsはメジャーバージョンのみ手動更新",
+      "matchManagers": ["mise"],
+      "matchFileNames": [".mise.toml"],
+      "matchPackageNames": ["node"],
+      "matchUpdateTypes": ["major"],
+      "enabled": true,
+      "automerge": false
+    },
+    {
+      "description": "mise管理のNode.jsのminor/patchは自動マージ",
+      "matchManagers": ["mise"],
+      "matchFileNames": [".mise.toml"],
+      "matchPackageNames": ["node"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true,
+      "branchPrefix": "renovate-automerge/"
+    },
+    {
+      "description": "mise管理のpnpmはメジャーバージョンのみ手動更新",
+      "matchManagers": ["mise"],
+      "matchFileNames": [".mise.toml"],
+      "matchPackageNames": ["pnpm"],
+      "matchUpdateTypes": ["major"],
+      "enabled": true,
+      "automerge": false
+    },
+    {
+      "description": "Astro本体はメジャーバージョンのみ手動更新",
+      "matchManagers": ["npm"],
+      "matchFileNames": ["package.json"],
+      "matchPackageNames": ["astro"],
+      "matchUpdateTypes": ["major"],
+      "enabled": true,
+      "automerge": false
+    },
+    {
+      "description": "Astro関連パッケージはグループ化",
+      "matchPackagePatterns": ["astro"],
+      "groupName": "astro"
+    },
+    {
+      "description": "Astro統合パッケージのminor/patchは自動マージ",
+      "matchManagers": ["npm"],
+      "matchFileNames": ["package.json"],
+      "matchPackagePatterns": ["/^@astrojs\\//"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true,
+      "branchPrefix": "renovate-automerge/"
+    },
+    {
+      "description": "開発ツール系のminor/patchは自動マージ",
+      "matchManagers": ["npm"],
+      "matchFileNames": ["package.json"],
+      "matchPackagePatterns": [
+        "/^eslint/",
+        "/^@eslint/",
+        "/^@typescript-eslint/"
+      ],
+      "matchPackageNames": [
+        "prettier",
+        "typescript",
+        "markdownlint-cli2",
+        "textlint"
+      ],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true,
+      "branchPrefix": "renovate-automerge/"
+    },
+    {
+      "description": "その他のminor/patchは自動マージ",
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    }
+  ],
+  "schedule": ["after 8pm on Friday", "before 8am on Saturday"]
+}

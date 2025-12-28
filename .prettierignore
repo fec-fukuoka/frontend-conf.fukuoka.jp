@@ -1,0 +1,27 @@
+# Build outputs
+dist/
+.astro/
+.output/
+
+# Dependencies
+node_modules/
+
+# Logs
+*.log
+
+# Environment files
+.env
+.env.*
+
+# Cache
+.cache/
+.vscode/
+.idea/
+
+# Lock files
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# Generated files
+*.d.ts

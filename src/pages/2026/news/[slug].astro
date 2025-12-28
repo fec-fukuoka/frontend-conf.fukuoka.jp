@@ -1,0 +1,54 @@
+---
+import { getCollection, render } from 'astro:content';
+import PageLayout from '../../../layouts/PageLayout.astro';
+import { getLangFromRequest, useTranslations } from '../../../i18n/utils';
+
+const lang = getLangFromRequest(Astro.request, Astro.url);
+const t = useTranslations(lang);
+const { slug } = Astro.params;
+
+// Find the news item by slug and language
+const newsItems = await getCollection('news', ({ data }) => {
+  return data.locale === lang && data.year === 2026 && !data.draft;
+});
+
+const item = newsItems.find(
+  (n) => n.id.replace(/^.*\//, '').replace('.md', '') === slug
+);
+
+if (!item) {
+  return Astro.redirect('/404');
+}
+
+const { Content } = await render(item);
+---
+
+<PageLayout
+  title={item.data.title}
+  description={item.data.description}
+  lang={lang}
+>
+  <div class="container">
+    <article class="news-article">
+      <header>
+        <time datetime={item.data.pubDate.toISOString()}>
+          {
+            item.data.pubDate.toLocaleDateString(
+              lang === 'ja' ? 'ja-JP' : 'en-US'
+            )
+          }
+        </time>
+        <h1>{item.data.title}</h1>
+        <p class="description">{item.data.description}</p>
+      </header>
+      <div class="content">
+        <Content />
+      </div>
+      <footer>
+        <a href={`/2026/news?hl=${lang}`} class="back-link">
+          {t('news.backToList')}
+        </a>
+      </footer>
+    </article>
+  </div>
+</PageLayout>

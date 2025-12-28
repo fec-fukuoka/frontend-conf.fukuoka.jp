@@ -1,0 +1,62 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../../layouts/PageLayout.astro';
+import { getLangFromRequest, useTranslations } from '../../../i18n/utils';
+
+const lang = getLangFromRequest(Astro.request, Astro.url);
+const t = useTranslations(lang);
+
+// Get speakers for the detected language
+const speakers = await getCollection('speakers', ({ data }) => {
+  return data.locale === lang && data.year === 2026 && !data.draft;
+});
+
+// Sort by track and start time
+const sortedSpeakers = speakers.sort((a, b) => {
+  if (a.data.track !== b.data.track) {
+    return a.data.track.localeCompare(b.data.track);
+  }
+  return a.data.startTime.localeCompare(b.data.startTime);
+});
+---
+
+<PageLayout
+  title={t('speakers.title')}
+  description={t('speakers.description')}
+  lang={lang}
+>
+  <div class="container">
+    <h1>{t('speakers.title')}</h1>
+    <p class="description">{t('speakers.description')}</p>
+
+    <div class="speakers-grid">
+      {
+        sortedSpeakers.map((speaker) => (
+          <article class="speaker-card">
+            <a
+              href={`/2026/speakers/${speaker.id.replace(/^.*\//, '').replace('.md', '')}?hl=${lang}`}
+            >
+              {speaker.data.image && (
+                <img
+                  src={speaker.data.image}
+                  alt={speaker.data.name}
+                  class="speaker-image"
+                />
+              )}
+              <div class="speaker-info">
+                <h2>{speaker.data.name}</h2>
+                <p class="session-title">{speaker.data.sessionTitle}</p>
+                <div class="meta">
+                  <span class="track">{speaker.data.track}</span>
+                  <span class="time">
+                    {speaker.data.startTime} - {speaker.data.endTime}
+                  </span>
+                </div>
+              </div>
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</PageLayout>

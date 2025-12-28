@@ -1,0 +1,49 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../../layouts/PageLayout.astro';
+import { getLangFromRequest, useTranslations } from '../../../i18n/utils';
+
+const lang = getLangFromRequest(Astro.request, Astro.url);
+const t = useTranslations(lang);
+
+// Get news items for the detected language
+const newsItems = await getCollection('news', ({ data }) => {
+  return data.locale === lang && data.year === 2026 && !data.draft;
+});
+
+// Sort by date (newest first)
+const sortedNews = newsItems.sort(
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
+);
+---
+
+<PageLayout
+  title={t('news.title')}
+  description={t('news.description')}
+  lang={lang}
+>
+  <div class="container">
+    <h1>{t('news.title')}</h1>
+    <p class="description">{t('news.description')}</p>
+
+    <div class="news-list">
+      {
+        sortedNews.map((item) => (
+          <article class="news-item">
+            <a
+              href={`/2026/news/${item.id.replace(/^.*\//, '').replace('.md', '')}?hl=${lang}`}
+            >
+              <time datetime={item.data.pubDate.toISOString()}>
+                {item.data.pubDate.toLocaleDateString(
+                  lang === 'ja' ? 'ja-JP' : 'en-US'
+                )}
+              </time>
+              <h2>{item.data.title}</h2>
+              <p>{item.data.description}</p>
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</PageLayout>

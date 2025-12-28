@@ -1,0 +1,167 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import { getLangFromRequest, useTranslations } from '../../i18n/utils';
+
+const lang = getLangFromRequest(Astro.request, Astro.url);
+const t = useTranslations(lang);
+
+// Get speakers for the detected language
+const speakers = await getCollection('speakers', ({ data }) => {
+  return data.locale === lang && data.year === 2026 && !data.draft;
+});
+
+// Sort by track and time
+const trackA = speakers
+  .filter((s) => s.data.track === 'track-a')
+  .sort((a, b) => a.data.startTime.localeCompare(b.data.startTime));
+
+const trackB = speakers
+  .filter((s) => s.data.track === 'track-b')
+  .sort((a, b) => a.data.startTime.localeCompare(b.data.startTime));
+
+const trackC = speakers
+  .filter((s) => s.data.track === 'track-c')
+  .sort((a, b) => a.data.startTime.localeCompare(b.data.startTime));
+
+const sponsor = speakers
+  .filter((s) => s.data.track === 'sponsor')
+  .sort((a, b) => a.data.startTime.localeCompare(b.data.startTime));
+---
+
+<PageLayout title={t('timetable.title')} lang={lang}>
+  <div class="container">
+    <h1>{t('timetable.title')}</h1>
+    <p class="description">TBD</p>
+
+    <div class="timetable">
+      <div class="track">
+        <h2>Track A</h2>
+        <div class="sessions">
+          {
+            trackA.map((speaker) => (
+              <article class="session">
+                <div class="session-time">
+                  {speaker.data.startTime} - {speaker.data.endTime}
+                </div>
+                <div class="session-content">
+                  <h3>
+                    <a
+                      href={`/2026/speakers/${speaker.id.replace(/^.*\//, '').replace('.md', '')}?hl=${lang}`}
+                    >
+                      {speaker.data.sessionTitle}
+                    </a>
+                  </h3>
+                  <p class="speaker-name">{speaker.data.name}</p>
+                  <div class="session-meta">
+                    <span class="category">{speaker.data.sessionCategory}</span>
+                    <span class="language">
+                      {t('label.language')}: {speaker.data.language}
+                    </span>
+                  </div>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="track">
+        <h2>Track B</h2>
+        <div class="sessions">
+          {
+            trackB.map((speaker) => (
+              <article class="session">
+                <div class="session-time">
+                  {speaker.data.startTime} - {speaker.data.endTime}
+                </div>
+                <div class="session-content">
+                  <h3>
+                    <a
+                      href={`/2026/speakers/${speaker.id.replace(/^.*\//, '').replace('.md', '')}?hl=${lang}`}
+                    >
+                      {speaker.data.sessionTitle}
+                    </a>
+                  </h3>
+                  <p class="speaker-name">{speaker.data.name}</p>
+                  <div class="session-meta">
+                    <span class="category">{speaker.data.sessionCategory}</span>
+                    <span class="language">
+                      {t('label.language')}: {speaker.data.language}
+                    </span>
+                  </div>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="track">
+        <h2>Track C</h2>
+        <div class="sessions">
+          {
+            trackC.map((speaker) => (
+              <article class="session">
+                <div class="session-time">
+                  {speaker.data.startTime} - {speaker.data.endTime}
+                </div>
+                <div class="session-content">
+                  <h3>
+                    <a
+                      href={`/2026/speakers/${speaker.id.replace(/^.*\//, '').replace('.md', '')}?hl=${lang}`}
+                    >
+                      {speaker.data.sessionTitle}
+                    </a>
+                  </h3>
+                  <p class="speaker-name">{speaker.data.name}</p>
+                  <div class="session-meta">
+                    <span class="category">{speaker.data.sessionCategory}</span>
+                    <span class="language">
+                      {t('label.language')}: {speaker.data.language}
+                    </span>
+                  </div>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+
+      {
+        sponsor.length > 0 && (
+          <div class="track">
+            <h2>Sponsor Sessions</h2>
+            <div class="sessions">
+              {sponsor.map((speaker) => (
+                <article class="session">
+                  <div class="session-time">
+                    {speaker.data.startTime} - {speaker.data.endTime}
+                  </div>
+                  <div class="session-content">
+                    <h3>
+                      <a
+                        href={`/2026/speakers/${speaker.id.replace(/^.*\//, '').replace('.md', '')}?hl=${lang}`}
+                      >
+                        {speaker.data.sessionTitle}
+                      </a>
+                    </h3>
+                    <p class="speaker-name">{speaker.data.name}</p>
+                    <div class="session-meta">
+                      <span class="category">
+                        {speaker.data.sessionCategory}
+                      </span>
+                      <span class="language">
+                        {t('label.language')}: {speaker.data.language}
+                      </span>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        )
+      }
+    </div>
+  </div>
+</PageLayout>

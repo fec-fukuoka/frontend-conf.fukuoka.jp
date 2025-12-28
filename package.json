@@ -1,0 +1,54 @@
+{
+  "name": "frontend-conf.fukuoka.jp",
+  "homepage": "https://frontend-conf.fukuoka.jp/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/issues"
+  },
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "typecheck": "astro check",
+    "lint:eslint": "eslint . --ext .js,.ts,.astro",
+    "lint:markdown": "markdownlint '**/*.md' --ignore node_modules --ignore fast-fireball",
+    "lint:text": "textlint 'src/content/**/*.md'",
+    "lint": "pnpm run typecheck && pnpm run lint:eslint && pnpm run lint:markdown && pnpm run lint:text",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "bash scripts/setup-hooks.sh"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.6",
+    "@astrojs/cloudflare": "^12.6.12",
+    "@astrojs/rss": "^4.0.14",
+    "@astrojs/sitemap": "^3.6.0",
+    "astro": "^5.16.6",
+    "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@textlint-rule/textlint-rule-no-dead-link": "^3.2.0",
+    "@typescript-eslint/eslint-plugin": "^8.50.1",
+    "@typescript-eslint/parser": "^8.50.1",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-astro": "^1.5.0",
+    "eslint-plugin-prettier": "^5.5.4",
+    "js-yaml": "^4.1.1",
+    "markdownlint-cli": "^0.47.0",
+    "prettier": "^3.7.4",
+    "prettier-plugin-astro": "^0.14.1",
+    "textlint": "^15.5.0",
+    "textlint-rule-preset-ja-technical-writing": "^12.0.2",
+    "typescript-eslint": "^8.50.1",
+    "wrangler": "^4.54.0"
+  }
+}

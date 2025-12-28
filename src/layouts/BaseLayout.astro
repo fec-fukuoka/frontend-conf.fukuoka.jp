@@ -1,0 +1,22 @@
+---
+import Head from '../components/common/Head.astro';
+import '../styles/frontend-conf.fukuoka.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  lang?: 'ja' | 'en';
+}
+
+const { title, description, lang = 'ja' } = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <Head title={title} description={description} lang={lang} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

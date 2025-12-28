@@ -1,0 +1,20 @@
+[
+  {
+    "id": "sponsor-1",
+    "name": "スポンサー企業A",
+    "nameEn": "Sponsor Company A",
+    "tier": "gold",
+    "logo": "/images/sponsors/placeholder.png",
+    "url": "https://example.com",
+    "description": "スポンサー企業Aの説明"
+  },
+  {
+    "id": "sponsor-2",
+    "name": "スポンサー企業B",
+    "nameEn": "Sponsor Company B",
+    "tier": "silver",
+    "logo": "/images/sponsors/placeholder.png",
+    "url": "https://example.com",
+    "description": "スポンサー企業Bの説明"
+  }
+]

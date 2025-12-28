@@ -1,0 +1,144 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import { getEventByYear } from '../../data/events';
+import { getLangFromRequest, useTranslations } from '../../i18n/utils';
+import sponsorsData from '../../data/sponsors.json';
+
+const lang = getLangFromRequest(Astro.request, Astro.url);
+const t = useTranslations(lang);
+
+const event = getEventByYear(2026);
+if (!event) {
+  return Astro.redirect('/404');
+}
+
+// Get news items for the detected language
+const newsItems = await getCollection('news', ({ data }) => {
+  return data.locale === lang && data.year === 2026 && !data.draft;
+});
+
+// Latest news only (3 items)
+const latestNews = newsItems
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+  .slice(0, 3);
+
+// Sponsors by tier
+const sponsorsByTier = {
+  platinum: sponsorsData.filter((s) => s.tier === 'platinum'),
+  gold: sponsorsData.filter((s) => s.tier === 'gold'),
+  silver: sponsorsData.filter((s) => s.tier === 'silver'),
+  bronze: sponsorsData.filter((s) => s.tier === 'bronze'),
+  community: sponsorsData.filter((s) => s.tier === 'community'),
+};
+
+// Event information based on language
+const eventTitle = lang === 'ja' ? event.title : event.titleEn;
+const eventDescription =
+  lang === 'ja' ? event.description : event.descriptionEn;
+const eventDate = lang === 'ja' ? event.date : event.dateEn;
+const eventVenue = lang === 'ja' ? event.venue : event.venueEn;
+---
+
+<PageLayout title={eventTitle} description={eventDescription} lang={lang}>
+  <div class="container">
+    <section class="hero">
+      <h1>{eventTitle}</h1>
+      <p class="hero-description">{eventDescription}</p>
+      <div class="hero-info">
+        <p><strong>{t('event.date')}</strong> {eventDate}</p>
+        <p><strong>{t('event.venue')}</strong> {eventVenue}</p>
+      </div>
+      <div class="hero-actions">
+        {
+          event.ticketUrl && (
+            <a
+              href={event.ticketUrl}
+              class="button button-primary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {t('button.ticket')}
+            </a>
+          )
+        }
+        <a href={`/2026/speakers?hl=${lang}`} class="button button-secondary">
+          {t('button.viewSpeakers')}
+        </a>
+      </div>
+    </section>
+
+    <section class="news">
+      <div class="section-header">
+        <h2>{t('news.title')}</h2>
+        <a href={`/2026/news?hl=${lang}`} class="view-all">
+          {t('button.viewAll')}
+        </a>
+      </div>
+      <div class="news-list">
+        {
+          latestNews.map((item) => (
+            <article class="news-item">
+              <a
+                href={`/2026/news/${item.id.replace(/^.*\//, '').replace('.md', '')}?hl=${lang}`}
+              >
+                <time datetime={item.data.pubDate.toISOString()}>
+                  {item.data.pubDate.toLocaleDateString(
+                    lang === 'ja' ? 'ja-JP' : 'en-US'
+                  )}
+                </time>
+                <h3>{item.data.title}</h3>
+                <p>{item.data.description}</p>
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="sponsors">
+      <h2>{t('sponsors.title')}</h2>
+      {
+        sponsorsByTier.gold.length > 0 && (
+          <div class="sponsor-tier">
+            <h3>Gold Sponsors</h3>
+            <div class="sponsors-grid gold">
+              {sponsorsByTier.gold.map((sponsor) => (
+                <a
+                  href={sponsor.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="sponsor-card"
+                >
+                  <img src={sponsor.logo} alt={sponsor.name} />
+                </a>
+              ))}
+            </div>
+          </div>
+        )
+      }
+      {
+        sponsorsByTier.silver.length > 0 && (
+          <div class="sponsor-tier">
+            <h3>Silver Sponsors</h3>
+            <div class="sponsors-grid silver">
+              {sponsorsByTier.silver.map((sponsor) => (
+                <a
+                  href={sponsor.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="sponsor-card"
+                >
+                  <img src={sponsor.logo} alt={sponsor.name} />
+                </a>
+              ))}
+            </div>
+          </div>
+        )
+      }
+      <p class="sponsor-info">
+        {t('sponsors.recruiting')}
+      </p>
+    </section>
+  </div>
+</PageLayout>

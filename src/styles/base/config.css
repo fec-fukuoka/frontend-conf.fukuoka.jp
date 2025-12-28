@@ -1,0 +1,60 @@
+/*
+----------------------------------------------------------------------------
+Config settings.
+----------------------------------------------------------------------------
+*/
+html {
+  /* Layout. */
+  --site-max-width: 100ch;
+  --main-max-width: 100ch;
+  --article-max-width: 900px;
+
+  /* Spacing and gutters. Use for margin|padding, and gap in flex|grid layouts. */
+  --gap-xs: var(--space-2xs-xs);
+  --gap-s: var(--space-xs-s);
+  --gap-m: var(--space-s-m);
+  --gap-l: var(--space-m-l);
+  --gap-xl: var(--space-l-xl);
+
+  /* Spacing and gutters. Use for margin|padding, and gap in flex|grid layouts. */
+  --gutter-xs: var(--lh-2xs-xs);
+  --gutter-s: var(--lh-xs-s);
+  --gutter-m: var(--lh-s-m);
+  --gutter-l: var(--lh-m-l);
+  --gutter-xl: var(--lh-l-xl);
+
+  /* :focus-visible.
+        - Uses transparent outline so high contrast mode works.
+        - See https://css-tricks.com/the-focus-visible-trick/.
+    */
+  --focus-shadow: 0 0 0 var(--border-width-l) var(--color-focus);
+  --focus-outline: var(--border-width-l) solid transparent;
+
+  /* :hover and :active */
+  --hover-opacity: 0.8;
+  --active-transform: scale(0.975);
+
+  /* Borders. */
+  --border-width-s: 0.0625rem;
+  --border-width-m: 0.125rem;
+  --border-width-l: 0.25rem;
+
+  /* Icons. */
+  --icon-size-s: 1rem;
+  --icon-size-m: 1.5rem;
+  --icon-size-l: 2rem;
+
+  /* Animations. */
+  --animation-fast: 150ms ease-in-out;
+  --animation-medium: 250ms ease-in-out;
+  --animation-slow: 500ms ease-in-out;
+
+  /* z-index. */
+  --z-default: 1;
+  --z-reset: 0;
+  --z-below: -1;
+
+  /* Miscellaneous. */
+  --media-aspect-ratio: 16 / 9;
+  --base-image-path: '../images/interface';
+}

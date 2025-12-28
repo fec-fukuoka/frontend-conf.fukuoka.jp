@@ -1,0 +1,9 @@
+---
+import { getLangFromRequest } from '../i18n/utils';
+
+/**
+ * Root page that redirects to the latest event with detected language
+ */
+const lang = getLangFromRequest(Astro.request, Astro.url);
+return Astro.redirect(`/2026/?hl=${lang}`, 302);
+---

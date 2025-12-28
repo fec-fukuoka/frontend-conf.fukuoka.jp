@@ -1,0 +1,45 @@
+---
+import {
+  getLangFromUrl,
+  useTranslations,
+  getLocalizedPath,
+} from '../../i18n/utils';
+import { navigation } from '../../data/navigation';
+import { site } from '../../data/site';
+import LanguageSwitcher from '../common/LanguageSwitcher.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<header>
+  <div class="container">
+    <nav>
+      <div class="nav-brand">
+        <a href={getLocalizedPath('/', lang)}>
+          {lang === 'ja' ? site.title : site.titleEn}
+        </a>
+      </div>
+      <ul class="nav-menu">
+        {
+          navigation.map((item) =>
+            item.external ? (
+              <li>
+                <a href={item.path} target="_blank" rel="noopener noreferrer">
+                  {t(item.labelKey)}
+                </a>
+              </li>
+            ) : (
+              <li>
+                <a href={getLocalizedPath(item.path, lang)}>
+                  {t(item.labelKey)}
+                </a>
+              </li>
+            )
+          )
+        }
+      </ul>
+      <LanguageSwitcher />
+    </nav>
+  </div>
+</header>

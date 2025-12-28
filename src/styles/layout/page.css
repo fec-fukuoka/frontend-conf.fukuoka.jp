@@ -1,0 +1,32 @@
+.page {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  margin-inline: auto;
+  max-inline-size: var(--site-max-width);
+  min-block-size: 100vh; /* 100dvb might have performance implications */
+
+  /* Main is a grid item, so this affects overflow behaviour on components like tables. */
+  main {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: var(--main-max-width);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+
+    article {
+      /* Set explicit max-width for article content. */
+      width: 100%;
+      max-width: var(--article-max-width);
+      margin: 1rem auto 3rem;
+
+      /* margin-trim: block; */
+    }
+  }
+}
+
+.page__sidebar {
+  .sidebar {
+    /* Set explicit flex-basis (width) for page sidebar. */
+    --sidebar-width: 20rem;
+  }
+}

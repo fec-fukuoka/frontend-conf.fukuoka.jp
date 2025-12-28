@@ -1,0 +1,131 @@
+/*
+----------------------------------------------------------------------------
+Element styles.
+----------------------------------------------------------------------------
+*/
+
+html {
+  /* Zoom root font size on high density screens (e.g. 2K, 4K), but not to the extent that the additional real estate can't be utilised. */
+  @media (width >= 160em) {
+    font-size: var(--base-font-size-2k);
+  }
+
+  @media (width >= 240em) {
+    font-size: var(--base-font-size-4k);
+  }
+
+  font-size: var(--base-font-size);
+}
+
+body {
+  font-family: var(--base-font-family);
+  font-optical-sizing: auto;
+  font-size: var(--font-size-body);
+  -webkit-font-smoothing: antialiased; /* https://www.joshwcomeau.com/css/custom-css-reset/#four-improve-text-rendering-5 */
+  line-height: var(--base-line-height);
+}
+
+article {
+  font-feature-settings: 'pnum', 'lnum', 'liga';
+}
+
+:where(h1, h2, h3, h4, h5, h6, p, th, td, li) {
+  color: var(--base-text);
+  margin-block: 0;
+  padding-block: 0;
+  text-wrap: pretty;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings: 'GRAD' 0;
+  font-optical-sizing: auto;
+  font-feature-settings: 'palt', 'lnum', 'liga';
+}
+
+.h--xl {
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-xl);
+  margin-block-end: var(--gutter-xl);
+}
+
+:where(h1, .h--1) {
+  font: 900 var(--font-size-h1)/var(--line-height-h1) var(--base-font-family);
+}
+
+:where(h2, .h--2) {
+  font: 700 var(--font-size-h2)/var(--line-height-h2) var(--base-font-family);
+}
+
+:where(h3, .h--3) {
+  font: 600 var(--font-size-h3)/var(--line-height-h3) var(--base-font-family);
+}
+
+:where(h4, .h--4) {
+  font: 500 var(--font-size-h4)/var(--line-height-h4) var(--base-font-family);
+}
+
+:where(h5, .h--5) {
+  font: 400 var(--font-size-h5)/var(--line-height-h5) var(--base-font-family);
+}
+
+:where(h6, .h--6) {
+  font: 400 var(--font-size-body)/var(--line-height-body)
+    var(--base-font-family);
+}
+
+/*
+----------------------------------------------------------------------------
+Margins on other prose elements.
+----------------------------------------------------------------------------
+*/
+:where(p, :is(ul, ol):not([class])) {
+  margin-block-end: var(--gutter-xs);
+}
+
+:where(p:not(.hero-section p, aside p)) {
+  margin-block-start: var(--gutter-m);
+}
+
+/*
+----------------------------------------------------------------------------
+Validation styles.
+----------------------------------------------------------------------------
+*/
+.error {
+  color: var(--color-error-medium);
+}
+
+.success {
+  color: var(--color-success-medium);
+}
+
+/*
+----------------------------------------------------------------------------
+Miscellaneous styles.
+----------------------------------------------------------------------------
+*/
+:where(:is(p, li):not([class]), dd, small) {
+  max-inline-size: var(--type-max-line-length);
+}
+
+:is(button, input, select, textarea, datalist, datalist > option) {
+  font: inherit;
+  line-height: 1;
+}
+
+:is(caption, th, td) {
+  font-weight: normal;
+  text-align: start;
+}
+
+address {
+  font-style: normal;
+}
+
+small {
+  font-size: var(--font-size-s);
+}
+
+code {
+  font-family: var(--base-font-family-cartograph);
+  font-optical-sizing: auto;
+}

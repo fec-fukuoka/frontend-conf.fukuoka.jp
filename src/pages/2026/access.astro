@@ -1,0 +1,67 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { getLangFromRequest, useTranslations } from '../../i18n/utils';
+import { getEventByYear } from '../../data/events';
+
+const lang = getLangFromRequest(Astro.request, Astro.url);
+const t = useTranslations(lang);
+const event = getEventByYear(2026);
+
+if (!event) {
+  return Astro.redirect('/404');
+}
+
+const eventVenue = lang === 'ja' ? event.venue : event.venueEn;
+---
+
+<PageLayout title={t('access.title')} lang={lang}>
+  <div class="container">
+    <h1>{t('access.title')}</h1>
+
+    <section class="access-section">
+      <h2>{t('access.venue')}</h2>
+      <p class="venue-name">{eventVenue}</p>
+      <p class="venue-note">
+        {t('access.detailsLater')}
+      </p>
+    </section>
+
+    <section class="access-section">
+      <h2>{t('access.publicTransport')}</h2>
+      <div class="access-methods">
+        <div class="method">
+          <h3>{t('access.subway')}</h3>
+          <p>{t('access.detailsLater')}</p>
+        </div>
+        <div class="method">
+          <h3>{t('access.bus')}</h3>
+          <p>{t('access.detailsLater')}</p>
+        </div>
+        {
+          lang === 'ja' && (
+            <div class="method">
+              <h3>{t('access.jr')}</h3>
+              <p>{t('access.detailsLater')}</p>
+            </div>
+          )
+        }
+      </div>
+    </section>
+
+    <section class="access-section">
+      <h2>{t('access.byCar')}</h2>
+      <p>{t('access.detailsLater')}</p>
+    </section>
+
+    {
+      lang === 'ja' && (
+        <section class="access-section">
+          <h2>{t('access.map')}</h2>
+          <div class="map-placeholder">
+            <p>{t('access.mapLater')}</p>
+          </div>
+        </section>
+      )
+    }
+  </div>
+</PageLayout>
