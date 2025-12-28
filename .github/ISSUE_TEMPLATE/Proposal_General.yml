@@ -84,7 +84,6 @@ body:
       options:
         - ja
         - en
-        - ja/en
     validations:
       required: true
 
