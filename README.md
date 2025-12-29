@@ -13,14 +13,14 @@
 <table>
 <tr>
 <td align="center" width="50%">
-<a href="https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/issues/new?assignees=&labels=2026-proposal%3Aguest&projects=&template=Proposal_ゲスト_Guest.yml&title=%5BGuest%5D+">
+<a href="https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/issues/new?template=Proposal_Guest.yml">
 <img src="https://img.shields.io/badge/Proposal_ゲスト-0E8A16?style=for-the-badge&logo=github&logoColor=white" alt="ゲストスピーカー" />
 </a>
 <br/>
 <sub>ゲストスピーカーの方はこちら</sub>
 </td>
 <td align="center" width="50%">
-<a href="https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/issues/new?assignees=&labels=2026-proposal%3Ageneral&projects=&template=Proposal_一般_General.yml&title=%5BGeneral%5D+">
+<a href="https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/issues/new?template=Proposal_General.yml">
 <img src="https://img.shields.io/badge/Proposal_一般-1D76DB?style=for-the-badge&logo=github&logoColor=white" alt="一般プロポーザル" />
 </a>
 <br/>
