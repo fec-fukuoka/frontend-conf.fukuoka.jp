@@ -30,7 +30,7 @@
 </table>
 </div>
 
-詳しくは [Wiki の CFP ページ](https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/wiki/Call-for-Proposals) をご覧ください。
+詳しくは [Wiki の CFP ページ](https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/wiki/Call-for-Proposals-Workflow) をご覧ください。
 
 ## Contact
 
