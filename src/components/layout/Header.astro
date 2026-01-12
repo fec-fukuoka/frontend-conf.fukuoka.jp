@@ -12,6 +12,25 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
+<style>
+  header {
+    .container {
+      padding: 1rem;
+    }
+
+    nav {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 1rem;
+
+      .nav-menu {
+        display: grid;
+        grid-auto-flow: column;
+      }
+    }
+  }
+</style>
+
 <header>
   <div class="container">
     <nav>
