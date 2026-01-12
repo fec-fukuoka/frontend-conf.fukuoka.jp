@@ -3,6 +3,10 @@
   publish = "dist"
 
 [[redirects]]
+  from = "/"
+  to = "/2026/"
+  status = 302
+[[redirects]]
   from = "/2019/*"
   to = "https://2019.frontend-conf.fukuoka.jp/:splat"
   status = 301
