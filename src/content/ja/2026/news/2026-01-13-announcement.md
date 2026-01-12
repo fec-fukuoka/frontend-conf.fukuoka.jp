@@ -49,7 +49,7 @@ draft: false
 
 最新情報は以下でお知らせします。
 
-- [本ウェブサイト](https://frontend-conf.fukuoka.jp/)
+- [本ウェブサイト](https://frontend-conf.fukuoka.jp/2026/)
 - [X: @fec_fukuoka](https://x.com/fec_fukuoka) - 最新情報
 - [connpass](https://fec-fukuoka.connpass.com/) - イベント参加登録
 
