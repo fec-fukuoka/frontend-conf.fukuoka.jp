@@ -1,5 +1,4 @@
 export const navigation = [
-  { path: "/", labelKey: "nav.home" as const, external: false },
   {
     path: "/2026/speakers",
     labelKey: "nav.speakers" as const,

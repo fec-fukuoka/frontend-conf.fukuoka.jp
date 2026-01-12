@@ -47,8 +47,9 @@ const sortedSpeakers = speakers.sort((a, b) => {
             <div class="speaker-card__content">
               <h2 class="speaker-card__name">{speaker.data.name}</h2>
               <p class="speaker-card__title">{speaker.data.sessionTitle}</p>
-              <p class="speaker-card__session">{speaker.data.sessionTitle}</p>
-              <span class="speaker-card__category">{speaker.data.track}</span>
+              <span class="speaker-card__category">
+                {speaker.data.sessionCategory}
+              </span>
             </div>
           </a>
         ))
@@ -58,20 +59,6 @@ const sortedSpeakers = speakers.sort((a, b) => {
 </PageLayout>
 
 <style>
-  .page-title {
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    font-weight: 300;
-    letter-spacing: -0.02em;
-    color: var(--color-text-primary);
-    margin: 0 0 1rem 0;
-  }
-
-  .page-description {
-    font-size: 1.063rem;
-    color: var(--color-text-secondary);
-    margin-block-end: 4rem;
-  }
-
   @layer components {
     .speakers-grid {
       container-type: inline-size;
@@ -148,40 +135,23 @@ const sortedSpeakers = speakers.sort((a, b) => {
     }
 
     .speaker-card__name {
-      font-size: 1.125rem;
-      font-weight: 500;
-      color: var(--color-text-primary);
       margin: 0;
-      letter-spacing: -0.01em;
     }
 
     .speaker-card__title {
-      font-size: 0.875rem;
-      font-weight: 400;
       color: var(--color-text-secondary);
       margin: 0;
-    }
-
-    .speaker-card__session {
-      font-size: 0.813rem;
-      font-weight: 400;
-      color: var(--color-text-tertiary);
-      margin-block-start: 0.5rem;
-      line-height: 1.5;
     }
 
     .speaker-card__category {
       display: inline-flex;
       align-items: center;
       padding: 0.25rem 0.875rem;
+      width: fit-content;
       background: var(--color-surface-elevated);
       color: var(--color-text-secondary);
       border: 1px solid var(--color-border-subtle);
       border-radius: 100px;
-      font-size: 0.688rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
       margin-block-start: 0.75rem;
     }
 

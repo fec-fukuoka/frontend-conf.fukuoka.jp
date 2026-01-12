@@ -168,7 +168,7 @@ const {
       display: grid;
       grid-template: auto / 1fr;
       place-items: center;
-      animation: fade-in-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s backwards;
+      animation: fade-in-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
     }
 
     @keyframes fade-in-up {
@@ -188,7 +188,6 @@ const {
 
     .hero__title {
       margin-block: 2rem;
-      font-weight: 700;
       color: var(--color-text-primary);
       text-align: center;
       animation: fade-in-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s backwards;
@@ -201,7 +200,6 @@ const {
       align-items: center;
       gap: 3rem;
       margin-block-end: 4rem;
-      flex-wrap: wrap;
       animation: fade-in-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s backwards;
     }
 
@@ -212,18 +210,13 @@ const {
     }
 
     .hero__detail-label {
-      font-size: 0.75rem;
-      font-weight: 500;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--color-text-tertiary);
     }
 
     .hero__detail-value {
-      font-size: 1.063rem;
-      font-weight: 400;
       color: var(--color-text-primary);
-      letter-spacing: -0.01em;
     }
 
     .hero__detail-divider {
@@ -246,8 +239,6 @@ const {
       background: var(--color-accent-red-subtle);
       color: var(--color-text-primary);
       text-decoration: none;
-      font-size: 0.938rem;
-      font-weight: 500;
       letter-spacing: 0.01em;
       border-radius: 100px;
       border: 1px solid var(--color-accent-red-border);
@@ -305,7 +296,6 @@ const {
       margin-inline-start: 2rem;
       writing-mode: vertical-rl;
       font-size: 0.75rem;
-      font-weight: 500;
       letter-spacing: 0.3em;
       text-transform: uppercase;
       color: var(--color-text-quaternary);
@@ -348,7 +338,6 @@ const {
 
       .hero__button {
         padding: 1rem 2rem;
-        font-size: 0.875rem;
       }
     }
 
