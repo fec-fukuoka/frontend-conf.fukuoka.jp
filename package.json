@@ -27,7 +27,6 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.6",
-    "@astrojs/cloudflare": "^12.6.12",
     "@astrojs/rss": "^4.0.14",
     "@astrojs/sitemap": "^3.6.0",
     "astro": "^5.16.6",
@@ -48,7 +47,6 @@
     "prettier-plugin-astro": "^0.14.1",
     "textlint": "^15.5.0",
     "textlint-rule-preset-ja-technical-writing": "^12.0.2",
-    "typescript-eslint": "^8.50.1",
-    "wrangler": "^4.54.0"
+    "typescript-eslint": "^8.50.1"
   }
 }

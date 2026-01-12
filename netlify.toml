@@ -1,0 +1,14 @@
+[build]
+  command = "pnpm build"
+  publish = "dist"
+
+[[redirects]]
+  from = "/2019/*"
+  to = "https://2019.frontend-conf.fukuoka.jp/:splat"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/2018/*"
+  to = "https://2018.frontend-conf.fukuoka.jp/:splat"
+  status = 301
+  force = true
