@@ -168,10 +168,10 @@ body:
     attributes:
       label: セッションの録画・録音が行われ、後日公開される可能性があることを了承します / I agree with the session may be recorded and published later
       options:
-        - Yes
-        - No
-      validations:
-        required: true
+        - "Yes"
+        - "No"
+    validations:
+      required: true
 
   - type: textarea
     id: special-requirements
