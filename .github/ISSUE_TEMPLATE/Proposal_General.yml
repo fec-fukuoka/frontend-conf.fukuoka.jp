@@ -45,7 +45,7 @@ body:
   - type: input
     id: speaker-name-en
     attributes:
-      label: 登壇者名（英語表記） / Speaker Name (English)
+      label: 登壇者名（英語） / Speaker Name (English)
       description: ローマ字表記またはハンドルネーム / Roman alphabet or handle name.
       placeholder: "例: Taro Yamada / Example: Taro Yamada"
     validations:
