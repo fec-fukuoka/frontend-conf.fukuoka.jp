@@ -1,5 +1,6 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
+import sessionCategoriesData from "./data/session-categories.json";
 
 // スピーカーコレクション
 const speakers = defineCollection({
@@ -9,20 +10,9 @@ const speakers = defineCollection({
     nameEn: z.string().optional(),
     image: z.string().optional(),
     sessionTitle: z.string(),
-    sessionCategory: z.enum([
-      "CSS",
-      "Accessibility",
-      "Performance",
-      "ECMAScript/Web API",
-      "Server-side JS",
-      "Privacy&Security",
-      "FE Ecosystem/Tooling",
-      "Testing",
-      "Design Engineering",
-      "Architecture",
-      "Browsers",
-      "Web Standards",
-    ]),
+    sessionCategory: z.enum(
+      sessionCategoriesData.categories as [string, ...string[]]
+    ),
     language: z.enum(["ja", "en"]),
     track: z.enum(["track-a", "track-b", "track-c", "sponsor", "N/A"]),
     startTime: z.string(), // "10:00"

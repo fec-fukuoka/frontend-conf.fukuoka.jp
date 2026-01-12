@@ -91,8 +91,21 @@ jobs:
           TWITTER=$(extract_field "Twitter/X")
           SESSION_TITLE=$(extract_field "セッションタイトル / Session Title")
           SESSION_CATEGORY=$(extract_field "セッションカテゴリー / Session Category")
-          LANGUAGE=$(extract_field "登壇言語 / Presentation Language")
+          LANGUAGE_RAW=$(extract_field "登壇言語 / Presentation Language")
           SESSION_SUMMARY=$(extract_field "セッション概要 / Session Summary")
+
+          # Convert language display value to code for frontmatter
+          case "$LANGUAGE_RAW" in
+            "日本語 / Japanese")
+              LANGUAGE="ja"
+              ;;
+            "英語 / English")
+              LANGUAGE="en"
+              ;;
+            *)
+              LANGUAGE="ja"  # Default to Japanese
+              ;;
+          esac
 
           # Auto-capture GitHub username and avatar from issue author
           GITHUB_HANDLE="${ISSUE_AUTHOR}"

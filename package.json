@@ -23,6 +23,8 @@
     "lint": "pnpm run typecheck && pnpm run lint:eslint && pnpm run lint:markdown && pnpm run lint:text",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "sync:categories": "node scripts/sync-categories.js",
+    "check:categories": "node scripts/check-categories-sync.js",
     "prepare": "bash scripts/setup-hooks.sh"
   },
   "dependencies": {

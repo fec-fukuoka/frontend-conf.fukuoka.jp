@@ -1,25 +1,53 @@
-name: Proposal_General
-description: 一般公募のセッションプロポーザル
-title: "[General] Title of Your Session"
+name: "一般公募プロポーザル / General Proposal"
+description: "Frontend Conf Fukuoka 2026 一般公募セッションのプロポーザル提出フォーム / Proposal submission form for Frontend Conf Fukuoka 2026 open call sessions"
+title: "[General] "
 labels: ["2026-proposal:general"]
 body:
+  # ========================================
+  # イントロダクション / Introduction
+  # ========================================
   - type: markdown
     attributes:
       value: |
-        一般公募用プロポーザル提出フォーム
+        ## 📝 Frontend Conf Fukuoka 2026 プロポーザル提出
+
+        ### プロポーザル提出について / About Proposal Submission
+
+        Frontend Conf Fukuoka 2026 へのプロポーザル提出ありがとうございます！
+        このフォームは、一般公募セッションのプロポーザル提出用です。
+
+        Thank you for submitting a proposal to Frontend Conf Fukuoka 2026!
+        This form is for open call session proposals.
+
+        ### 審査プロセス / Review Process
+
+        See: [プロポーザルワークフロー](https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/wiki/Call-for-Proposals-Workflow)
+
+        ---
+
+  # ========================================
+  # 登壇者情報 / Speaker Information
+  # ========================================
+  - type: markdown
+    attributes:
+      value: |
+        ## 👤 登壇者情報 / Speaker Information
+
   - type: input
     id: speaker-name
     attributes:
       label: 登壇者名 / Speaker Name
-      description: ハンドルネームやニックネームでも可 / Can be a handle or nickname
+      description: フルネームまたはハンドルネーム / Full name or handle name
+      placeholder: "例: 山田 太郎 / Example: Taro Yamada"
     validations:
       required: true
 
   - type: input
     id: speaker-name-en
     attributes:
-      label: 登壇者名（英語） / Speaker Name (English)
-      description: ローマ字表記 / Roman alphabet notation. ハンドルネームやニックネームでも可 / Can be a handle name or nickname
+      label: 登壇者名（英語表記） / Speaker Name (English)
+      description: ローマ字表記またはハンドルネーム。ウェブサイトとセッション紹介に使用します / Roman alphabet or handle name. Will be used on website and session introduction
+      placeholder: "例: Taro Yamada / Example: Taro Yamada"
     validations:
       required: true
 
@@ -27,15 +55,30 @@ body:
     id: bio
     attributes:
       label: プロフィール / Bio
-      description: 登壇者のプロフィール（300文字以内） / Your Bio (max 300 characters)
+      description: |
+        あなたの自身について教えてください（日本語・英語どちらでも可、300文字以内）
+        ウェブサイトに掲載されます。
+
+        Tell us about yourself (Japanese or English, max 300 characters).
+        Will be published on the website.
     validations:
       required: true
 
   - type: input
     id: twitter
     attributes:
-      label: Twitter/X
-      description: TwitterアカウントのURL（任意） / Twitter account URL (optional)
+      label: X (Twitter)
+      description: XアカウントのURL（任意）/ X account URL (optional)
+      placeholder: "https://x.com/username"
+    validations:
+      required: false
+
+  - type: input
+    id: github
+    attributes:
+      label: GitHub
+      description: GitHubアカウントのURL（任意）/ GitHub account URL (optional)
+      placeholder: "https://github.com/username"
     validations:
       required: false
 
@@ -43,15 +86,25 @@ body:
     id: website
     attributes:
       label: ウェブサイト / Website
-      description: 個人サイトやブログのURL（任意） / Personal site or blog URL (optional)
+      description: 個人サイト、ブログ、ポートフォリオなど（任意）/ Personal site, blog, or portfolio (optional)
+      placeholder: "https://example.com"
     validations:
       required: false
+
+  # ========================================
+  # セッション情報 / Session Information
+  # ========================================
+  - type: markdown
+    attributes:
+      value: |
+        ## 💡 セッション情報 / Session Information
 
   - type: input
     id: session-title
     attributes:
       label: セッションタイトル / Session Title
-      description: セッションタイトル / Title of the proposed session
+      description: |
+        60文字以内推奨
     validations:
       required: true
 
@@ -59,20 +112,24 @@ body:
     id: session-category
     attributes:
       label: セッションカテゴリー / Session Category
-      description: セッションの内容・専門を示すカテゴリーを選択してください / Please select the most appropriate category for your session
+      description: |
+        セッションの主なトピックを1つ選択してください
+        Select the primary topic of your session
       options:
         - CSS
         - Accessibility
         - Performance
         - ECMAScript/Web API
         - Server-side JS
-        - Privacy&Security
+        - Privacy & Security
         - FE Ecosystem/Tooling
         - Testing
         - Design Engineering
         - Architecture
         - Browsers
         - Web Standards
+        - Other / その他
+
     validations:
       required: true
 
@@ -80,10 +137,12 @@ body:
     id: language
     attributes:
       label: 登壇言語 / Presentation Language
-      description: 登壇で使用する言語を選択してください / Please select the language you will use for your presentation
+      description: |
+        セッションで使用する言語を選択してください
+        Select the language you will use for your presentation
       options:
-        - ja
-        - en
+        - 日本語 / Japanese
+        - 英語 / English
     validations:
       required: true
 
@@ -91,27 +150,76 @@ body:
     id: session-summary
     attributes:
       label: セッション概要 / Session Summary
-      description: セッションの内容を説明してください / Please describe the session content
+      description: |
+        セッションの内容を説明してください（500文字以内推奨）/ Describe your session in detail (recommended max 500 characters).
     validations:
       required: true
+
+  # ========================================
+  # 補足情報 / Additional Information
+  # ========================================
+  - type: markdown
+    attributes:
+      value: |
+        ## 📋 補足情報 / Additional Information
+
+  - type: dropdown
+    id: recording-consent
+    attributes:
+      label: セッションの録画・録音が行われ、後日公開される可能性があることを了承します / I agree with the session may be recorded and published later
+      options:
+        - Yes
+        - No
+      validations:
+        required: true
+
+  - type: textarea
+    id: special-requirements
+    attributes:
+      label: 機材・設備要件 / Equipment Requirements
+      description: |
+        特別な機材や設備が必要な場合は記載してください（任意）
+        例: デモ用の追加ディスプレイ、特定のマイク・音響システム、ネットワーク要件など
+
+        If you need special equipment or facilities, please describe them (optional).
+        Examples: Additional displays for demos, specific software, network requirements, etc.
+    validations:
+      required: false
 
   - type: textarea
     id: additional-notes
     attributes:
-      label: 補足事項 / Additional Notes
-      description: その他、運営チームに伝えたいことがあれば記載してください / Any other information you would like to share with the organizing team
+      label: その他の情報 / Other Information
+      description: |
+        運営チームに伝えたいその他の情報があれば記載してください（任意）
+
+        Any other information you would like to share with the organizing team (optional).
     validations:
       required: false
+
+  # ========================================
+  # 確認事項 / Confirmation
+  # ========================================
+  - type: markdown
+    attributes:
+      value: |
+        ## ✅ 確認事項 / Confirmation
+
+        提出前に以下の項目を確認してください。 / Please confirm the following before submission.
 
   - type: checkboxes
     id: terms
     attributes:
-      label: 確認事項 / Confirmation
-      description: 以下を確認してください / Please confirm the following
+      label: 同意事項 / Terms and Conditions
+      description: すべての項目にチェックを入れてください / Please check all items
       options:
         - label: 上記の情報に間違いがないことを確認しました / I have confirmed that the information above is correct
           required: true
-        - label: このプロポーザルが採択された場合、Frontend Conf Fukuoka 2026で登壇することを約束します / I commit to speaking at Frontend Conf Fukuoka 2026 if this proposal is accepted
+        - label: "プロポーザルが採択された場合、Frontend Conf Fukuoka 2026（開催日: 2026年9月12日（土））で登壇することを約束します / I commit to speaking at Frontend Conf Fukuoka 2026 (scheduled for July 2026) if this proposal is accepted"
           required: true
-        - label: プロポーザルの内容がサイトに掲載されることを了承します / I understand that the proposal content will be published on the website
+        - label: プロポーザルの内容（タイトル、概要、登壇者情報）が公式ウェブサイトに掲載されることを了承します / I understand that the proposal content (title, summary, speaker information) will be published on the official website
+          required: true
+        - label: セッションの録画・録音が行われ、後日公開される可能性があることを了承します / I understand that the session may be recorded and published later
+          required: true
+        - label: "[行動規範（Code of Conduct）](https://frontend-conf.fukuoka.jp/code-of-conduct)を読み、遵守することに同意します / I have read and agree to follow the Code of Conduct"
           required: true

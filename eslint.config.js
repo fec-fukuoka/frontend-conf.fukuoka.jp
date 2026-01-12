@@ -36,6 +36,7 @@ export default [
         __filename: "readonly",
         module: "readonly",
         require: "readonly",
+        console: "readonly",
         // Browser globals
         window: "readonly",
         document: "readonly",

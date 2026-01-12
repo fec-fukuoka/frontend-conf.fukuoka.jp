@@ -28,4 +28,17 @@ echo "$STAGED_FILES" | xargs pnpm run format:check -- || {
   exit 1
 }
 
+# Check categories sync if related files are changed
+CATEGORY_FILES=$(echo "$STAGED_FILES" | grep -E '(src/data/session-categories\.json|\.github/ISSUE_TEMPLATE/Proposal_.*\.yml)' || true)
+if [ -n "$CATEGORY_FILES" ]; then
+  echo "📋 Checking session categories sync..."
+  pnpm run check:categories || {
+    echo ""
+    echo "❌ Categories are out of sync!"
+    echo "   Run: pnpm run sync:categories"
+    echo ""
+    exit 1
+  }
+fi
+
 echo "✅ Passed!"
