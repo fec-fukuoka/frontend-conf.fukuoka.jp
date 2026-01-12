@@ -13,7 +13,7 @@ twitter: "response_"
 github: "sakupi01"
 locale: "en"
 year: 2026
-draft: true
+draft: false
 ---
 
 hoghoge
