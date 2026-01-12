@@ -107,7 +107,7 @@ const t = useTranslations(lang);
 <style>
   @layer components {
     .stuck-top {
-      container-type: scroll-state;
+      container-type: inline-size scroll-state;
       position: sticky;
       top: 20px;
       z-index: 1000;
@@ -189,7 +189,6 @@ const t = useTranslations(lang);
       text-decoration: none;
       padding-inline: clamp(0.5rem, 1vw, 1rem);
       font-size: 0.875rem;
-      font-weight: 400;
       letter-spacing: 0.02em;
       transition: color 0.3s ease;
       border-block-end: none;
@@ -218,7 +217,7 @@ const t = useTranslations(lang);
     }
 
     /* Mobile Radial Menu Styles */
-    @media (max-width: 768px) {
+    @container (max-width: 768px) {
       .nav {
         grid-template-columns: auto;
         gap: 0.5rem;
@@ -238,6 +237,7 @@ const t = useTranslations(lang);
         display: flex;
         align-items: center;
         gap: 1rem;
+        --menu-toggle: --menu-toggle;
       }
 
       .nav__mobile-lang {
@@ -247,7 +247,7 @@ const t = useTranslations(lang);
 
       /* Menu toggle button */
       .menu-toggle {
-        anchor-name: menu-toggle;
+        anchor-name: var(--menu-toggle, --menu-toggle);
         --btn-size: 3rem;
         width: var(--btn-size);
         height: var(--btn-size);
@@ -272,7 +272,7 @@ const t = useTranslations(lang);
       }
 
       .menu-items {
-        position-anchor: menu-toggle;
+        position-anchor: var(--menu-toggle, --menu-toggle);
       }
 
       .menu-toggle-icon {
@@ -331,7 +331,7 @@ const t = useTranslations(lang);
 
       /* Menu items radial positioning */
       .menu-item {
-        --total-items: 6;
+        --total-items: 5;
         --start-angle: 210deg;
         --angle-range: 120deg;
         --angle: calc(
@@ -341,14 +341,14 @@ const t = useTranslations(lang);
         --delay: calc(var(--index) * 0.05s);
 
         transform: translateX(calc(cos(var(--angle)) * var(--radius)))
-          translateY(calc(sin(var(--angle) * -1) * var(--radius)));
+          translateY(calc(sin(var(--angle) * -1) * var(--radius))) rotate(0deg);
         opacity: 0;
         transition: all 0.3s var(--delay) cubic-bezier(0.16, 1, 0.3, 1);
       }
 
       .menu-items:not(:popover-open) .menu-item {
         --radius: 0;
-        transform: translateX(0) translateY(0) rotate(45deg);
+        rotate: 45deg;
       }
 
       .menu-items:popover-open .menu-item {
