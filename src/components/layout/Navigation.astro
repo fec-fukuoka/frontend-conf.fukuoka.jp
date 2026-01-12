@@ -107,7 +107,9 @@ const t = useTranslations(lang);
 <style>
   @layer components {
     .stuck-top {
-      container-type: inline-size scroll-state;
+      container-type: scroll-state; /* when scroll-state available */
+      container-type: inline-size; /* when only inline-size available */
+      container-type: inline-size scroll-state; /* when both available */
       position: sticky;
       top: 20px;
       z-index: 1000;
