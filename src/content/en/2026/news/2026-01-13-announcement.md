@@ -51,7 +51,7 @@ We will invite experts from various technical fields to share their deep insight
 
 Stay updated through the following channels:
 
-- [Official Website](https://frontend-conf.fukuoka.jp/)
+- [Official Website](https://frontend-conf.fukuoka.jp/2026/)
 - [X: @fec_fukuoka](https://x.com/fec_fukuoka) - Latest updates
 - [connpass](https://fec-fukuoka.connpass.com/) - Event registration
 
