@@ -35,3 +35,5 @@ fast-fireball/
 .serena/
 .playwright-mcp/
 .wangler/
+# Local Netlify folder
+.netlify
