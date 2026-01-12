@@ -2,7 +2,7 @@
 name: "sakupi"
 nameEn: "sakupi"
 image: "https://avatars.githubusercontent.com/u/74392116?v=4"
-sessionTitle: "test title"
+sessionTitle: "I wanted to change the title!! "
 sessionCategory: "Other / その他"
 language: "ja"
 track: "N/A"
