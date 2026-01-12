@@ -7,7 +7,4 @@ export default defineConfig({
   output: "server",
   adapter: netlify(),
   integrations: [sitemap()],
-  build: {
-    inlineStylesheets: "always",
-  },
 });
