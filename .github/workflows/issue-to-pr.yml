@@ -163,7 +163,7 @@ jobs:
           github: "${GITHUB_HANDLE}"
           locale: "ja"
           year: ${PROPOSAL_YEAR}
-          draft: true
+          draft: fakse
           ---
 
           ${SESSION_SUMMARY}
@@ -187,7 +187,7 @@ jobs:
           github: "${GITHUB_HANDLE}"
           locale: "en"
           year: ${PROPOSAL_YEAR}
-          draft: true
+          draft: fakse
           ---
 
           ${SESSION_SUMMARY}
