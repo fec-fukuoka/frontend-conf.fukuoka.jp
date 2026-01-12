@@ -4,7 +4,7 @@ pubDate: 2026-01-13
 description: "We're excited to announce Frontend Conference Fukuoka 2026, a new conference format dedicated to deeply exploring the future of frontend development."
 locale: "en"
 year: 2026
-draft: true
+draft: false
 ---
 
 We're thrilled to officially launch the website for **Frontend Conference Fukuoka 2026**!
