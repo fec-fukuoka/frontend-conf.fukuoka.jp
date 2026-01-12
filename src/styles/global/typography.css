@@ -23,6 +23,7 @@ body {
   font-size: var(--font-size-body);
   -webkit-font-smoothing: antialiased; /* https://www.joshwcomeau.com/css/custom-css-reset/#four-improve-text-rendering-5 */
   line-height: var(--base-line-height);
+  color: var(--color-text-primary);
 }
 
 article {
@@ -30,7 +31,7 @@ article {
 }
 
 :where(h1, h2, h3, h4, h5, h6, p, th, td, li) {
-  color: var(--base-text);
+  color: light-dark(var(--color-base-darkest), var(--color-base-lightest));
   margin-block: 0;
   padding-block: 0;
   text-wrap: pretty;
@@ -49,27 +50,33 @@ article {
 
 :where(h1, .h--1) {
   font: 900 var(--font-size-h1)/var(--line-height-h1) var(--base-font-family);
+  margin-block: var(--gutter-l);
 }
 
 :where(h2, .h--2) {
   font: 700 var(--font-size-h2)/var(--line-height-h2) var(--base-font-family);
+  margin-block: var(--gutter-m);
 }
 
 :where(h3, .h--3) {
   font: 600 var(--font-size-h3)/var(--line-height-h3) var(--base-font-family);
+  margin-block: var(--gutter-m);
 }
 
 :where(h4, .h--4) {
   font: 500 var(--font-size-h4)/var(--line-height-h4) var(--base-font-family);
+  margin-block: var(--gutter-s);
 }
 
 :where(h5, .h--5) {
   font: 400 var(--font-size-h5)/var(--line-height-h5) var(--base-font-family);
+  margin-block: var(--gutter-xs);
 }
 
 :where(h6, .h--6) {
   font: 400 var(--font-size-body)/var(--line-height-body)
     var(--base-font-family);
+  margin-block: var(--gutter-xs);
 }
 
 /*

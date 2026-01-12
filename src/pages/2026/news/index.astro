@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import PageLayout from "../../../layouts/PageLayout.astro";
+import NewsCard from "../../../components/cards/NewsCard.astro";
 import { getLangFromRequest, useTranslations } from "../../../i18n/utils";
 
 const lang = getLangFromRequest(Astro.request, Astro.url);
@@ -23,27 +24,36 @@ const sortedNews = newsItems.sort(
   lang={lang}
 >
   <div class="container">
-    <h1>{t("news.title")}</h1>
-    <p class="description">{t("news.description")}</p>
+    <h1 class="page-title">{t("news.title")}</h1>
 
     <div class="news-list">
       {
         sortedNews.map((item) => (
-          <article class="news-item">
-            <a
-              href={`/2026/news/${item.id.replace(/^.*\//, "").replace(".md", "")}?hl=${lang}`}
-            >
-              <time datetime={item.data.pubDate.toISOString()}>
-                {item.data.pubDate.toLocaleDateString(
-                  lang === "ja" ? "ja-JP" : "en-US"
-                )}
-              </time>
-              <h2>{item.data.title}</h2>
-              <p>{item.data.description}</p>
-            </a>
-          </article>
+          <NewsCard
+            id={item.id.replace(/^.*\//, "").replace(".md", "")}
+            title={item.data.title}
+            description={item.data.description}
+            pubDate={item.data.pubDate}
+            lang={lang}
+          />
         ))
       }
     </div>
   </div>
 </PageLayout>
+
+<style>
+  .page-title {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    color: var(--color-text-primary);
+    margin: 0 0 1rem 0;
+  }
+
+  .page-description {
+    font-size: 1.063rem;
+    color: var(--color-text-secondary);
+    margin-block-end: 4rem;
+  }
+</style>

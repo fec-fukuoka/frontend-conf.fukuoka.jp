@@ -1,19 +1,50 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
-import Header from "../components/layout/Header.astro";
+import Navigation from "../components/layout/Navigation.astro";
 import Footer from "../components/layout/Footer.astro";
+import Hero from "../components/sections/Hero.astro";
+import { getEventByYear } from "../data/events";
+import { useTranslations } from "../i18n/utils";
 
 export interface Props {
   title?: string;
   description?: string;
   lang?: "ja" | "en";
+  isHome?: boolean;
 }
 
-const { title, description, lang = "ja" } = Astro.props;
+const { title, description, lang = "ja", isHome = false } = Astro.props;
+
+let eventDate: string | undefined;
+let eventVenue: string | undefined;
+let ticketUrl: string | undefined;
+
+if (isHome) {
+  const event = getEventByYear(2026);
+  if (!event) {
+    return Astro.redirect("/404");
+  }
+  eventDate = lang === "ja" ? event.date : event.dateEn;
+  eventVenue = lang === "ja" ? event.venue : event.venueEn;
+  ticketUrl = event.ticketUrl || "#tickets";
+}
+
+const t = useTranslations(lang);
 ---
 
 <BaseLayout title={title} description={description} lang={lang}>
-  <Header />
+  {
+    isHome && (
+      <Hero
+        year="2026"
+        date={eventDate}
+        venue={eventVenue}
+        ctaText={t("button.ticket")}
+        ctaHref={ticketUrl}
+      />
+    )
+  }
+  <Navigation />
   <main>
     <slot />
   </main>

@@ -2,6 +2,7 @@
 import PageLayout from "../../layouts/PageLayout.astro";
 import { getLangFromRequest, useTranslations } from "../../i18n/utils";
 import { getEventByYear } from "../../data/events";
+import { site } from "../../data/site";
 
 const lang = getLangFromRequest(Astro.request, Astro.url);
 const t = useTranslations(lang);
@@ -12,6 +13,11 @@ if (!event) {
 }
 
 const eventVenue = lang === "ja" ? event.venue : event.venueEn;
+const venueDetails = lang === "ja" ? site.venueDetails : site.venueDetailsEn;
+const address = lang === "ja" ? site.address : site.addressEn;
+const jrStation =
+  lang === "ja" ? site.access.jr.station : site.access.jr.stationEn;
+const busStop = lang === "ja" ? site.access.bus.stop : site.access.bus.stopEn;
 ---
 
 <PageLayout title={t("access.title")} lang={lang}>
@@ -21,47 +27,101 @@ const eventVenue = lang === "ja" ? event.venue : event.venueEn;
     <section class="access-section">
       <h2>{t("access.venue")}</h2>
       <p class="venue-name">{eventVenue}</p>
-      <p class="venue-note">
-        {t("access.detailsLater")}
-      </p>
+      <p class="venue-details">{venueDetails}</p>
+      <p class="venue-address">{address}</p>
     </section>
 
     <section class="access-section">
       <h2>{t("access.publicTransport")}</h2>
       <div class="access-methods">
         <div class="method">
-          <h3>{t("access.subway")}</h3>
-          <p>{t("access.detailsLater")}</p>
+          <h3>{t("access.jr")}</h3>
+          <p class="station-name">{jrStation}</p>
+          <p class="walking-time">{t("access.jr.walkingTime")}</p>
+          <p class="directions">{t("access.jr.directions")}</p>
         </div>
         <div class="method">
           <h3>{t("access.bus")}</h3>
-          <p>{t("access.detailsLater")}</p>
+          <p class="station-name">{busStop}</p>
+          <p class="walking-time">{t("access.bus.walkingTime")}</p>
+          <p class="directions">{t("access.bus.directions")}</p>
         </div>
-        {
-          lang === "ja" && (
-            <div class="method">
-              <h3>{t("access.jr")}</h3>
-              <p>{t("access.detailsLater")}</p>
-            </div>
-          )
-        }
       </div>
     </section>
 
     <section class="access-section">
-      <h2>{t("access.byCar")}</h2>
-      <p>{t("access.detailsLater")}</p>
+      <h2>{t("access.map")}</h2>
+      <div class="map-container">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2006.255207421882!2d130.44379323723248!3d33.6710390760747!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35418f33bfc9a7db%3A0x259a1ac0f928064b!2z5Lmd5bee55Sj5qWt5aSn5a2m5oOF5aCx56eR5a2m6YOo!5e0!3m2!1sen!2sjp!4v1768188441651!5m2!1sen!2sjp"
+          width="600"
+          height="450"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
     </section>
-
-    {
-      lang === "ja" && (
-        <section class="access-section">
-          <h2>{t("access.map")}</h2>
-          <div class="map-placeholder">
-            <p>{t("access.mapLater")}</p>
-          </div>
-        </section>
-      )
-    }
   </div>
 </PageLayout>
+
+<style>
+  .access-section {
+    margin-block-end: 3rem;
+  }
+
+  .venue-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-block-end: 0.5rem;
+  }
+
+  .venue-details,
+  .venue-address {
+    color: var(--color-text-secondary);
+    margin-block-end: 0.5rem;
+  }
+
+  .access-methods {
+    display: grid;
+    gap: 2rem;
+    margin-block-start: 1.5rem;
+  }
+
+  .method h3 {
+    font-size: 1.25rem;
+    margin-block-end: 1rem;
+  }
+
+  .station-name {
+    font-weight: 600;
+    margin-block-end: 0.5rem;
+  }
+
+  .walking-time {
+    color: var(--color-text-secondary);
+    margin-block-end: 0.5rem;
+  }
+
+  .directions {
+    line-height: 1.6;
+  }
+
+  .map-container {
+    margin-block-start: 1.5rem;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .map-container iframe {
+    width: 100%;
+    height: 450px;
+    border: 0;
+  }
+
+  @media (min-width: 768px) {
+    .access-methods {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

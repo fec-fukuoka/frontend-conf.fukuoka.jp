@@ -24,7 +24,7 @@ const currentYear = new Date().getFullYear();
               <a
                 href={site.social.twitter}
                 target="_blank"
-                rel="noopener noreferrer">Twitter</a
+                rel="noopener noreferrer">X (Twitter)</a
               >
             </li>
             <li>
@@ -32,6 +32,11 @@ const currentYear = new Date().getFullYear();
                 href={site.social.github}
                 target="_blank"
                 rel="noopener noreferrer">GitHub</a
+              >
+            </li>
+            <li>
+              <a href="/rss.xml" target="_blank" rel="noopener noreferrer"
+                >RSS</a
               >
             </li>
           </ul>
@@ -43,3 +48,56 @@ const currentYear = new Date().getFullYear();
     </div>
   </div>
 </footer>
+
+<style>
+  footer {
+    padding: 3rem 0;
+    margin-block-start: 4rem;
+  }
+
+  .footer-content {
+    display: flex;
+    gap: 4rem;
+    margin-block-end: 2rem;
+    flex-wrap: wrap;
+    margin-inline: auto;
+    max-inline-size: var(--site-max-width);
+  }
+
+  .footer-section h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-block-end: 1rem;
+    color: var(--color-text-primary);
+  }
+
+  .footer-section a {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .footer-section a:hover {
+    color: var(--color-text-primary);
+  }
+
+  .footer-section ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .footer-bottom {
+    padding-block-start: 2rem;
+    border-top: 1px solid var(--color-border-subtle);
+    text-align: center;
+  }
+
+  .footer-bottom p {
+    opacity: 0.7;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+  }
+</style>

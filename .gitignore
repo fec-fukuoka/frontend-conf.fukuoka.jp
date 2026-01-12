@@ -30,3 +30,8 @@ pnpm-debug.log*
 
 # Fast Fireball (temporary directory from create-astro)
 fast-fireball/
+
+# cache
+.serena/
+.playwright-mcp/
+.wangler/

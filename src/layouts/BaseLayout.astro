@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from "astro:transitions";
 import Head from "../components/common/Head.astro";
 import "../styles/frontend-conf.fukuoka.css";
 
@@ -15,6 +16,7 @@ const { title, description, lang = "ja" } = Astro.props;
 <html lang={lang}>
   <head>
     <Head title={title} description={description} lang={lang} />
+    <ClientRouter />
   </head>
   <body class="page">
     <slot />

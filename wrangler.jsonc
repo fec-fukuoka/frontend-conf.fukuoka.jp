@@ -1,0 +1,5 @@
+// Cloudflare Pages configuration
+{
+  "name": "frontend-conf-fukuoka",
+  "pages_build_output_dir": "./dist",
+}

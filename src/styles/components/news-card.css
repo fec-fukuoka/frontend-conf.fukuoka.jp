@@ -1,0 +1,119 @@
+.news-list {
+  container-type: inline-size;
+  container-name: news;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 2rem 0;
+}
+
+/* Refined card with subtle interaction */
+.news-card {
+  container-type: inline-size;
+  container-name: newscard;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.news-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-border-hover);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.news-card:hover::before {
+  opacity: 1;
+}
+
+.news-card__header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-block-end: 1rem;
+  flex-wrap: wrap;
+}
+
+.news-card__date {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-text-tertiary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.news-card__category {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.875rem;
+  background: var(--color-surface-elevated);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 100px;
+  font-size: 0.688rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.news-card__title {
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: var(--color-text-primary);
+  margin: 0 0 0.75rem 0;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  position: relative;
+  z-index: 1;
+}
+
+.news-card__description {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin: 0;
+  display: none;
+  position: relative;
+  z-index: 1;
+}
+
+.news-card__arrow {
+  margin-inline-start: auto;
+  color: var(--color-text-tertiary);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  z-index: 1;
+}
+
+.news-card:hover .news-card__arrow {
+  transform: translateX(4px);
+  color: var(--color-text-secondary);
+}
+
+@container newscard (min-width: 400px) {
+  .news-card__description {
+    display: block;
+  }
+}
+
+@container newscard (min-width: 600px) {
+  .news-card {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .news-card__arrow {
+    grid-column: 2;
+    grid-row: 1 / -1;
+    margin-inline-start: 0;
+  }
+}
+
+@container news (min-width: 900px) {
+  .news-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+}

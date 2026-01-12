@@ -31,6 +31,12 @@
   --chroma-gray: 0.01;
   --chroma-ivory: 0.0054;
 
+  /* FECF specific colors */
+  --color-conf-dark: #161616; /* Base dark background */
+  --color-conf-light: #fafafa; /* Base light text/background */
+  --color-conf-red: #fd2a39; /* Warning, Attention accent */
+  --color-conf-blue: #214cac; /* Notify, Information accent */
+
   /* Colors. */
   --selected-color: oklch(0% 0 var(--hue-selected, 0));
   --color-selected-0: oklch(

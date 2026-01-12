@@ -1,0 +1,38 @@
+/*
+----------------------------------------------------------------------------
+View Transition API custom styles
+----------------------------------------------------------------------------
+*/
+
+/* Default page transition animations */
+::view-transition-old(root) {
+  animation: 200ms cubic-bezier(0.4, 0, 1, 1) both fade-out;
+}
+
+::view-transition-new(root) {
+  animation: 200ms cubic-bezier(0, 0, 0.2, 1) 100ms both fade-in;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+/* Shared element transitions (for images, cards, etc.) */
+::view-transition-old(shared-element),
+::view-transition-new(shared-element) {
+  animation-duration: 300ms;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Prevent layout shift during transitions */
+::view-transition-group(*) {
+  animation-duration: 300ms;
+}

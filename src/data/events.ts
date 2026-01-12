@@ -26,8 +26,8 @@ export const events: Event[] = [
     descriptionEn: "A conference for frontend engineers in Fukuoka, Japan",
     date: "2026年9月12日（土）",
     dateEn: "September 12, 2026 (Sat)",
-    venue: "福岡市内",
-    venueEn: "Fukuoka City",
+    venue: "九州産業大学 12号館",
+    venueEn: "Kyushu Sangyo University, Building 12",
     ticketUrl: "https://example.com/tickets",
     pathJa: "/ja/2026/",
     pathEn: "/en/2026/",
@@ -71,7 +71,7 @@ export function getLatestUpcomingEvent(): Event | undefined {
 export const siteConfig = {
   url: "https://frontend-conf.fukuoka.jp",
   social: {
-    twitter: "https://twitter.com/frontend_fuk",
+    x: "https://x.com/frontend_fuk",
     github: "https://github.com/frontend-conf/fukuoka",
   },
   contact: {

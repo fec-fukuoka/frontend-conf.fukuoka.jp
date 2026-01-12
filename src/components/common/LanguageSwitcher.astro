@@ -12,9 +12,15 @@ const alternatePath = getAlternateUrl(Astro.url, alternateLang);
 
 <div class="language-switcher">
   <a
+    class="nav__link"
     href={alternatePath}
     aria-label={`Switch to ${alternateLang === "ja" ? "日本語" : "English"}`}
   >
     {alternateLang === "ja" ? "日本語" : "English"}
   </a>
 </div>
+
+<style>
+  @layer components {
+  }
+</style>

@@ -1,0 +1,18 @@
+/*
+----------------------------------------------------------------------------
+Links
+----------------------------------------------------------------------------
+*/
+a {
+  color: var(--color-text-secondary);
+  text-decoration-line: none;
+  word-wrap: break-word;
+  transition: all 0.15s linear;
+  padding: 0.05rem 0.1rem;
+  border-block-end: 1px solid var(--link-border);
+
+  &:hover {
+    border-block-end: 1px solid deeppink;
+    color: var(--color-text-primary);
+  }
+}

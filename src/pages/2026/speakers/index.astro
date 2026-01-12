@@ -26,37 +26,195 @@ const sortedSpeakers = speakers.sort((a, b) => {
   lang={lang}
 >
   <div class="container">
-    <h1>{t("speakers.title")}</h1>
-    <p class="description">{t("speakers.description")}</p>
+    <h1 class="page-title">{t("speakers.title")}</h1>
 
     <div class="speakers-grid">
       {
         sortedSpeakers.map((speaker) => (
-          <article class="speaker-card">
-            <a
-              href={`/2026/speakers/${speaker.id.replace(/^.*\//, "").replace(".md", "")}?hl=${lang}`}
-            >
-              {speaker.data.image && (
+          <a
+            href={`/2026/speakers/${speaker.id.replace(/^.*\//, "").replace(".md", "")}?hl=${lang}`}
+            class="speaker-card"
+          >
+            {speaker.data.image && (
+              <div class="speaker-card__image-wrapper">
                 <img
                   src={speaker.data.image}
                   alt={speaker.data.name}
-                  class="speaker-image"
+                  class="speaker-card__image"
                 />
-              )}
-              <div class="speaker-info">
-                <h2>{speaker.data.name}</h2>
-                <p class="session-title">{speaker.data.sessionTitle}</p>
-                <div class="meta">
-                  <span class="track">{speaker.data.track}</span>
-                  <span class="time">
-                    {speaker.data.startTime} - {speaker.data.endTime}
-                  </span>
-                </div>
               </div>
-            </a>
-          </article>
+            )}
+            <div class="speaker-card__content">
+              <h2 class="speaker-card__name">{speaker.data.name}</h2>
+              <p class="speaker-card__title">{speaker.data.sessionTitle}</p>
+              <p class="speaker-card__session">{speaker.data.sessionTitle}</p>
+              <span class="speaker-card__category">{speaker.data.track}</span>
+            </div>
+          </a>
         ))
       }
     </div>
   </div>
 </PageLayout>
+
+<style>
+  .page-title {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    color: var(--color-text-primary);
+    margin: 0 0 1rem 0;
+  }
+
+  .page-description {
+    font-size: 1.063rem;
+    color: var(--color-text-secondary);
+    margin-block-end: 4rem;
+  }
+
+  @layer components {
+    .speakers-grid {
+      container-type: inline-size;
+      container-name: speakers;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+      gap: 2rem;
+      padding: 2rem 0;
+    }
+
+    .speaker-card {
+      container-type: inline-size;
+      container-name: card;
+      background: var(--color-surface-base);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .speaker-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--color-surface-base);
+      opacity: 0;
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 0;
+    }
+
+    .speaker-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--color-border-hover);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    }
+
+    .speaker-card:hover::before {
+      opacity: 1;
+    }
+
+    .speaker-card__image-wrapper {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-block-end: 1rem;
+      background: var(--color-surface-elevated);
+      position: relative;
+      z-index: 1;
+    }
+
+    .speaker-card__image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .speaker-card:hover .speaker-card__image {
+      transform: scale(1.02);
+    }
+
+    .speaker-card__content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .speaker-card__name {
+      font-size: 1.125rem;
+      font-weight: 500;
+      color: var(--color-text-primary);
+      margin: 0;
+      letter-spacing: -0.01em;
+    }
+
+    .speaker-card__title {
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: var(--color-text-secondary);
+      margin: 0;
+    }
+
+    .speaker-card__session {
+      font-size: 0.813rem;
+      font-weight: 400;
+      color: var(--color-text-tertiary);
+      margin-block-start: 0.5rem;
+      line-height: 1.5;
+    }
+
+    .speaker-card__category {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.875rem;
+      background: var(--color-surface-elevated);
+      color: var(--color-text-secondary);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: 100px;
+      font-size: 0.688rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-block-start: 0.75rem;
+    }
+
+    @container card (min-width: 400px) {
+      .speaker-card {
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        gap: 1.5rem;
+        align-items: start;
+      }
+
+      .speaker-card__image-wrapper {
+        margin-block-end: 0;
+      }
+    }
+
+    @container card (min-width: 600px) {
+      .speaker-card {
+        grid-template-columns: 160px 1fr;
+      }
+    }
+
+    @container speakers (min-width: 768px) {
+      .speakers-grid {
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 350px), 1fr));
+      }
+    }
+
+    @container speakers (min-width: 1200px) {
+      .speakers-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem;
+      }
+    }
+  }
+</style>

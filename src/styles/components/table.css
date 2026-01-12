@@ -1,0 +1,41 @@
+/*
+----------------------------------------------------------------------------
+Table
+----------------------------------------------------------------------------
+*/
+table {
+  width: 100%;
+  table-layout: fixed;
+  margin-block-end: 1.5rem;
+  border: 1.5px solid color-mix(in oklch, var(--color-base-light), black 60%);
+  color: var(--color-text-primary);
+  background: var(--color-surface-base);
+}
+
+table th {
+  border-right: 1.5px solid
+    color-mix(in oklch, var(--color-base-light), black 50%);
+  padding: 0.5rem;
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-elevated);
+  word-break: break-all;
+  vertical-align: middle;
+}
+
+table td {
+  border-right: 1.5px solid
+    color-mix(in oklch, var(--color-base-light), black 50%);
+  padding: 0.5rem;
+  word-break: break-all;
+  vertical-align: middle;
+}
+
+table thead tr {
+  border-bottom: 1.5px solid
+    color-mix(in oklch, var(--color-base-light), black 50%);
+  border-radius: 0.25rem;
+}
+
+table tbody tr:last-child {
+  border: none;
+}

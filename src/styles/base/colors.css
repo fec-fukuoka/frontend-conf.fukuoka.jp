@@ -12,48 +12,123 @@ TODO:
 */
 html {
   /**
-   * main theme colours
+   * main theme colours (using conference dark mode)
    */
-  --color-primary-light: var(--color-selected-1);
-  --color-primary-medium: var(--color-selected-2);
-  --color-primary-dark: var(--color-selected-3);
+  --color-primary-light: var(--color-conf-red);
+  --color-primary-medium: var(--color-conf-red);
+  --color-primary-dark: color-mix(in oklch, var(--color-conf-red), black 20%);
 
   /**
-   * base colours
+   * base colours (dark mode)
    */
-  --color-base-lightest: var(--color-ivory-0);
-  --color-base-light: var(--color-ivory-1);
-  --color-base-medium: var(--color-ivory-2);
-  --color-base-dark: var(--color-gray-4);
-  --color-base-darkest: var(--color-gray-5);
-  --color-text: light-dark(var(--color-base-dark), var(--color-base-light));
-  --color-text-reverse: light-dark(
-    var(--color-base-light),
-    var(--color-base-dark)
+  --color-base-lightest: var(--color-conf-light); /* #FAFAFA */
+  --color-base-light: var(--color-conf-light); /* #FAFAFA */
+  --color-base-medium: color-mix(
+    in oklch,
+    var(--color-conf-light),
+    transparent 30%
   );
-  --link-border: light-dark(
-    color-mix(in oklch, var(--color-base-dark), white 50%),
-    color-mix(in oklch, var(--color-base-light), black 30%)
+  --color-base-dark: var(--color-conf-dark); /* #161616 */
+  --color-base-darkest: color-mix(in oklch, var(--color-conf-dark), black 20%);
+
+  /* Dark mode by default */
+  --color-bg: var(--color-conf-dark);
+  --color-text: var(--color-conf-light);
+  --color-text-muted: color-mix(
+    in oklch,
+    var(--color-conf-light),
+    transparent 30%
   );
+  --color-text-reverse: var(--color-conf-dark);
+
+  --link-border: color-mix(in oklch, var(--color-conf-light), transparent 70%);
 
   /**
-   * other accent colours
+   * other accent colours (conference theme)
    */
   --color-success-light: var(--color-green-1);
   --color-success-medium: var(--color-green-2);
   --color-success-dark: var(--color-green-3);
-  --color-expression-light: var(--color-orange-1);
-  --color-expression-medium: var(--color-orange-2);
-  --color-expression-dark: var(--color-orange-3);
+  --color-expression-light: color-mix(
+    in oklch,
+    var(--color-conf-red),
+    white 30%
+  );
+  --color-expression-medium: var(--color-conf-red);
+  --color-expression-dark: color-mix(
+    in oklch,
+    var(--color-conf-red),
+    black 20%
+  );
   --color-code-light: var(--color-violet-2);
   --color-code-dark: var(--color-red-2);
-  --color-notify-light: var(--color-cyan-1);
-  --color-notify-medium: var(--color-cyan-2);
-  --color-notify-dark: var(--color-cyan-3);
+  --color-notify-light: color-mix(in oklch, var(--color-conf-blue), white 30%);
+  --color-notify-medium: var(--color-conf-blue);
+  --color-notify-dark: color-mix(in oklch, var(--color-conf-blue), black 20%);
   --color-memo-light: var(--color-violet-1);
   --color-memo-medium: var(--color-violet-2);
   --color-memo-dark: var(--color-violet-3);
-  --color-focus: var(--color-red-2);
+  --color-focus: var(--color-conf-red);
+
+  --color-surface-base: color-mix(
+    in oklch,
+    var(--color-conf-light),
+    transparent 98%
+  );
+  --color-surface-elevated: color-mix(
+    in oklch,
+    var(--color-conf-light),
+    transparent 96%
+  );
+
+  --color-border-subtle: color-mix(
+    in oklch,
+    var(--color-conf-light),
+    transparent 92%
+  );
+  --color-border-default: color-mix(
+    in oklch,
+    var(--color-conf-light),
+    transparent 85%
+  );
+  --color-border-hover: color-mix(
+    in oklch,
+    var(--color-conf-light),
+    transparent 85%
+  );
+
+  --color-text-primary: var(--color-conf-light);
+  --color-text-secondary: color-mix(
+    in oklch,
+    var(--color-conf-light),
+    transparent 40%
+  );
+  --color-text-tertiary: color-mix(
+    in oklch,
+    var(--color-conf-light),
+    transparent 50%
+  );
+  --color-text-quaternary: color-mix(
+    in oklch,
+    var(--color-conf-light),
+    transparent 60%
+  );
+
+  --color-accent-red-subtle: color-mix(
+    in oklch,
+    var(--color-conf-red),
+    transparent 92%
+  );
+  --color-accent-red-border: color-mix(
+    in oklch,
+    var(--color-conf-red),
+    transparent 70%
+  );
+  --color-accent-red-hover: color-mix(
+    in oklch,
+    var(--color-conf-red),
+    transparent 85%
+  );
 
   /**
    * scrollbar colours

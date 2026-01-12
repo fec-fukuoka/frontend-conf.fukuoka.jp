@@ -1,5 +1,6 @@
 ---
 import { site } from "../../data/site";
+import favicon from "../../assets/Accent_Transparent.svg";
 
 export interface Props {
   title?: string;
@@ -30,6 +31,9 @@ enUrl.searchParams.set("hl", "en");
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="description" content={description} />
 <link rel="canonical" href={canonicalURL} />
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href={favicon.src} />
 
 <!-- Language alternates -->
 <link rel="alternate" hreflang="ja" href={jaUrl} />

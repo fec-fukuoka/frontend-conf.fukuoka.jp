@@ -1,0 +1,79 @@
+/*
+----------------------------------------------------------------------------
+Button Component Styles
+----------------------------------------------------------------------------
+*/
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 100px;
+  border: 2px solid transparent;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/* Primary button */
+.btn--primary {
+  background: var(--color-conf-red, #fd2a39);
+  color: var(--color-conf-light, #fafafa);
+}
+
+.btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px
+    color-mix(in oklch, var(--color-conf-red), transparent 50%);
+}
+
+.btn--primary:active {
+  transform: translateY(0);
+}
+
+/* Secondary button */
+.btn--secondary {
+  background: transparent;
+  color: var(--color-conf-light, #fafafa);
+  border-color: color-mix(in oklch, var(--color-conf-light), transparent 70%);
+}
+
+.btn--secondary:hover {
+  background: color-mix(in oklch, var(--color-conf-light), transparent 95%);
+  border-color: var(--color-conf-light);
+}
+
+/* Info button */
+.btn--info {
+  background: var(--color-conf-blue, #214cac);
+  color: var(--color-conf-light, #fafafa);
+}
+
+.btn--info:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px
+    color-mix(in oklch, var(--color-conf-blue), transparent 50%);
+}
+
+/* Button sizes */
+.btn--small {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+}
+
+.btn--large {
+  padding: 1.5rem 3rem;
+  font-size: 1.125rem;
+}
+
+/* Disabled state */
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}

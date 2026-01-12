@@ -1,0 +1,379 @@
+---
+import logoImage from "../../assets/Accent_Transparent.svg";
+
+export interface Props {
+  year?: string;
+  date?: string;
+  venue?: string;
+  ctaText?: string;
+  ctaHref?: string;
+}
+
+const {
+  year = "2026",
+  date = "Coming Soon",
+  venue = "Fukuoka, Japan",
+  // ctaText = "Get Tickets",
+  // ctaHref = "#tickets",
+} = Astro.props;
+---
+
+<header class="hero" id="hero">
+  <div class="hero__container">
+    <!-- Floating gradient orb -->
+    <div class="hero__gradient-orb" aria-hidden="true"></div>
+
+    <div class="hero__content">
+      <!-- Main logo -->
+      <img
+        src={logoImage.src}
+        alt="Frontend Conference Fukuoka"
+        class="hero__logo"
+        width="300"
+        height="300"
+      />
+
+      <h1 class="hero__title">Frontend Conference Fukuoka {year}</h1>
+
+      <!-- Event details -->
+      <div class="hero__details">
+        <div class="hero__detail">
+          <span class="hero__detail-label">Date</span>
+          <span class="hero__detail-value">{date}</span>
+        </div>
+        <div class="hero__detail-divider" aria-hidden="true"></div>
+        <div class="hero__detail">
+          <span class="hero__detail-label">Venue</span>
+          <a
+            href="https://maps.app.goo.gl/tKUwuUaGuqceny9N6"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><span class="hero__detail-value">{venue}</span></a
+          >
+        </div>
+      </div>
+
+      <!-- TODO: CTA Button -->
+      <!-- <div class="hero__cta">
+        <a href={ctaHref} class="hero__button">
+          <span class="hero__button-text">{ctaText}</span>
+          <svg
+            class="hero__button-arrow"
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M4 10H16M16 10L11 5M16 10L11 15"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+        </a>
+      </div> -->
+    </div>
+
+    <div class="hero__vertical-text">
+      <a href="/">FECF 2026</a>
+      <a href="/2019">FECF 2019</a>
+      <a href="/2018">FECF 2018</a>
+    </div>
+  </div>
+</header>
+
+<style>
+  @layer components {
+    @property --gradient-x {
+      syntax: "<percentage>";
+      initial-value: 50%;
+      inherits: false;
+    }
+
+    @property --gradient-y {
+      syntax: "<percentage>";
+      initial-value: 30%;
+      inherits: false;
+    }
+
+    @property --gradient-rotation {
+      syntax: "<angle>";
+      initial-value: 0deg;
+      inherits: false;
+    }
+
+    /* Hero container */
+    .hero {
+      container-type: inline-size;
+      container-name: hero;
+      position: relative;
+      min-height: 100dvh;
+      display: grid;
+      place-items: center;
+      padding: 2rem;
+      width: 100vw;
+      overflow-x: clip;
+    }
+
+    .hero__container {
+      display: grid;
+      grid-template:
+        "content vertical-text"
+        / 1fr auto;
+      justify-content: space-between;
+      width: 100cqi;
+    }
+
+    /* Floating gradient orb */
+    .hero__gradient-orb {
+      width: 100vh;
+      height: 100vh;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      background: url("/src/assets/gradient.png") no-repeat;
+      background-size: cover;
+      border-radius: 50%;
+      opacity: 0.4;
+      filter: blur(80px);
+      transform: translate(-50%, -50%) rotate(var(--gradient-rotation));
+      pointer-events: none;
+      z-index: 0;
+      animation:
+        float 10s ease-in-out infinite,
+        rotate-gradient 6s linear infinite;
+    }
+
+    @keyframes float {
+      0%,
+      100% {
+        --gradient-y: 30%;
+      }
+      50% {
+        --gradient-y: 40%;
+      }
+    }
+
+    @keyframes rotate-gradient {
+      to {
+        --gradient-rotation: 360deg;
+      }
+    }
+
+    /* Content wrapper */
+    .hero__content {
+      grid-area: content;
+      display: grid;
+      grid-template: auto / 1fr;
+      place-items: center;
+      animation: fade-in-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s backwards;
+    }
+
+    @keyframes fade-in-up {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+    }
+
+    /* Main logo */
+    .hero__logo {
+      width: 50cqi;
+      max-width: 300px;
+      height: auto;
+      animation: fade-in-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s backwards;
+    }
+
+    .hero__title {
+      margin-block: 2rem;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      text-align: center;
+      animation: fade-in-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s backwards;
+    }
+
+    /* Event details */
+    .hero__details {
+      display: grid;
+      grid-auto-flow: column;
+      align-items: center;
+      gap: 3rem;
+      margin-block-end: 4rem;
+      flex-wrap: wrap;
+      animation: fade-in-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s backwards;
+    }
+
+    .hero__detail {
+      display: grid;
+      grid-auto-flow: row;
+      gap: 0.625rem;
+    }
+
+    .hero__detail-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-text-tertiary);
+    }
+
+    .hero__detail-value {
+      font-size: 1.063rem;
+      font-weight: 400;
+      color: var(--color-text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .hero__detail-divider {
+      width: 1px;
+      height: 2.5rem;
+      background: var(--color-border-hover);
+    }
+
+    /* CTA section */
+    .hero__cta {
+      animation: fade-in-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.8s backwards;
+    }
+
+    /* Button - refined interaction */
+    .hero__button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 2rem;
+      background: var(--color-accent-red-subtle);
+      color: var(--color-text-primary);
+      text-decoration: none;
+      font-size: 0.938rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      border-radius: 100px;
+      border: 1px solid var(--color-accent-red-border);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero__button::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--color-accent-red-hover);
+      opacity: 0;
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: -1;
+    }
+
+    .hero__button:hover {
+      transform: translateY(-2px);
+      border-color: color-mix(in oklch, var(--color-conf-red), transparent 50%);
+      box-shadow: 0 8px 32px var(--color-accent-red-hover);
+    }
+
+    .hero__button:hover::before {
+      opacity: 1;
+    }
+
+    .hero__button:active {
+      transform: translateY(0);
+    }
+
+    .hero__button-text {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero__button-arrow {
+      position: relative;
+      z-index: 1;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .hero__button:hover .hero__button-arrow {
+      transform: translateX(4px);
+    }
+
+    /* Vertical text decoration */
+    .hero__vertical-text {
+      grid-area: vertical-text;
+      display: grid;
+      place-items: center;
+      align-content: center;
+      gap: 0.2rem;
+      margin-inline-start: 2rem;
+      writing-mode: vertical-rl;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-text-quaternary);
+      white-space: nowrap;
+      animation: fade-in 2s cubic-bezier(0.16, 1, 0.3, 1) 1.2s backwards;
+
+      a {
+        color: inherit;
+        text-decoration: none;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: var(--color-text-secondary);
+        }
+      }
+    }
+
+    @keyframes fade-in {
+      from {
+        opacity: 0;
+      }
+    }
+
+    @container hero (max-width: 768px) {
+      .hero {
+        padding: 2rem 1.5rem;
+      }
+
+      .hero__container {
+        grid-template:
+          "content" 1fr
+          "vertical-text" auto
+          / 1fr;
+      }
+
+      .hero__details {
+        gap: 2rem;
+        margin-block-end: 3rem;
+      }
+
+      .hero__button {
+        padding: 1rem 2rem;
+        font-size: 0.875rem;
+      }
+    }
+
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+      .hero__gradient-orb {
+        animation: none;
+      }
+
+      .hero__content,
+      .hero__logo,
+      .hero__details,
+      .hero__cta,
+      .hero__vertical-text {
+        animation: none;
+        opacity: 1;
+      }
+
+      .hero__button {
+        transition: none;
+      }
+
+      .hero__button:hover {
+        transform: none;
+      }
+    }
+  }
+</style>

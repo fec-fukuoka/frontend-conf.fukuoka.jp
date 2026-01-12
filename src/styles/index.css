@@ -44,9 +44,9 @@ Forms, components and web components.
 ----------------------------------------------------------------------------
 */
 
-/* @import 'form/index' layer(components) screen;
-@import 'components/index' layer(components) screen;
-@import 'web-components/index' layer(components) screen; */
+/* @import 'form/index' layer(components) screen; */
+@import "components/index.css" layer(components) screen;
+/* @import 'web-components/index' layer(components) screen; */
 
 /*
 ----------------------------------------------------------------------------
