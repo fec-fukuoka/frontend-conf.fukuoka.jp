@@ -4,7 +4,7 @@ pubDate: 2026-01-13
 description: "フロントエンドカンファレンス福岡 2026 の開催が決定しました。未来のフロントエンドと徹底的に向き合う、新しい形のカンファレンスです。"
 locale: "ja"
 year: 2026
-draft: false
+draft: true
 ---
 
 **フロントエンドカンファレンス福岡 2026** の開催正式決定に伴い、公式ウェブサイトをオープンしました！
@@ -37,13 +37,15 @@ draft: false
 
 - **スポンサー募集告知**
   - [【告知】1月13日（火）より、フロントエンドカンファレンス福岡2026のスポンサーを募集開始します！](https://note.com/fec_fukuoka/n/n35e739991608)
-- **スポンサー募集**: 2026年1月13日～3月19日
+- **スポンサー募集期間**: 2026年1月13日～3月19日
   - [スポンサー募集要項](https://docs.google.com/presentation/d/1i7vePglNPltZtGSOBZVaNk1XvYWu9N6FWc6qfmDYWgY/edit?usp=sharing)
 - **スポンサー&プラン確定**：2026年4月末日予定
 - **CFP（登壇者公募）受付開始**: 2026年5月〜2026年6月予定
 - **CFP 採択結果発表**: 2026年6月中予定
 - **チケット販売開始**: 2026年7月予定
 - **カンファレンス当日**: 2026年9月12日（土）
+
+[🗓️ Google カレンダーに追加する](https://calendar.google.com/calendar/u/0?cid=NjA0MTRlMzgwMmYyMjY3NWQ2YmU3MzhjMjExYTNkNWUzYmMwMjQ3ZGNlNTNiMjA1MDBkNjRlOWY2MzEzNjY0YkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t)
 
 ## 最新情報など
 
@@ -53,11 +55,13 @@ draft: false
 - [X: @fec_fukuoka](https://x.com/fec_fukuoka) - 最新情報
 - [connpass](https://fec-fukuoka.connpass.com/) - イベント参加登録
 
-フロントエンドカンファレンス福岡では、オープンな運営プロセスとコミュニケーションを目指して、GitHub を公開可能な範囲でパブリックにし、積極的に活用しています。
+フロントエンドカンファレンス福岡では、オープンな運営プロセスとコミュニケーションを目指して、公開可能な範囲でGitHub をパブリックにしています。
 カンファレンスの運営や、イベントに関するフィードバック・質問などがありましたら、ぜひご活用いただけると幸いです。
 
 - [Wiki](https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/wiki) - プロセス・ポリシーに関する情報
 - [Discussions](https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/discussions) - Q&A・提案・フィードバック・etc
+
+※ オーガナイザ宛へのメンションもご活用ください: [@fec-fukuoka/fecf-admin](https://github.com/orgs/fec-fukuoka/teams/fecf-admin)
 
 ---
 
