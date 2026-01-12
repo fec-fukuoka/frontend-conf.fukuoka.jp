@@ -29,6 +29,7 @@ export const site = {
   social: {
     twitter: "https://x.com/fec_fukuoka",
     github: "https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp",
+    wiki: "https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/wiki",
   },
   contact: {
     email: "contact.fec.fukuoka@gmail.com",
