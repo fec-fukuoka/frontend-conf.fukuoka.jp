@@ -70,7 +70,7 @@ const t = useTranslations(lang);
               "nav.mobile."
             ) as any;
             return (
-              <li class="menu-item" style={`--index: ${index}`}>
+              <li class="item" style={`--index: ${index}`}>
                 {item.external ? (
                   <a
                     href={item.path}
@@ -89,7 +89,7 @@ const t = useTranslations(lang);
             );
           })
         }
-        <li class="menu-item">
+        <li class="item">
           <button
             popovertargetaction="hide"
             popovertarget="menu-items"
@@ -228,7 +228,7 @@ const t = useTranslations(lang);
 
       .nav__home img {
         width: 24px;
-        height: 24px;
+        aspect-ratio: 1/1;
       }
 
       .nav__desktop {
@@ -236,10 +236,10 @@ const t = useTranslations(lang);
       }
 
       .nav__mobile {
+        --btn-size: 3rem;
         display: flex;
         align-items: center;
         gap: 1rem;
-        --menu-toggle: --menu-toggle;
       }
 
       .nav__mobile-lang {
@@ -249,10 +249,9 @@ const t = useTranslations(lang);
 
       /* Menu toggle button */
       .menu-toggle {
-        anchor-name: var(--menu-toggle, --menu-toggle);
-        --btn-size: 3rem;
+        anchor-name: --menu-toggle;
         width: var(--btn-size);
-        height: var(--btn-size);
+        aspect-ratio: 1/1;
         border-radius: 50%;
         background: var(--color-conf-red);
         border: none;
@@ -272,11 +271,6 @@ const t = useTranslations(lang);
           outline-offset: 4px;
         }
       }
-
-      .menu-items {
-        position-anchor: var(--menu-toggle, --menu-toggle);
-      }
-
       .menu-toggle-icon {
         display: flex;
         flex-direction: column;
@@ -313,10 +307,10 @@ const t = useTranslations(lang);
 
       /* Popover menu */
       .menu-items {
-        --btn-size: 3rem;
-        --radius: calc(var(--btn-size) + 4rem);
-
+        position-anchor: --menu-toggle;
         position-area: center;
+        width: var(--btn-size);
+        aspect-ratio: 1/1;
         background: none;
         border: none;
         overflow: visible;
@@ -331,8 +325,8 @@ const t = useTranslations(lang);
         grid-area: 1/1;
       }
 
-      /* Menu items radial positioning */
-      .menu-item {
+      /* Menu items radial positioning - Where the magic happens */
+      .item {
         --total-items: 5;
         --start-angle: 210deg;
         --angle-range: 120deg;
@@ -340,20 +334,22 @@ const t = useTranslations(lang);
           var(--start-angle) + (var(--angle-range) / (var(--total-items) - 1)) *
             var(--index)
         );
-        --delay: calc(var(--index) * 0.05s);
+        --delay: calc(var(--index) * 0.15s);
+        --radius: calc(var(--btn-size) + 3rem);
 
         transform: translateX(calc(cos(var(--angle)) * var(--radius)))
           translateY(calc(sin(var(--angle) * -1) * var(--radius))) rotate(0deg);
         opacity: 0;
-        transition: all 0.3s var(--delay) cubic-bezier(0.16, 1, 0.3, 1);
+        transition: all 0.4s var(--delay) ease;
       }
 
-      .menu-items:not(:popover-open) .menu-item {
+      .menu-items:not(:popover-open) .item {
         --radius: 0;
+        --angle: 0;
         rotate: 45deg;
       }
 
-      .menu-items:popover-open .menu-item {
+      :popover-open .item {
         opacity: 1;
       }
 
@@ -392,14 +388,13 @@ const t = useTranslations(lang);
 
       /* Hidden close button */
       .hidden-close {
+        transition: opacity 0.1s;
+        transition-delay: 1s;
         width: var(--btn-size);
-        height: var(--btn-size);
+        aspect-ratio: 1;
         border: none;
         background: transparent;
         cursor: pointer;
-        opacity: 0;
-        transition: opacity 0.1s;
-        transition-delay: 0.3s;
 
         &:focus-visible {
           outline: 2px solid var(--color-conf-red);
