@@ -46,6 +46,13 @@ enUrl.searchParams.set("hl", "en");
 <meta property="og:title" content={pageTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={ogImage} />
+<meta name="twitter:card" content="summary" />
+<meta
+  property="og:image:alt"
+  content={lang === "ja"
+    ? "FEC Fukuoka - フロントエンドカンファレンス福岡"
+    : "FEC Fukuoka - Frontend Conference Fukuoka"}
+/>
 <meta property="og:site_name" content={site.title} />
 <meta property="og:locale" content={lang === "ja" ? "ja_JP" : "en_US"} />
 <meta
@@ -55,10 +62,16 @@ enUrl.searchParams.set("hl", "en");
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:site" content="@frontend_fuk" />
+<meta name="twitter:site" content="@fec_fukuoka" />
 <meta name="twitter:title" content={pageTitle} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
+<meta
+  name="twitter:image:alt"
+  content={lang === "ja"
+    ? "FEC Fukuoka - フロントエンドカンファレンス福岡"
+    : "FEC Fukuoka - Frontend Conference Fukuoka"}
+/>
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
