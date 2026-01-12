@@ -7,13 +7,9 @@
       "no-exclamation-question-mark": false
     },
     "no-dead-link": {
-      "ignore": [
-        "https://calendar.google.com/*",
-        "https://docs.google.com/*",
-        "https://forms.gle/*"
-      ],
       "checkRelative": true,
-      "retry": 3
+      "retry": 3,
+      "ignoreRedirects": true
     }
   }
 }
