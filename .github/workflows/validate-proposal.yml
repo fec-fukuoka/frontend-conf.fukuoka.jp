@@ -111,9 +111,9 @@ jobs:
             }
 
             // Check if checkboxes are checked
-            // Both templates have 5 required checkboxes
+            // Both templates have 4 required checkboxes
             const termsChecked = body.match(/- \[x\]/gi);
-            const expectedCheckboxes = 5;
+            const expectedCheckboxes = 4;
             if (!termsChecked || termsChecked.length < expectedCheckboxes) {
               validationErrors.push('Not all confirmation checkboxes are checked');
             }
