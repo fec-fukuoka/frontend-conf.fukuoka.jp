@@ -9,7 +9,7 @@ draft: false
 
 We're thrilled to officially launch the website for **Frontend Conference Fukuoka 2026**!
 
-For more details about the event announcement, please read [this note (in Japanese)](https://note.com/sakupi01/n/n4e997b62c825).
+We're also excited to announce that **sponsor recruitment has now begun**. Please review our [Sponsorship Prospectus](https://docs.google.com/presentation/d/1i7vePglNPltZtGSOBZVaNk1XvYWu9N6FWc6qfmDYWgY/edit?usp=sharing) and we look forward to your applications.
 
 ## Concept
 
@@ -18,6 +18,8 @@ For more details about the event announcement, please read [this note (in Japane
 The frontend development landscape is evolving rapidly every day.
 
 At this conference, we value not only "sharing the present" but also "continuously exploring the future." We aim to create a space where participants can thoroughly discuss what "needs to be talked about now" and engage in deep conversations.
+
+For more details about the event announcement, please read [this note (in Japanese)](https://note.com/sakupi01/n/n4e997b62c825).
 
 ## Event Overview
 

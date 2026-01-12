@@ -13,7 +13,7 @@ body:
 
         ### プロポーザル提出について / About Proposal Submission
 
-        Frontend Conf Fukuoka 2026 へのプロポーザル提出ありがとうございます！
+        Frontend Conf Fukuoka 2026 へのプロポーザル提出、ありがとうございます！
         このフォームは、一般公募セッションのプロポーザル提出用です。
 
         Thank you for submitting a proposal to Frontend Conf Fukuoka 2026!
@@ -46,7 +46,7 @@ body:
     id: speaker-name-en
     attributes:
       label: 登壇者名（英語表記） / Speaker Name (English)
-      description: ローマ字表記またはハンドルネーム。ウェブサイトとセッション紹介に使用します / Roman alphabet or handle name. Will be used on website and session introduction
+      description: ローマ字表記またはハンドルネーム / Roman alphabet or handle name.
       placeholder: "例: Taro Yamada / Example: Taro Yamada"
     validations:
       required: true
@@ -56,11 +56,9 @@ body:
     attributes:
       label: プロフィール / Bio
       description: |
-        あなたの自身について教えてください（日本語・英語どちらでも可、300文字以内）
-        ウェブサイトに掲載されます。
+        あなたの自身について教えてください（300文字以内）
 
-        Tell us about yourself (Japanese or English, max 300 characters).
-        Will be published on the website.
+        Tell us about yourself (Max 300 characters).
     validations:
       required: true
 
@@ -218,8 +216,6 @@ body:
         - label: "プロポーザルが採択された場合、Frontend Conf Fukuoka 2026（開催日: 2026年9月12日（土））で登壇することを約束します / I commit to speaking at Frontend Conf Fukuoka 2026 (scheduled for July 2026) if this proposal is accepted"
           required: true
         - label: プロポーザルの内容（タイトル、概要、登壇者情報）が公式ウェブサイトに掲載されることを了承します / I understand that the proposal content (title, summary, speaker information) will be published on the official website
-          required: true
-        - label: セッションの録画・録音が行われ、後日公開される可能性があることを了承します / I understand that the session may be recorded and published later
           required: true
         - label: "[行動規範（Code of Conduct）](https://frontend-conf.fukuoka.jp/code-of-conduct)を読み、遵守することに同意します / I have read and agree to follow the Code of Conduct"
           required: true
