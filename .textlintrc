@@ -6,7 +6,12 @@
       },
       "no-exclamation-question-mark": false
     },
-    "@textlint-rule/no-dead-link": {
+    "no-dead-link": {
+      "ignore": [
+        "https://calendar.google.com/*",
+        "https://docs.google.com/*",
+        "https://forms.gle/*"
+      ],
       "checkRelative": true,
       "retry": 3
     }
