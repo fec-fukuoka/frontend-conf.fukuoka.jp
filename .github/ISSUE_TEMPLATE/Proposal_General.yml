@@ -1,6 +1,6 @@
 name: "一般公募プロポーザル / General Proposal"
 description: "Frontend Conf Fukuoka 2026 一般公募セッションのプロポーザル提出フォーム / Proposal submission form for Frontend Conf Fukuoka 2026 open call sessions"
-title: "[General] "
+title: "[General] Please fill in the session title"
 labels: ["2026-proposal:general"]
 body:
   # ========================================
