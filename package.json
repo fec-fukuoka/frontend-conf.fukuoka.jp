@@ -50,5 +50,6 @@
     "textlint": "^15.5.0",
     "textlint-rule-no-dead-link": "^6.1.0",
     "typescript-eslint": "^8.50.1"
-  }
+  },
+  "packageManager": "pnpm@10.27.0"
 }
