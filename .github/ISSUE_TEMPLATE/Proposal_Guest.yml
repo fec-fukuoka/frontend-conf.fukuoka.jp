@@ -218,5 +218,5 @@ body:
           required: true
         - label: セッションの内容（タイトル、概要、登壇者情報）が公式ウェブサイトに掲載されることを了承します / I understand that the session content (title, summary, speaker information) will be published on the official website
           required: true
-        - label: "[行動規範（Code of Conduct）](https://frontend-conf.fukuoka.jp/code-of-conduct)を読み、遵守することに同意します / I have read and agree to follow the Code of Conduct"
+        - label: "[行動規範（Code of Conduct）](https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/wiki/CoC)を読み、遵守することに同意します / I have read and agree to follow the Code of Conduct"
           required: true
