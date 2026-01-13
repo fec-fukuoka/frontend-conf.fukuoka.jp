@@ -2,9 +2,9 @@ export const site = {
   title: "FEC Fukuoka",
   titleEn: "FEC Fukuoka",
   description:
-    "Web に関わるすべての人のためのフロントエンドカンファレンス in 福岡",
+    "フロントエンドカンファレンス福岡は、日本で開催されるWebフロントエンドの祭典です。今回が初開催となります。フロントエンド技術やWebに関する多くの機知に富んだエキサイティングな交流の場となることを願っています。",
   descriptionEn:
-    "A frontend conference in Fukuoka for everyone involved in Web",
+    "Frontend Conference Fukuoka is a Web Frontend festival in Japan. This is the first time event of Frontend Conference Fukuoka. We would love to see a lot of witty and exciting connections about Frontend technologies and Web.",
   url: "https://frontend-conf.fukuoka.jp",
   year: 2026,
   date: "2026年9月12日（土）",
