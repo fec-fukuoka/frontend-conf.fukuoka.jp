@@ -83,8 +83,9 @@ jobs:
             local field_name="$1"
             # Extract text from the field until the next heading or end of text
             # This preserves newlines in multi-line fields
+            # Note: Using index() instead of ~ for string matching to avoid regex issues with special chars like ()
             echo "$ISSUE_BODY" | awk -v field="### ${field_name}" '
-              $0 ~ field { found=1; next }
+              index($0, field) > 0 { found=1; next }
               found && /^### / { exit }
               found && NF { print; found_content=1 }
               found && !NF && found_content { print }
