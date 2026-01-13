@@ -13,7 +13,7 @@ twitter: ""
 github: "hoshi11"
 locale: "ja"
 year: 2026
-draft: fakse
+draft: false
 ---
 
 昨今、ReactやVue.Sveltなどのフレームワークやライブラリを用いることが増えていく中で、フロントエンドでの処理や読み込み量が過去と比べて増加している
