@@ -10,11 +10,14 @@ export async function GET(context: APIContext) {
     title: site.title,
     description: site.description,
     site: context.site ?? site.url,
-    items: newsItems.map((item) => ({
-      title: item.data.title,
-      pubDate: item.data.pubDate,
-      description: item.data.description,
-      link: `/news/${item.id}/`,
-    })),
+    items: newsItems.map((item) => {
+      const slug = item.id.replace(/^.*\//, "").replace(".md", "");
+      return {
+        title: item.data.title,
+        pubDate: item.data.pubDate,
+        description: item.data.description,
+        link: `/${item.data.year}/news/${slug}/`,
+      };
+    }),
   });
 }
