@@ -10,7 +10,10 @@ draft: false
 **フロントエンドカンファレンス福岡 2026** の開催正式決定に伴い、公式ウェブサイトをオープンしました！
 
 また、本日より**スポンサー募集を開始**いたします。
-[スポンサー募集要項](https://docs.google.com/presentation/d/1i7vePglNPltZtGSOBZVaNk1XvYWu9N6FWc6qfmDYWgY/edit?usp=sharing)をご確認の上、ご応募をお待ちしております。
+[スポンサー募集要項](https://docs.google.com/presentation/d/1i7vePglNPltZtGSOBZVaNk1XvYWu9N6FWc6qfmDYWgY/edit?usp=sharing)をご確認の上、下記フォームよりご応募をお待ちしております。
+
+- [法人スポンサー様](https://forms.gle/c8aKxywvdbdZ2R9Q7)
+- [個人スポンサー様](https://forms.gle/toyTsRzkKSRVFb1x5)
 
 ## コンセプト
 
@@ -65,6 +68,11 @@ draft: false
 - [Discussions](https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/discussions) - Q&A・提案・フィードバック・etc
 
 ※ オーガナイザ宛へのメンションもご活用ください: [@fec-fukuoka/fecf-admin](https://github.com/orgs/fec-fukuoka/teams/fecf-admin)
+
+また、下記フォームもご利用ください。
+
+- [フロントエンドカンファレンス福岡 2026 お困りごと・連絡フォーム](https://forms.gle/jrhjhNerucSQUu798)
+- [スポンサー様向けお問い合わせフォーム](https://forms.gle/wdV4d5Ff8cmvAcYHA)
 
 ---
 
