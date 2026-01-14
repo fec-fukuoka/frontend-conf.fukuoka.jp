@@ -96,7 +96,9 @@ jobs:
           SPEAKER_NAME_JA=$(extract_field "登壇者名 / Speaker Name")
           SPEAKER_NAME_EN=$(extract_field "登壇者名（英語） / Speaker Name (English)")
           BIO=$(extract_field "プロフィール / Bio")
-          TWITTER=$(extract_field "Twitter/X")
+          TWITTER=$(extract_field "X (Twitter)")
+          GITHUB_URL=$(extract_field "GitHub")
+          WEBSITE=$(extract_field "ウェブサイト / Website")
           SESSION_TITLE=$(extract_field "セッションタイトル / Session Title")
           SESSION_CATEGORY=$(extract_field "セッションカテゴリー / Session Category")
           LANGUAGE_RAW=$(extract_field "登壇言語 / Presentation Language")
@@ -142,8 +144,21 @@ jobs:
           # Sanitize filename (use English name for URL-friendly slug)
           FILENAME=$(echo "$SPEAKER_NAME_EN" | sed 's/[^a-zA-Z0-9]/-/g' | tr '[:upper:]' '[:lower:]')
 
-          # Extract social media handles
-          TWITTER_HANDLE=$(echo "$TWITTER" | grep -oE '@?[a-zA-Z0-9_]+$' | sed 's/^@//' || echo "")
+          # Extract social media handles and URLs
+          # Extract Twitter handle from URL like https://x.com/username or https://twitter.com/username or @username
+          # Twitter is optional - only set if provided
+          if [ -n "$TWITTER" ] && [ "$TWITTER" != "_No response_" ]; then
+            TWITTER_HANDLE=$(echo "$TWITTER" | sed -E 's|^https?://[^/]+/||' | sed -E 's|^@||' | sed -E 's|/.*$||')
+          else
+            TWITTER_HANDLE=""
+          fi
+
+          # Extract GitHub handle from URL like https://github.com/username
+          # If GitHub URL is provided, use it; otherwise fall back to issue author
+          if [ -n "$GITHUB_URL" ] && [ "$GITHUB_URL" != "_No response_" ]; then
+            GITHUB_HANDLE=$(echo "$GITHUB_URL" | sed -E 's|^https?://[^/]+/||' | sed -E 's|/.*$||')
+          fi
+          # Note: GITHUB_HANDLE is already set to ISSUE_AUTHOR above (line 121), so it will use that as fallback
 
           # Set default values
           [ -z "$SPEAKER_NAME_JA" ] || [ "$SPEAKER_NAME_JA" = "_No response_" ] && SPEAKER_NAME_JA="${SPEAKER_NAME_EN}"
@@ -152,6 +167,7 @@ jobs:
           [ -z "$SESSION_CATEGORY" ] || [ "$SESSION_CATEGORY" = "_No response_" ] && SESSION_CATEGORY="frontend"
           [ -z "$LANGUAGE" ] || [ "$LANGUAGE" = "_No response_" ] && LANGUAGE="ja"
           [ -z "$SESSION_SUMMARY" ] || [ "$SESSION_SUMMARY" = "_No response_" ] && SESSION_SUMMARY="No description provided."
+          [ "$WEBSITE" = "_No response_" ] && WEBSITE=""
 
           # Prepare BIO for YAML multiline format (indent each line with 2 spaces)
           BIO_YAML=$(echo "$BIO" | sed 's/^/  /')
@@ -173,6 +189,7 @@ jobs:
           ${BIO_YAML}
           twitter: "${TWITTER_HANDLE}"
           github: "${GITHUB_HANDLE}"
+          website: "${WEBSITE}"
           locale: "ja"
           year: ${PROPOSAL_YEAR}
           draft: false
@@ -198,6 +215,7 @@ jobs:
           ${BIO_YAML}
           twitter: "${TWITTER_HANDLE}"
           github: "${GITHUB_HANDLE}"
+          website: "${WEBSITE}"
           locale: "en"
           year: ${PROPOSAL_YEAR}
           draft: false
