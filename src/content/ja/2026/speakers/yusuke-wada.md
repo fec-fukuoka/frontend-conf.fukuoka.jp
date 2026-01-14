@@ -10,8 +10,9 @@ startTime: "00:00"
 endTime: "00:00"
 bio: |
   Creator of Hono. Developer Advocate at Cloudflare.
-twitter: ""
+twitter: "yusukebe"
 github: "yusukebe"
+website: "https://yusu.ke"
 locale: "ja"
 year: 2026
 draft: false
