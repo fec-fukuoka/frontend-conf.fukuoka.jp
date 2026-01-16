@@ -66,6 +66,11 @@ const busStop = lang === "ja" ? site.access.bus.stop : site.access.bus.stopEn;
 </PageLayout>
 
 <style>
+  .container {
+    display: grid;
+    grid-template-columns: subgrid;
+    grid-column: 2 / 3;
+  }
   .venue-details,
   .venue-address,
   .walking-time {

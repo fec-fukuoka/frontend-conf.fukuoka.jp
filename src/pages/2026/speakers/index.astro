@@ -11,12 +11,9 @@ const speakers = await getCollection("speakers", ({ data }) => {
   return data.locale === lang && data.year === 2026 && !data.draft;
 });
 
-// Sort by track and start time
+// Sort by speaker name
 const sortedSpeakers = speakers.sort((a, b) => {
-  if (a.data.track !== b.data.track) {
-    return a.data.track.localeCompare(b.data.track);
-  }
-  return a.data.startTime.localeCompare(b.data.startTime);
+  return a.data.name.localeCompare(b.data.name);
 });
 ---
 
@@ -59,16 +56,25 @@ const sortedSpeakers = speakers.sort((a, b) => {
 </PageLayout>
 
 <style>
-  @layer components {
+  .container {
+    display: grid;
+    grid-template-columns: subgrid;
+    grid-column: 1 / -1;
+    .page-title {
+      grid-column: 2 / 3;
+    }
     .speakers-grid {
+      grid-column: 1 / -1;
       container-type: inline-size;
       container-name: speakers;
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
       gap: 2rem;
-      padding: 2rem 0;
+      padding-inline: 2rem;
     }
+  }
 
+  @layer components {
     .speaker-card {
       container-type: inline-size;
       container-name: card;

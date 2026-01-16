@@ -33,13 +33,14 @@ const { Content } = await render(speaker);
       <section class="session-info">
         <h1>{speaker.data.sessionTitle}</h1>
         <div class="session-meta">
-          <span class="category">{speaker.data.sessionCategory}</span>
-          <span class="track">{speaker.data.track}</span>
+          <span class="category">Category: {speaker.data.sessionCategory}</span>
+          <span class="track">Track: {speaker.data.track}</span>
           <span class="time">
             {speaker.data.startTime} - {speaker.data.endTime}
           </span>
           <span class="language">
-            {t("label.language")}: {speaker.data.language}
+            {t("label.language")}:
+            {speaker.data.language}
           </span>
         </div>
         <div class="session-description">
@@ -103,121 +104,141 @@ const { Content } = await render(speaker);
 <style>
   .container {
     container-type: inline-size;
-  }
-
-  .speaker-header {
     display: grid;
-    grid-template:
-      "avatar" auto
-      "meta" auto
-      / 1fr;
-    gap: var(--space-m-l, 1.5rem);
-    margin-block-end: var(--space-l-xl, 3rem);
-    padding: var(--space-m-l, 1.5rem);
-    border-radius: 0.5rem;
-    background: var(--color-surface-base);
-    border: 1px solid var(--color-border-subtle);
-    transition:
-      background-color 0.3s,
-      border-color 0.3s;
+    grid-template-columns: subgrid;
+    grid-column: 2 / 3;
   }
 
-  .speaker-avatar {
-    grid-area: avatar;
-    width: 100%;
-    max-width: 200px;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 3px solid var(--color-border-default);
-    justify-self: center;
-    transition:
-      transform 0.3s ease,
-      border-color 0.3s;
-  }
-
-  .speaker-avatar:hover {
-    transform: scale(1.05);
-    border-color: var(--color-border-hover);
-  }
-
-  .speaker-meta {
-    grid-area: meta;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xs-s, 1rem);
-  }
-
-  .bio {
-    margin: 0;
-    line-height: 1.6;
-    color: var(--color-text-secondary);
-  }
-
-  .social-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2xs-xs, 0.75rem);
-  }
-
-  .social-links a {
-    padding: var(--space-2xs-xs, 0.5rem) var(--space-xs-s, 1rem);
-    background: var(--color-accent-red-subtle);
-    color: var(--color-conf-red);
-    text-decoration: none;
-    border-radius: 0.25rem;
-    border: 1px solid var(--color-accent-red-border);
-    font-weight: 500;
-    transition:
-      background-color 0.2s,
-      border-color 0.2s,
-      transform 0.2s;
-  }
-
-  .social-links a:hover {
-    background: var(--color-accent-red-hover);
-    border-color: var(--color-conf-red);
-    transform: translateY(-2px);
-  }
-
-  .session-description {
-    margin-block-end: var(--gutter-m);
-  }
-
-  /* Container query for medium screens */
-  @container (width > 27em) {
+  @layer components {
     .speaker-header {
+      display: grid;
       grid-template:
-        "avatar meta" auto
-        / clamp(8rem, 25%, 15rem) 1fr;
-      gap: var(--space-l-xl, 2rem);
-      align-items: start;
+        "avatar" auto
+        "meta" auto
+        / 1fr;
+      gap: var(--space-m-l, 1.5rem);
+      margin-block-end: var(--space-l-xl, 3rem);
+      padding: var(--space-m-l, 1.5rem);
+      border-radius: 0.5rem;
+      background: var(--color-surface-base);
+      border: 1px solid var(--color-border-subtle);
+      transition:
+        background-color 0.3s,
+        border-color 0.3s;
+    }
+
+    .session-meta {
+      display: grid;
+      grid-auto-flow: column;
+      gap: var(--space-xs-s, 1rem);
+      max-width: 600px;
     }
 
     .speaker-avatar {
-      justify-self: start;
+      grid-area: avatar;
+      width: 100%;
+      max-width: 200px;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid var(--color-border-default);
+      justify-self: center;
+      transition:
+        transform 0.3s ease,
+        border-color 0.3s;
     }
-  }
 
-  /* Container query for large screens */
-  @container (width > 48em) {
-    .speaker-header {
-      grid-template:
-        "avatar meta" auto
-        / clamp(12rem, 30%, 20rem) 1fr;
-      gap: var(--space-l-xl, 2.5rem);
-      padding: var(--space-l-xl, 2rem);
+    .speaker-avatar:hover {
+      transform: scale(1.05);
+      border-color: var(--color-border-hover);
     }
 
     .speaker-meta {
-      gap: var(--space-s-m, 1.5rem);
+      grid-area: meta;
+      height: 100%;
+      display: grid;
+      grid-auto-flow: row;
+      gap: var(--space-xs-s, 1rem);
+      h2 {
+        margin-block: 0;
+      }
+      a {
+        align-content: center;
+        text-box: trim-both cap alphabetic;
+      }
     }
-  }
 
-  /* Container query for extra large screens */
-  @container (width > 64em) {
-    .speaker-avatar {
-      max-width: 250px;
+    .bio {
+      margin: 0;
+      line-height: 1.6;
+      color: var(--color-text-secondary);
+    }
+
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2xs-xs, 0.75rem);
+    }
+
+    .social-links a {
+      padding: var(--space-2xs-xs, 0.5rem) var(--space-xs-s, 1rem);
+      background: var(--color-accent-red-subtle);
+      color: var(--color-conf-red);
+      text-decoration: none;
+      border-radius: 0.25rem;
+      border: 1px solid var(--color-accent-red-border);
+      font-weight: 500;
+      transition:
+        background-color 0.2s,
+        border-color 0.2s,
+        transform 0.2s;
+    }
+
+    .social-links a:hover {
+      background: var(--color-accent-red-hover);
+      border-color: var(--color-conf-red);
+      transform: translateY(-2px);
+    }
+
+    .session-description {
+      margin-block-end: var(--gutter-m);
+    }
+
+    /* Container query for medium screens */
+    @container (width > 27em) {
+      .speaker-header {
+        grid-template:
+          "avatar meta" auto
+          / clamp(8rem, 25%, 15rem) 1fr;
+        gap: var(--space-l-xl, 2rem);
+        align-items: start;
+      }
+
+      .speaker-avatar {
+        justify-self: start;
+      }
+    }
+
+    /* Container query for large screens */
+    @container (width > 48em) {
+      .speaker-header {
+        grid-template:
+          "avatar meta" auto
+          / clamp(12rem, 30%, 20rem) 1fr;
+        gap: var(--space-l-xl, 2.5rem);
+        padding: var(--space-l-xl, 2rem);
+      }
+
+      .speaker-meta {
+        gap: var(--space-s-m, 1.5rem);
+      }
+    }
+
+    /* Container query for extra large screens */
+    @container (width > 64em) {
+      .speaker-avatar {
+        max-width: 250px;
+      }
     }
   }
 </style>

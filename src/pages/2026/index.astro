@@ -45,160 +45,163 @@ const eventDescription =
   lang={lang}
   isHome={true}
 >
-  <div class="page">
-    <div class="container">
-      <section class="news">
-        <div class="section-header">
-          <h2 class="section-title">{t("news.title")}</h2>
-          <a href={`/2026/news?hl=${lang}`} class="view-all">
-            {t("button.viewAll")} →
-          </a>
-        </div>
-        <div class="news-list">
-          {
-            latestNews.map((item) => (
-              <NewsCard
-                id={item.id.replace(/^.*\//, "").replace(".md", "")}
-                title={item.data.title}
-                description={item.data.description}
-                pubDate={item.data.pubDate}
-                lang={lang}
-              />
-            ))
-          }
-        </div>
-      </section>
+  <div class="container">
+    <section class="news">
+      <div class="section-header">
+        <h2 class="section-title">{t("news.title")}</h2>
+        <a href={`/2026/news?hl=${lang}`} class="view-all">
+          {t("button.viewAll")} →
+        </a>
+      </div>
+      <div class="news-list">
+        {
+          latestNews.map((item) => (
+            <NewsCard
+              id={item.id.replace(/^.*\//, "").replace(".md", "")}
+              title={item.data.title}
+              description={item.data.description}
+              pubDate={item.data.pubDate}
+              lang={lang}
+            />
+          ))
+        }
+      </div>
+    </section>
 
-      <section class="sponsors">
-        <h2 class="section-title sponsors-title">{t("sponsors.title")}</h2>
-        {
-          sponsorsByTier.platinum.length > 0 && (
-            <div class="sponsors__section">
-              <h3 class="sponsors__tier-title">Platinum Sponsors</h3>
-              <div class="sponsors__grid sponsors__grid--platinum">
-                {sponsorsByTier.platinum.map((sponsor) => (
-                  <a
-                    href={sponsor.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="sponsors__item"
-                  >
-                    <img
-                      src={sponsor.logo}
-                      alt={sponsor.name}
-                      class="sponsors__logo"
-                    />
-                  </a>
-                ))}
-              </div>
+    <section class="sponsors">
+      <h2 class="section-title sponsors-title">{t("sponsors.title")}</h2>
+      {
+        sponsorsByTier.platinum.length > 0 && (
+          <div class="sponsors__section">
+            <h3 class="sponsors__tier-title">Platinum Sponsors</h3>
+            <div class="sponsors__grid sponsors__grid--platinum">
+              {sponsorsByTier.platinum.map((sponsor) => (
+                <a
+                  href={sponsor.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="sponsors__item"
+                >
+                  <img
+                    src={sponsor.logo}
+                    alt={sponsor.name}
+                    class="sponsors__logo"
+                  />
+                </a>
+              ))}
             </div>
-          )
-        }
-        {
-          sponsorsByTier.gold.length > 0 && (
-            <div class="sponsors__section">
-              <h3 class="sponsors__tier-title">Gold Sponsors</h3>
-              <div class="sponsors__grid sponsors__grid--gold">
-                {sponsorsByTier.gold.map((sponsor) => (
-                  <a
-                    href={sponsor.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="sponsors__item"
-                  >
-                    <img
-                      src={sponsor.logo}
-                      alt={sponsor.name}
-                      class="sponsors__logo"
-                    />
-                  </a>
-                ))}
-              </div>
+          </div>
+        )
+      }
+      {
+        sponsorsByTier.gold.length > 0 && (
+          <div class="sponsors__section">
+            <h3 class="sponsors__tier-title">Gold Sponsors</h3>
+            <div class="sponsors__grid sponsors__grid--gold">
+              {sponsorsByTier.gold.map((sponsor) => (
+                <a
+                  href={sponsor.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="sponsors__item"
+                >
+                  <img
+                    src={sponsor.logo}
+                    alt={sponsor.name}
+                    class="sponsors__logo"
+                  />
+                </a>
+              ))}
             </div>
-          )
-        }
-        {
-          sponsorsByTier.silver.length > 0 && (
-            <div class="sponsors__section">
-              <h3 class="sponsors__tier-title">Silver Sponsors</h3>
-              <div class="sponsors__grid sponsors__grid--silver">
-                {sponsorsByTier.silver.map((sponsor) => (
-                  <a
-                    href={sponsor.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="sponsors__item"
-                  >
-                    <img
-                      src={sponsor.logo}
-                      alt={sponsor.name}
-                      class="sponsors__logo"
-                    />
-                  </a>
-                ))}
-              </div>
+          </div>
+        )
+      }
+      {
+        sponsorsByTier.silver.length > 0 && (
+          <div class="sponsors__section">
+            <h3 class="sponsors__tier-title">Silver Sponsors</h3>
+            <div class="sponsors__grid sponsors__grid--silver">
+              {sponsorsByTier.silver.map((sponsor) => (
+                <a
+                  href={sponsor.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="sponsors__item"
+                >
+                  <img
+                    src={sponsor.logo}
+                    alt={sponsor.name}
+                    class="sponsors__logo"
+                  />
+                </a>
+              ))}
             </div>
-          )
-        }
-        {
-          sponsorsByTier.bronze.length > 0 && (
-            <div class="sponsors__section">
-              <h3 class="sponsors__tier-title">Bronze Sponsors</h3>
-              <div class="sponsors__grid sponsors__grid--bronze">
-                {sponsorsByTier.bronze.map((sponsor) => (
-                  <a
-                    href={sponsor.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="sponsors__item"
-                  >
-                    <img
-                      src={sponsor.logo}
-                      alt={sponsor.name}
-                      class="sponsors__logo"
-                    />
-                  </a>
-                ))}
-              </div>
+          </div>
+        )
+      }
+      {
+        sponsorsByTier.bronze.length > 0 && (
+          <div class="sponsors__section">
+            <h3 class="sponsors__tier-title">Bronze Sponsors</h3>
+            <div class="sponsors__grid sponsors__grid--bronze">
+              {sponsorsByTier.bronze.map((sponsor) => (
+                <a
+                  href={sponsor.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="sponsors__item"
+                >
+                  <img
+                    src={sponsor.logo}
+                    alt={sponsor.name}
+                    class="sponsors__logo"
+                  />
+                </a>
+              ))}
             </div>
-          )
-        }
-        {
-          sponsorsByTier.community.length > 0 && (
-            <div class="sponsors__section">
-              <h3 class="sponsors__tier-title">Community Sponsors</h3>
-              <div class="sponsors__grid sponsors__grid--community">
-                {sponsorsByTier.community.map((sponsor) => (
-                  <a
-                    href={sponsor.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="sponsors__item"
-                  >
-                    <img
-                      src={sponsor.logo}
-                      alt={sponsor.name}
-                      class="sponsors__logo"
-                    />
-                  </a>
-                ))}
-              </div>
+          </div>
+        )
+      }
+      {
+        sponsorsByTier.community.length > 0 && (
+          <div class="sponsors__section">
+            <h3 class="sponsors__tier-title">Community Sponsors</h3>
+            <div class="sponsors__grid sponsors__grid--community">
+              {sponsorsByTier.community.map((sponsor) => (
+                <a
+                  href={sponsor.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="sponsors__item"
+                >
+                  <img
+                    src={sponsor.logo}
+                    alt={sponsor.name}
+                    class="sponsors__logo"
+                  />
+                </a>
+              ))}
             </div>
-          )
-        }
-        <p class="sponsor-info">
-          {t("sponsors.recruiting")}<a
-            href="https://docs.google.com/presentation/d/1i7vePglNPltZtGSOBZVaNk1XvYWu9N6FWc6qfmDYWgY/edit?usp=sharing"
-            target="_blank"
-            rel="noopener noreferrer">{t("sponsors.recruitingLinkText")}</a
-          >
-        </p>
-      </section>
-    </div>
+          </div>
+        )
+      }
+      <p class="sponsor-info">
+        {t("sponsors.recruiting")}<a
+          href="https://docs.google.com/presentation/d/1i7vePglNPltZtGSOBZVaNk1XvYWu9N6FWc6qfmDYWgY/edit?usp=sharing"
+          target="_blank"
+          rel="noopener noreferrer">{t("sponsors.recruitingLinkText")}</a
+        >
+      </p>
+    </section>
   </div>
 </PageLayout>
 
 <style>
+  .container {
+    display: grid;
+    grid-template-columns: subgrid;
+    grid-column: 2 / 3;
+  }
   .section-header {
     margin-block-end: 4rem;
     display: flex;

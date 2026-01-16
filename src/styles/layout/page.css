@@ -1,16 +1,18 @@
 .page {
-  display: grid;
-  grid-template-rows: auto 1fr auto;
   min-block-size: 100vh; /* 100dvb might have performance implications */
-  /* min-inline-size: 100vw; 100dvi might have performance implications */
+  min-inline-size: 100vw; /* 100dvi might have performance implications */
   overflow-x: hidden;
 
   /* Main is a grid item, so this affects overflow behaviour on components like tables. */
   main {
+    display: grid;
+    grid-template:
+      "nav nav nav" auto
+      "main main main" 1fr
+      "footer footer footer" auto
+      / minmax(1.5rem, 1fr) minmax(auto, var(--main-max-width))
+      minmax(1.5rem, 1fr);
     width: 100%;
-    max-inline-size: var(--main-max-width);
-    margin: 0 auto;
-    padding: 0 1.5rem;
 
     article {
       /* Set explicit max-width for article content. */
