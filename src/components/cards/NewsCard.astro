@@ -28,7 +28,7 @@ const formattedDate = new Intl.DateTimeFormat(
     <div class="news-card__content">
       <h3 class="news-card__title">{title}</h3>
       <p class="news-card__description">{description}</p>
-      <span class="news-card__cta" aria-label="Read more">
+      <span class="news-card__cta">
         <svg
           class="news-card__arrow"
           width="20"
@@ -38,6 +38,7 @@ const formattedDate = new Intl.DateTimeFormat(
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden="true"
         >
+          <title>Read more about {title}</title>
           <path
             d="M4 10H16M16 10L11 5M16 10L11 15"
             stroke="currentColor"
