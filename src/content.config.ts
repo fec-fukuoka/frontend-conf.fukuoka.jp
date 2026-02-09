@@ -20,7 +20,7 @@ const speakers = defineCollection({
     bio: z.string().max(300),
     twitter: z.string().optional(),
     github: z.string().optional(),
-    website: z.string().url().optional(),
+    website: z.union([z.string().url(), z.literal("")]).optional(),
     locale: z.enum(["ja", "en"]),
     year: z.number(),
     draft: z.boolean().default(false),
