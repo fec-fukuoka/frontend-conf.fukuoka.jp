@@ -325,14 +325,12 @@ const eventDescription =
   @layer components {
     .sponsors__item {
       width: 100%;
-      aspect-ratio: 16 / 9;
       display: flex;
       align-items: center;
       justify-content: center;
       background-color: white;
       border: 1px solid var(--color-border-subtle);
       border-radius: 8px;
-      padding: 1rem;
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       text-decoration: none;
       overflow: hidden;
@@ -345,8 +343,9 @@ const eventDescription =
     }
 
     .sponsors__logo {
-      max-height: 100%;
-      aspect-ratio: 1/1;
+      width: 60%;
+      aspect-ratio: 1 / 1;
+      padding: 1rem;
       object-fit: contain;
     }
 
