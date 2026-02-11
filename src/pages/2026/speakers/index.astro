@@ -71,6 +71,8 @@ const sortedSpeakers = speakers.sort((a, b) => {
       grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
       gap: 2rem;
       padding-inline: 2rem;
+      max-width: max(80vw, 350px);
+      margin-inline: auto;
     }
   }
 
@@ -177,19 +179,6 @@ const sortedSpeakers = speakers.sort((a, b) => {
     @container card (min-width: 600px) {
       .speaker-card {
         grid-template-columns: 160px 1fr;
-      }
-    }
-
-    @container speakers (min-width: 768px) {
-      .speakers-grid {
-        grid-template-columns: repeat(auto-fill, minmax(min(100%, 350px), 1fr));
-      }
-    }
-
-    @container speakers (min-width: 1200px) {
-      .speakers-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 2.5rem;
       }
     }
   }
