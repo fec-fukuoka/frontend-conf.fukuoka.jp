@@ -4,8 +4,17 @@
     "name": "スポンサー企業A",
     "nameEn": "Sponsor Company A",
     "tier": "EXAMPLE-gold",
-    "logo": "/images/sponsors/placeholder.png",
+    "logo": "../../../src/assets/images/sponsors/placeholder.png",
     "url": "https://example.com",
-    "description": "スポンサー企業Aの説明"
+    "description": "ALT"
+  },
+  {
+    "id": "eg-sponsor-2",
+    "name": "W3C Japan",
+    "nameEn": "W3C Japan",
+    "tier": "supporter",
+    "logo": "https://www.w3.org/assets/logos/w3c-2025/svg/w3c.svg",
+    "url": "https://www.w3.org/",
+    "description": "W3C Japan"
   }
 ]
