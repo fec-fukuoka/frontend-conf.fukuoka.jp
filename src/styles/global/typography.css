@@ -34,7 +34,6 @@ article {
   color: light-dark(var(--color-base-darkest), var(--color-base-lightest));
   margin-block: 0;
   padding-block: 0;
-  text-wrap: pretty;
   font-optical-sizing: auto;
   font-style: normal;
   font-variation-settings: "GRAD" 0;
