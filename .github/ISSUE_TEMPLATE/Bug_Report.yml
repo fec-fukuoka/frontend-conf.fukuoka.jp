@@ -1,0 +1,33 @@
+name: 不具合報告 / Bug Report
+description: 不具合報告のテンプレート / Template for bug reports
+title: "[\U0001F41BBug] タイトル / Title"
+labels: [":bug: bug report :bug:"]
+projects: []
+body:
+  - type: textarea
+    attributes:
+      label: 概要 / Summary
+  - type: textarea
+    attributes:
+      label: 再現手順 / Steps to Reproduce
+      value: |
+        1.
+        2.
+        3.
+
+        → 現象発生 / Bug occurs
+  - type: textarea
+    attributes:
+      label: 期待結果 / Expected Result
+  - type: textarea
+    attributes:
+      label: 再現環境 / Environment
+      description: |
+        対応ブラウザ: Chrome, Firefox, Safari, Edge の最新安定版
+        Supported browsers: Latest stable versions of Chrome, Firefox, Safari, and Edge
+      value: |
+        - OS:
+        - ブラウザ / Browser:
+  - type: textarea
+    attributes:
+      label: 備考 / Notes

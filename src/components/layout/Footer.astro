@@ -51,6 +51,14 @@ const currentYear = new Date().getFullYear();
       </div>
     </div>
     <div class="footer-bottom">
+      <p class="browsers">
+        {t("footer.browsersNote")} ·
+        <a
+          href={`${site.social.github}/issues/new?template=Bug_Report.yml`}
+          target="_blank"
+          rel="noopener noreferrer">{t("footer.bugReport")}</a
+        >
+      </p>
       <p>&copy; {currentYear} {lang === "ja" ? site.title : site.titleEn}</p>
     </div>
   </div>

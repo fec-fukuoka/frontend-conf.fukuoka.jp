@@ -55,6 +55,10 @@ export const ui = {
     "news.backToList": "← お知らせ一覧に戻る",
     "footer.contact": "お問い合わせ",
     "footer.social": "ソーシャル",
+    "footer.browsers": "対応ブラウザ",
+    "footer.browsersNote":
+      "本サイトは Chrome, Firefox, Safari, Edge の最新安定版をサポートしています",
+    "footer.bugReport": "不具合を報告する",
   },
   en: {
     "site.title": "FEC Fukuoka",
@@ -110,6 +114,10 @@ export const ui = {
     "news.backToList": "← Back to News",
     "footer.contact": "Contact",
     "footer.social": "Social",
+    "footer.browsers": "Supported Browsers",
+    "footer.browsersNote":
+      "This site supports the latest stable versions of Chrome, Firefox, Safari, and Edge",
+    "footer.bugReport": "File a Bug",
   },
 } as const;
 
