@@ -31,6 +31,7 @@ const sponsorsByTier = {
   silver: sponsorsData.filter((s) => s.tier === "silver"),
   bronze: sponsorsData.filter((s) => s.tier === "bronze"),
   community: sponsorsData.filter((s) => s.tier === "community"),
+  supporter: sponsorsData.filter((s) => s.tier === "supporter"),
 };
 
 // Event information based on language
@@ -185,6 +186,29 @@ const eventDescription =
           </div>
         )
       }
+      {
+        sponsorsByTier.supporter.length > 0 && (
+          <div class="sponsors__section">
+            <h3 class="sponsors__tier-title">Special Supporter</h3>
+            <div class="sponsors__grid sponsors__grid--supporter">
+              {sponsorsByTier.supporter.map((sponsor) => (
+                <a
+                  href={sponsor.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="sponsors__item"
+                >
+                  <img
+                    src={sponsor.logo}
+                    alt={sponsor.name}
+                    class="sponsors__logo"
+                  />
+                </a>
+              ))}
+            </div>
+          </div>
+        )
+      }
       <p class="sponsor-info">
         {t("sponsors.recruiting")}<a
           href="https://docs.google.com/presentation/d/1i7vePglNPltZtGSOBZVaNk1XvYWu9N6FWc6qfmDYWgY/edit?usp=sharing"
@@ -293,30 +317,23 @@ const eventDescription =
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 120px), 1fr));
   }
 
+  /* supporter sponsors - smallest */
+  .sponsors__grid--supporter {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 120px), 1fr));
+  }
+
   @layer components {
     .sponsors__item {
       width: 100%;
-      aspect-ratio: 16 / 9;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--color-surface-base);
+      background-color: white;
       border: 1px solid var(--color-border-subtle);
       border-radius: 8px;
-      padding: 2rem;
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       text-decoration: none;
-      position: relative;
       overflow: hidden;
-    }
-
-    .sponsors__item::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: var(--color-surface-base);
-      opacity: 0;
-      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .sponsors__item:hover {
@@ -325,23 +342,15 @@ const eventDescription =
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     }
 
-    .sponsors__item:hover::before {
-      opacity: 1;
-    }
-
     .sponsors__logo {
-      max-width: 100%;
-      max-height: 100%;
+      width: 60%;
+      aspect-ratio: 1 / 1;
+      padding: 1rem;
       object-fit: contain;
-      filter: grayscale(100%) brightness(180%);
-      opacity: 0.7;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      position: relative;
-      z-index: 1;
     }
 
     .sponsors__item:hover .sponsors__logo {
-      filter: grayscale(0%) brightness(110%);
+      filter: brightness(110%);
       opacity: 0.95;
     }
 
