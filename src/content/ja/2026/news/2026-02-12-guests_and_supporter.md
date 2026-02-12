@@ -7,11 +7,11 @@ year: 2026
 draft: false
 ---
 
-フロントエンドカンファレンス福岡 2026 のゲストスピーカーと後援団体が決定しました。また、スポンサー募集締め切り期限を延長についてもお知らせいたします。
+フロントエンドカンファレンス福岡 2026 のゲストスピーカーと後援団体が決定しました。また、スポンサー募集締め切り期限を延長したことについてもお知らせいたします。
 
 ## ゲストスピーカーについて
 
-現時点で、以下の 10 名の皆様にゲストとしてご登壇いただくことが決定しておりますのでお知らせいたします。各分野の第一線で活躍される方々による、それぞれの視点からのセッションを予定しております。
+現時点で、以下の 10 名の皆様にゲストとしてご登壇いただくことが決定しております。各分野の第一線で活躍される方々による、それぞれの視点からのセッションを予定しております。
 
 - <img src="https://github.com/hokaccha.png" alt="" aria-hidden="true" width="35" style="display: inline-block; vertical-align: middle; border-radius: 50%; margin: 0.3rem 0.5rem;" /> [hokaccha さん](https://frontend-conf.fukuoka.jp/2026/speakers/hokaccha)
 - <img src="https://github.com/jxck.png" alt="" aria-hidden="true" width="35" style="display: inline-block; vertical-align: middle; border-radius: 50%; margin: 0.3rem 0.5rem;" />[Jxck さん](https://frontend-conf.fukuoka.jp/2026/speakers/jxck)
@@ -21,7 +21,7 @@ draft: false
 - <img src="https://github.com/yusukehirao.png" alt="" aria-hidden="true" width="35" style="display: inline-block; vertical-align: middle; border-radius: 50%; margin: 0.3rem 0.5rem;" />[ゆうてんさん](https://frontend-conf.fukuoka.jp/2026/speakers/yusukehirao)
 - <img src="https://github.com/yosuke-furukawa.png" alt="" aria-hidden="true" width="35" style="display: inline-block; vertical-align: middle; border-radius: 50%; margin: 0.3rem 0.5rem;" />[古川陽介さん](https://frontend-conf.fukuoka.jp/2026/speakers/yosuke-furukawa)
 - <img src="https://github.com/tohoho65535.png" alt="" aria-hidden="true" width="35" style="display: inline-block; vertical-align: middle; border-radius: 50%; margin: 0.3rem 0.5rem;" />[杜甫々さん](https://frontend-conf.fukuoka.jp/2026/speakers/tohoho)
-- <img src="https://github.com/petamoriken.png" alt="" aria-hidden="true" width="35" style="display: inline-block; vertical-align: middle; border-radius: 50%; margin: 0.3rem 0.5rem;" />[森内健太さん](https://frontend-conf.fukuoka.jp/2026/speakers/kenta-moriuchi)
+- <img src="https://github.com/petamoriken.png" alt="" aria-hidden="true" width="35" style="display: inline-block; vertical-align: middle; border-radius: 50%; margin: 0.3rem 0.5rem;" />[森内建太さん](https://frontend-conf.fukuoka.jp/2026/speakers/kenta-moriuchi)
 - <img src="https://github.com/sapphi-red.png" alt="" aria-hidden="true" width="35" style="display: inline-block; vertical-align: middle; border-radius: 50%; margin: 0.3rem 0.5rem;" />[翠さん](https://frontend-conf.fukuoka.jp/2026/speakers/sapphi-red)
 
 最新情報につきましては、[スピーカー 一覧ページ](https://frontend-conf.fukuoka.jp/2026/speakers/)をご覧ください。
