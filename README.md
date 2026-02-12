@@ -36,6 +36,17 @@
 
 お問い合わせは [Wiki の Contact ページ](https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/wiki/Contact) をご覧ください。
 
+## Supported Browsers
+
+本サイトは以下のブラウザの最新安定版をサポートしています。
+
+- Google Chrome
+- Mozilla Firefox
+- Safari
+- Microsoft Edge
+
+[🐛不具合を報告する](https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/issues/new?template=Bug_Report.yml)
+
 ## License
 
 Frontend Conference Fukuoka is MIT licensed or CC BY-NC 4.0 licensed.
