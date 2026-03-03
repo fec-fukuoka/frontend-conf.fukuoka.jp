@@ -19,8 +19,7 @@
     "typecheck": "astro check",
     "lint:eslint": "eslint . --ext .js,.ts,.astro",
     "lint:markdown": "markdownlint '**/*.md' --ignore node_modules --ignore fast-fireball",
-    "lint:text": "textlint 'src/content/ja/**/*.md'",
-    "lint": "pnpm run typecheck && pnpm run lint:eslint && pnpm run lint:markdown && pnpm run lint:text",
+    "lint": "pnpm run typecheck && pnpm run lint:eslint && pnpm run lint:markdown",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "sync:categories": "node scripts/sync-categories.js",
@@ -47,8 +46,6 @@
     "markdownlint-cli": "^0.47.0",
     "prettier": "^3.7.4",
     "prettier-plugin-astro": "^0.14.1",
-    "textlint": "^15.5.0",
-    "textlint-rule-no-dead-link": "^6.1.0",
     "typescript-eslint": "^8.50.1"
   },
   "packageManager": "pnpm@10.27.0"

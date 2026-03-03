@@ -67,12 +67,7 @@
         "/^@eslint/",
         "/^@typescript-eslint/"
       ],
-      "matchPackageNames": [
-        "prettier",
-        "typescript",
-        "markdownlint-cli2",
-        "textlint"
-      ],
+      "matchPackageNames": ["prettier", "typescript", "markdownlint-cli2"],
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": true,
       "branchPrefix": "renovate-automerge/"

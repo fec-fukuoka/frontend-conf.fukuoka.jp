@@ -17,11 +17,6 @@ fi
 MD_FILES=$(echo "$STAGED_FILES" | grep -E '\.md$' || true)
 if [ -n "$MD_FILES" ]; then
   echo "$MD_FILES" | xargs pnpm run lint:markdown -- || exit 1
-
-  CONTENT_MD_FILES=$(echo "$MD_FILES" | grep -E '^src/content/' || true)
-  if [ -n "$CONTENT_MD_FILES" ]; then
-    echo "$CONTENT_MD_FILES" | xargs pnpm run lint:text -- || exit 1
-  fi
 fi
 
 echo "$STAGED_FILES" | xargs pnpm run format:check -- || {
