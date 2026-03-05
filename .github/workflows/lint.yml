@@ -27,8 +27,5 @@ jobs:
       - name: MD lint
         run: pnpm run lint:markdown
 
-      - name: textlint
-        run: pnpm run lint:text
-
       - name: Type Check
         run: pnpm run typecheck

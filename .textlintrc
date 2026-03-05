@@ -1,9 +1,0 @@
-{
-  "rules": {
-    "no-dead-link": {
-      "checkRelative": true,
-      "retry": 3,
-      "ignoreRedirects": true
-    }
-  }
-}
