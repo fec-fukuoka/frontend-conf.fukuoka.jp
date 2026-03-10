@@ -32,6 +32,7 @@ const sponsorsByTier = {
   bronze: sponsorsData.filter((s) => s.tier === "bronze"),
   community: sponsorsData.filter((s) => s.tier === "community"),
   supporter: sponsorsData.filter((s) => s.tier === "supporter"),
+  venue: sponsorsData.filter((s) => s.tier === "venue"),
 };
 
 // Event information based on language
@@ -209,6 +210,29 @@ const eventDescription =
           </div>
         )
       }
+      {
+        sponsorsByTier.venue.length > 0 && (
+          <div class="sponsors__section">
+            <h3 class="sponsors__tier-title">Venue Partner</h3>
+            <div class="sponsors__grid sponsors__grid--venue">
+              {sponsorsByTier.venue.map((sponsor) => (
+                <a
+                  href={sponsor.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="sponsors__item"
+                >
+                  <img
+                    src={sponsor.logo}
+                    alt={sponsor.name}
+                    class="sponsors__logo"
+                  />
+                </a>
+              ))}
+            </div>
+          </div>
+        )
+      }
       <p class="sponsor-info">
         {t("sponsors.recruiting")}<a
           href="https://docs.google.com/presentation/d/1i7vePglNPltZtGSOBZVaNk1XvYWu9N6FWc6qfmDYWgY/edit?usp=sharing"
@@ -249,6 +273,15 @@ const eventDescription =
 
   .view-all:hover {
     color: var(--color-text-primary);
+  }
+
+  .news-list {
+    height: 80vh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-color: var(--color-border-subtle) transparent;
+    scrollbar-width: thin;
+    scrollbar-gutter: stable both-edges;
   }
 
   .sponsors {
@@ -319,6 +352,11 @@ const eventDescription =
 
   /* supporter sponsors - smallest */
   .sponsors__grid--supporter {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 120px), 1fr));
+  }
+
+  /* venue sponsors - smallest */
+  .sponsors__grid--venue {
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 120px), 1fr));
   }
 
