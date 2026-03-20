@@ -16,5 +16,14 @@
     "logo": "https://www.w3.org/assets/logos/w3c-2025/svg/w3c.svg",
     "url": "https://www.w3.org/",
     "description": "W3C Japan"
+  },
+  {
+    "id": "eg-sponsor-3",
+    "name": "九州産業大学理工学部・九州産業大学大学院情報科学研究科",
+    "nameEn": "Kyushu Sangyo University, Department of Information Science and Engineering, Graduate School of Information Science and Engineering",
+    "tier": "venue",
+    "logo": "http://art.kyusan-u.ac.jp/VI/data/logo/ksu15.jpg",
+    "url": "https://www.kyusan-u.ac.jp/",
+    "description": "九州産業大学理工学部・九州産業大学大学院情報科学研究科"
   }
 ]
