@@ -51,6 +51,10 @@ export const ui = {
     "coc.title": "行動規範",
     "news.title": "お知らせ",
     "news.description": "最新のお知らせや更新情報",
+    "schedule.title": "今後のスケジュール",
+    "schedule.note":
+      "今後のスケジュールは状況によって変更される可能性があります。最新の情報はこちらをご確認ください。",
+    "schedule.addToCalendar": "Google カレンダーに追加する",
     "news.readMore": "続きを読む",
     "news.backToList": "← お知らせ一覧に戻る",
     "footer.contact": "お問い合わせ",
@@ -59,6 +63,9 @@ export const ui = {
     "footer.browsersNote":
       "本サイトは Chrome, Firefox, Safari, Edge の最新安定版をサポートしています",
     "footer.bugReport": "不具合を報告する",
+    "footer.org": "主催 : Frontend Conference Fukuoka 2019 運営委員会",
+    "footer.contactNote":
+      "ご入力いただいた情報は、お問い合わせに対するご連絡のために使用し、それ以外の目的のためには一切使用しません。\nまた、頂いたお問い合わせについては、1週間程度でお返しするようにしております。1週間を過ぎても返信がない場合は、お手数ですが再度ご連絡よろしくお願いします。",
   },
   en: {
     "site.title": "FEC Fukuoka",
@@ -110,6 +117,10 @@ export const ui = {
     "coc.title": "Code of Conduct",
     "news.title": "News",
     "news.description": "Latest news and updates",
+    "schedule.title": "Upcoming Schedule",
+    "schedule.note":
+      "The upcoming schedule may be subject to change depending on the situation. Please check this page for the latest information.",
+    "schedule.addToCalendar": "Add to Google Calendar",
     "news.readMore": "Read more",
     "news.backToList": "← Back to News",
     "footer.contact": "Contact",
@@ -118,6 +129,10 @@ export const ui = {
     "footer.browsersNote":
       "This site supports the latest stable versions of Chrome, Firefox, Safari, and Edge",
     "footer.bugReport": "File a Bug",
+    "footer.org":
+      "Organized by Frontend Conference Fukuoka 2019 Organizing Committee",
+    "footer.contactNote":
+      "The information you entered will be used for communication regarding your inquiry, and will not be used for any other purpose. Additionally, we will respond to your inquiry within one week. If you do not receive a response after one week, please contact us again.",
   },
 } as const;
 

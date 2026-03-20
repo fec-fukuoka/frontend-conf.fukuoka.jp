@@ -15,6 +15,9 @@ const currentYear = new Date().getFullYear();
         <p>
           <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
         </p>
+        <small>
+          {t("footer.contactNote")}
+        </small>
       </div>
       <div class="footer-section">
         <h3>{t("footer.social")}</h3>
@@ -59,7 +62,11 @@ const currentYear = new Date().getFullYear();
           rel="noopener noreferrer">{t("footer.bugReport")}</a
         >
       </p>
-      <p>&copy; {currentYear} {lang === "ja" ? site.title : site.titleEn}</p>
+      <p>
+        {t("footer.org")}
+        <br /> &copy; {currentYear}
+        {lang === "ja" ? site.title : site.titleEn}
+      </p>
     </div>
   </div>
 </footer>
@@ -72,10 +79,10 @@ const currentYear = new Date().getFullYear();
   }
 
   .footer-content {
-    display: flex;
+    display: grid;
+    grid: auto-flow / repeat(auto-fit, minmax(min(100%, 120px), 1fr));
     gap: 4rem;
     margin-block-end: 2rem;
-    flex-wrap: wrap;
     margin-inline: auto;
     max-inline-size: var(--site-max-width);
     padding: 0 1.5rem;
