@@ -22,7 +22,7 @@
     "name": "九州産業大学理工学部・九州産業大学大学院情報科学研究科",
     "nameEn": "Kyushu Sangyo University, Department of Information Science and Engineering, Graduate School of Information Science and Engineering",
     "tier": "venue",
-    "logo": "http://art.kyusan-u.ac.jp/VI/data/logo/ksu15.jpg",
+    "logo": "../../../src/assets/images/sponsors/kyusyu-sangyo-university.png",
     "url": "https://www.kyusan-u.ac.jp/",
     "description": "九州産業大学理工学部・九州産業大学大学院情報科学研究科"
   }
