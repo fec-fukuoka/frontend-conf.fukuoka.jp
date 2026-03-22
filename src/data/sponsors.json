@@ -13,7 +13,7 @@
     "name": "W3C Japan",
     "nameEn": "W3C Japan",
     "tier": "supporter",
-    "logo": "https://www.w3.org/assets/logos/w3c-2025/svg/w3c.svg",
+    "logo": "w3c.svg",
     "url": "https://www.w3.org/",
     "description": "W3C Japan"
   },
@@ -22,7 +22,7 @@
     "name": "九州産業大学理工学部・九州産業大学大学院情報科学研究科",
     "nameEn": "Kyushu Sangyo University, Department of Information Science and Engineering, Graduate School of Information Science and Engineering",
     "tier": "venue",
-    "logo": "../../../src/assets/images/sponsors/kyusyu-sangyo-university.png",
+    "logo": "kyusyu-sangyo-university.png",
     "url": "https://www.kyusan-u.ac.jp/",
     "description": "九州産業大学理工学部・九州産業大学大学院情報科学研究科"
   }
