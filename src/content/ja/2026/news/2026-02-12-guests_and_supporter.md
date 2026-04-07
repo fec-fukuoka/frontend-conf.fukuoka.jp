@@ -1,7 +1,7 @@
 ---
 title: "ゲストスピーカーと後援団体決定のお知らせ"
 pubDate: 2026-02-12
-description: "フロントエンドカンファレンス福岡 2026 の後援団体として W3C の参画が決定いたしました。あわせて、Philippe Le Hégaret 氏を含む登壇者の発表と、スポンサー募集期限の変更についてお知らせします。"
+description: "フロントエンドカンファレンス福岡 2026 の後援団体として W3C の参画が決定いたしました。あわせて、W3C から Michael Smith 氏ほか登壇者の発表と、スポンサー募集期限の変更についてお知らせします。"
 locale: "ja"
 year: 2026
 draft: false
@@ -23,10 +23,11 @@ draft: false
 - <img src="https://github.com/tohoho65535.png" alt="" aria-hidden="true" width="35" style="display: inline-block; vertical-align: middle; border-radius: 50%; margin: 0.3rem 0.5rem;" />[杜甫々さん](https://frontend-conf.fukuoka.jp/2026/speakers/tohoho)
 - <img src="https://github.com/petamoriken.png" alt="" aria-hidden="true" width="35" style="display: inline-block; vertical-align: middle; border-radius: 50%; margin: 0.3rem 0.5rem;" />[森内建太さん](https://frontend-conf.fukuoka.jp/2026/speakers/kenta-moriuchi)
 - <img src="https://github.com/sapphi-red.png" alt="" aria-hidden="true" width="35" style="display: inline-block; vertical-align: middle; border-radius: 50%; margin: 0.3rem 0.5rem;" />[翠さん](https://frontend-conf.fukuoka.jp/2026/speakers/sapphi-red)
+- <img src="https://github.com/sapphi-red.png" alt="" aria-hidden="true" width="35" style="display: inline-block; vertical-align: middle; border-radius: 50%; margin: 0.3rem 0.5rem;" />[Hiroyuki Anaiさん](https://frontend-conf.fukuoka.jp/2026/speakers/hiroyuki-anai)
 
 最新情報につきましては、[スピーカー 一覧ページ](https://frontend-conf.fukuoka.jp/2026/speakers/)をご覧ください。
 
-## W3C による後援と Philippe Le Hégaret 氏の登壇が決定しました
+## W3C による後援と Michael[tm] Smith (sideshowbarker) 氏の登壇が決定しました
 
 また、本カンファレンスの趣旨にご賛同いただき、Web 技術の国際標準化団体である **W3C (World Wide Web Consortium) Japan** に後援団体としてお力添えいただくことが決定いたしましたのでお知らせいたします。
 
@@ -34,9 +35,13 @@ draft: false
 
 W3C Japan には、本カンファレンスの[趣旨](https://frontend-conf.fukuoka.jp/2026/news/2026-01-13-announcement?hl=ja#:~:text=未来のフロントエンドと徹底的に向き合う)にご賛同いただいた上で、後援団体としての登壇・その他コンテンツの提供を通じてご支援をいただくことになっております。
 
-現時点では、W3C 初期からのメンバーであり、現在は VP, Technical Strategy を務める **[Philippe Le Hégaret 氏](https://www.w3.org/People/LeHegaret/)** にご登壇いただくことが決定しております。
+現時点では、ブラウザエンジン Opera の元開発者であり、現在は W3C で Principal, Web Applications を務める **[Michael[tm] Smith (sideshowbarker) 氏](https://github.com/sideshowbarker)** にご登壇いただくことが決定しております。
 
-Web の標準化を最前線でリードし続けてきた PLH 氏を福岡に迎える、またとない機会となります。皆さんのご参加を心よりお待ちしております！
+Web の標準化を最前線で支えてきた Michael[tm] Smith 氏を福岡にお迎えできる機会となります。皆さんのご参加を心よりお待ちしております！
+
+<div class="note">
+  <p>当初案内していた <a href="https://www.w3.org/People/LeHegaret/">Philippe Le Hégaret 氏</a> は諸事情により、ご登壇が叶わないことになり、今回 Mike Smith 氏をお迎えいたします。</p>
+</div>
 
 ## スポンサー募集締め切り期限を 4月17日（金）まで延長します
 
