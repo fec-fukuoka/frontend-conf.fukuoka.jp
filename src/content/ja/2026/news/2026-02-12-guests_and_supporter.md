@@ -23,7 +23,7 @@ draft: false
 - <img src="https://github.com/tohoho65535.png" alt="" aria-hidden="true" width="35" style="display: inline-block; vertical-align: middle; border-radius: 50%; margin: 0.3rem 0.5rem;" />[杜甫々さん](https://frontend-conf.fukuoka.jp/2026/speakers/tohoho)
 - <img src="https://github.com/petamoriken.png" alt="" aria-hidden="true" width="35" style="display: inline-block; vertical-align: middle; border-radius: 50%; margin: 0.3rem 0.5rem;" />[森内建太さん](https://frontend-conf.fukuoka.jp/2026/speakers/kenta-moriuchi)
 - <img src="https://github.com/sapphi-red.png" alt="" aria-hidden="true" width="35" style="display: inline-block; vertical-align: middle; border-radius: 50%; margin: 0.3rem 0.5rem;" />[翠さん](https://frontend-conf.fukuoka.jp/2026/speakers/sapphi-red)
-- <img src="https://github.com/sapphi-red.png" alt="" aria-hidden="true" width="35" style="display: inline-block; vertical-align: middle; border-radius: 50%; margin: 0.3rem 0.5rem;" />[Hiroyuki Anaiさん](https://frontend-conf.fukuoka.jp/2026/speakers/hiroyuki-anai)
+- <img src="https://github.com/pirosikick.png" alt="" aria-hidden="true" width="35" style="display: inline-block; vertical-align: middle; border-radius: 50%; margin: 0.3rem 0.5rem;" />[Hiroyuki Anaiさん](https://frontend-conf.fukuoka.jp/2026/speakers/hiroyuki-anai)
 
 最新情報につきましては、[スピーカー 一覧ページ](https://frontend-conf.fukuoka.jp/2026/speakers/)をご覧ください。
 
