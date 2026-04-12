@@ -104,6 +104,29 @@ Validation styles.
   color: var(--color-success-medium);
 }
 
+/* Editorial callout (e.g. news markdown) */
+.note {
+  margin-block: var(--gutter-m);
+  padding: var(--gutter-s) var(--gutter-m);
+  border-inline-start: 3px solid var(--color-conf-blue);
+  border-radius: 0.375rem;
+  background: light-dark(
+    color-mix(in oklch, var(--color-conf-blue) 10%, var(--color-base-lightest)),
+    color-mix(in oklch, var(--color-conf-blue) 16%, var(--color-base-darkest))
+  );
+  font-size: var(--font-size-s);
+  line-height: var(--base-line-height);
+}
+
+.note :where(p) {
+  margin-block: 0;
+  max-inline-size: none;
+}
+
+.note a {
+  font-weight: 500;
+}
+
 /*
 ----------------------------------------------------------------------------
 Miscellaneous styles.
