@@ -16,7 +16,7 @@ github: "plehegar"
 website: ""
 locale: "ja"
 year: 2026
-draft: false
+draft: true
 ---
 
 TBD
