@@ -213,7 +213,7 @@ body:
       options:
         - label: 上記の情報に間違いがないことを確認しました / I have confirmed that the information above is correct
           required: true
-        - label: "プロポーザルが採択された場合、Frontend Conf Fukuoka 2026（開催日: 2026年9月12日（土））で登壇することを約束します / I commit to speaking at Frontend Conf Fukuoka 2026 (scheduled for July 2026) if this proposal is accepted"
+        - label: "プロポーザルが採択された場合、Frontend Conf Fukuoka 2026（開催日: 2026年9月12日（土））で登壇することを約束します / I commit to speaking at Frontend Conf Fukuoka 2026 (scheduled for September 2026) if this proposal is accepted"
           required: true
         - label: プロポーザルの内容（タイトル、概要、登壇者情報）が公式ウェブサイトに掲載されることを了承します / I understand that the proposal content (title, summary, speaker information) will be published on the official website
           required: true
