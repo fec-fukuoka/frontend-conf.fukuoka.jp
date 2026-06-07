@@ -29,9 +29,7 @@ export const ui = {
     "timetable.title": "タイムテーブル",
     "sponsors.title": "スポンサー",
     "sponsors.description": "ご協賛いただいている企業・団体の皆さま",
-    "sponsors.recruiting":
-      "現在スポンサーを募集中しています。詳細は募集要項をご覧ください：",
-    "sponsors.recruitingLinkText": "スポンサー募集要項",
+    "sponsors.recruiting": "スポンサー募集は終了しました。",
     "access.title": "アクセス",
     "access.venue": "会場",
     "access.detailsLater": "詳細は後日発表します",
@@ -96,9 +94,7 @@ export const ui = {
     "timetable.title": "Timetable",
     "sponsors.title": "Sponsors",
     "sponsors.description": "Our sponsors and partners",
-    "sponsors.recruiting":
-      "We are currently looking for sponsors. Please see the recruitment guidelines for details: ",
-    "sponsors.recruitingLinkText": "Sponsor Recruitment Guidelines",
+    "sponsors.recruiting": "Sponsor recruitment has closed.",
     "access.title": "Access",
     "access.venue": "Venue",
     "access.detailsLater": "Details will be announced later",
