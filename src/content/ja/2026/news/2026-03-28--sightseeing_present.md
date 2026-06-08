@@ -29,7 +29,7 @@ draft: false
 | [ベイサイドプレイス博多](https://www.baysideplace.jp/)                                     | 徒歩37分         | 春の桜、夏は花火やビアガーデン…四季を通してさまざまなイベントが開催される、ウォーターフロントの複合施設        |
 | [博多ポートタワー](https://www.city.fukuoka.lg.jp/kowan/somu/hakata-port/port_museum.html) | 徒歩39分         | 博多港のシンボルとして親しまれていて、地上70mの展望室からは360度の大パノラマを見ることができる                 |
 
-<img src="/images/news/kusidazinzya.png" alt="櫛田神社" width="480" style="width: 100%; max-width: 480px; height: auto; border-radius: 8px; margin-bottom: 0.25rem;" loading="lazy" />
+<img src="/images/news/kusidazinzya.webp" alt="櫛田神社" width="480" style="width: 100%; max-width: 480px; height: auto; border-radius: 8px; margin-bottom: 0.25rem;" loading="lazy" />
 <small>写真: <a href="https://yokanavi.com/spots/26906">櫛田神社</a> 福岡市 観光情報サイト YOKANAVI より</small>
 
 ## 天神エリア
@@ -47,7 +47,7 @@ draft: false
 | [福岡県立美術館](https://fukuoka-kenbi.jp/)                                             | 徒歩10分         | 「美と遊ぶ美術館」をテーマに、福岡県にゆかりのある作家の作品、福岡県の美術動向に関わる作品を中心に収集して展示している。                             |
 | [大濠公園](https://www.ohorikouen.jp/)                                                  | 徒歩24分         | 福岡城の外堀に利用されていた博多湾の入り江を整備し、1929年に開園した全国有数の水景公園。福岡ならではの歴史、文化、芸術、憩いのスポットを堪能できる。 |
 
-<img src="/images/news/akarenga.png" alt="福岡市赤煉瓦文化館" width="480" style="width: 100%; max-width: 480px; height: auto; border-radius: 8px; margin-bottom: 0.25rem;" loading="lazy" />
+<img src="/images/news/akarenga.webp" alt="福岡市赤煉瓦文化館" width="480" style="width: 100%; max-width: 480px; height: auto; border-radius: 8px; margin-bottom: 0.25rem;" loading="lazy" />
 <small>写真: <a href="https://yokanavi.com/spots/26950">福岡市赤煉瓦文化館</a> 福岡市 観光情報サイト YOKANAVI より</small>
 
 ## 太宰府エリア
@@ -63,7 +63,7 @@ draft: false
 | [太宰府天満宮](https://www.dazaifutenmangu.or.jp/) | 徒歩5分            | 言わずと知れた学問の神様・菅原道真公を祀る太宰府天満宮。参道沿いの美味しいお店やカフェの食べ歩きも魅力。                                 |
 | [九州国立博物館](https://www.kyuhaku.jp/)          | 徒歩13分           | 古くからアジア諸国との交易の要となってきた大宰府ならではの貴重な資料を展示。学校より面白く、教科書より分かりやすい博物館を目指している。 |
 
-<img src="/images/news/dazaihu.png" alt="太宰府天満宮にある中島神社" width="450" style="width: 100%; max-width: 450px; height: auto; border-radius: 8px; margin-bottom: 0.25rem;" loading="lazy" />
+<img src="/images/news/dazaihu.webp" alt="太宰府天満宮にある中島神社" width="450" style="width: 100%; max-width: 450px; height: auto; border-radius: 8px; margin-bottom: 0.25rem;" loading="lazy" />
 <small>写真: <a href="https://www.dazaifutenmangu.or.jp/">太宰府天満宮にある中島神社</a> 太宰府天満宮公式サイト より</small>
 
 ## その他
@@ -75,7 +75,7 @@ draft: false
 早起きが難しい場合は、昔ながらの雰囲気が残る商店街である「[川端通商店街](https://kawabatadori.com/)」もいいでしょう。
 博多で最も古い商店街の一つで、明治期から続く市民生活と観光の拠点として知られています。
 
-<img src="/images/news/kawabatadori.png" alt="川端通商店街" width="480" style="width: 100%; max-width: 480px; height: auto; border-radius: 8px; margin-bottom: 0.25rem;" loading="lazy" />
+<img src="/images/news/kawabatadori.webp" alt="川端通商店街" width="480" style="width: 100%; max-width: 480px; height: auto; border-radius: 8px; margin-bottom: 0.25rem;" loading="lazy" />
 <small>写真: <a href="https://kawabatadori.com/">川端通商店街</a> 川端通商店街公式サイト より</small>
 
 ### 福岡らしい夜を過ごしたい
@@ -88,7 +88,7 @@ draft: false
 九州最大級の秋祭りの一つで、地元では「筥崎宮放生会」として親しまれています。
 神幸行列、稚児行列、奉納相撲、献茶式などが行われる予定で、夜には灯籠が並び、幻想的な雰囲気を演出します。
 
-<img src="/images/news/nakasuyatai.png" alt="中洲屋台街" width="480" style="width: 100%; max-width: 480px; height: auto; border-radius: 8px; margin-bottom: 0.25rem;" loading="lazy" />
+<img src="/images/news/nakasuyatai.webp" alt="中洲屋台街" width="480" style="width: 100%; max-width: 480px; height: auto; border-radius: 8px; margin-bottom: 0.25rem;" loading="lazy" />
 <small>写真: <a href="https://yokanavi.com/spots/yatai">中洲屋台街（小金ちゃん）</a> 福岡市 観光情報サイト YOKANAVI より</small>
 
 ## お土産情報
@@ -112,22 +112,22 @@ draft: false
 
 <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start; margin-bottom: 0.5rem;">
   <figure style="margin: 0;">
-    <img src="/images/news/amanberry.png" alt="AMANBERRY" style="display: block; width: auto; height: 130px; max-width: 100%; object-fit: contain; object-position: center; border-radius: 8px; margin-bottom: 0.25rem;" loading="lazy" />
+    <img src="/images/news/amanberry.webp" alt="AMANBERRY" style="display: block; width: auto; height: 130px; max-width: 100%; object-fit: contain; object-position: center; border-radius: 8px; margin-bottom: 0.25rem;" loading="lazy" />
     <figcaption><small>写真: <a href="https://www.hankyu-dept.co.jp/hakata/shopnews/detail/1226441_1813.html">AMANBERRY</a> 博多阪急公式サイト より</small></figcaption>
   </figure>
 
   <figure style="margin: 0;">
-    <img src="/images/news/menbei.png" alt="プレミアムめんべい" style="display: block; width: auto; height: 130px; max-width: 100%; object-fit: contain; object-position: center; border-radius: 8px; margin-bottom: 0.25rem;" loading="lazy" />
+    <img src="/images/news/menbei.webp" alt="プレミアムめんべい" style="display: block; width: auto; height: 130px; max-width: 100%; object-fit: contain; object-position: center; border-radius: 8px; margin-bottom: 0.25rem;" loading="lazy" />
     <figcaption><small>写真: <a href="https://www.fukutaro.co.jp/menbei_premiumand/">プレミアムめんべい</a> 福太郎公式サイト より</small></figcaption>
   </figure>
 
   <figure style="margin: 0;">
-    <img src="/images/news/mentaiyaki.png" alt="鯛と餡 めんたい焼き" style="display: block; width: auto; height: 130px; max-width: 100%; object-fit: contain; object-position: center; border-radius: 8px; margin-bottom: 0.25rem;" loading="lazy" />
+    <img src="/images/news/mentaiyaki.webp" alt="鯛と餡 めんたい焼き" style="display: block; width: auto; height: 130px; max-width: 100%; object-fit: contain; object-position: center; border-radius: 8px; margin-bottom: 0.25rem;" loading="lazy" />
     <figcaption><small>写真: <a href="https://abeno.keizai.biz/photoflash/12324/">鯛と餡 めんたい焼き</a> あべの経済新聞 より</small></figcaption>
   </figure>
 
   <figure style="margin: 0;">
-    <img src="/images/news/hiyoko.png" alt="纏衣ひよ子" style="display: block; width: auto; height: 130px; max-width: 100%; object-fit: contain; object-position: center; border-radius: 8px; margin-bottom: 0.25rem;" loading="lazy" />
+    <img src="/images/news/hiyoko.webp" alt="纏衣ひよ子" style="display: block; width: auto; height: 130px; max-width: 100%; object-fit: contain; object-position: center; border-radius: 8px; margin-bottom: 0.25rem;" loading="lazy" />
     <figcaption><small>写真: <a href="https://www.walkerplus.com/article/216141/image1336984.html">纏衣ひよ子</a> Walkerplus より</small></figcaption>
   </figure>
 </div>
