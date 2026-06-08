@@ -39,6 +39,24 @@ article {
   font-variation-settings: "GRAD" 0;
   font-optical-sizing: auto;
   font-feature-settings: "palt", "lnum", "liga";
+  text-wrap: pretty;
+}
+
+/* Headings: balance line lengths for a tidier ragged edge. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h--xl,
+.h--1,
+.h--2,
+.h--3,
+.h--4,
+.h--5,
+.h--6 {
+  text-wrap: balance;
 }
 
 .h--xl {

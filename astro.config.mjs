@@ -7,4 +7,8 @@ export default defineConfig({
   output: "server",
   adapter: netlify(),
   integrations: [sitemap()],
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: "viewport",
+  },
 });
