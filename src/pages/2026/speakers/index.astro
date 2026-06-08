@@ -27,7 +27,7 @@ const sortedSpeakers = speakers.sort((a, b) => {
 
     <div class="speakers-grid">
       {
-        sortedSpeakers.map((speaker) => (
+        sortedSpeakers.map((speaker, index) => (
           <a
             href={`/2026/speakers/${speaker.id.replace(/^.*\//, "").replace(".md", "")}?hl=${lang}`}
             class="speaker-card"
@@ -38,6 +38,10 @@ const sortedSpeakers = speakers.sort((a, b) => {
                   src={speaker.data.image}
                   alt={speaker.data.name}
                   class="speaker-card__image"
+                  width="400"
+                  height="400"
+                  loading={index < 4 ? "eager" : "lazy"}
+                  decoding="async"
                 />
               </div>
             )}

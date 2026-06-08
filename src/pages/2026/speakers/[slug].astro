@@ -61,6 +61,10 @@ function parseInlineMarkdown(text: string): string {
               src={speaker.data.image}
               alt={speaker.data.name}
               class="speaker-avatar"
+              width="400"
+              height="400"
+              loading="lazy"
+              decoding="async"
             />
           )
         }

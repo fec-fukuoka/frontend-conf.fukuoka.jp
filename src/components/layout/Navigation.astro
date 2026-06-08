@@ -5,7 +5,7 @@ import {
   getLocalizedPath,
 } from "../../i18n/utils";
 import { navigation } from "../../data/navigation";
-import logoIcon from "../../assets/Accent_Transparent.svg";
+import logoIcon from "../../assets/Accent_Transparent.webp";
 import LanguageSwitcher from "../common/LanguageSwitcher.astro";
 
 const lang = getLangFromUrl(Astro.url);
@@ -163,9 +163,6 @@ const t = useTranslations(lang);
       border-block-end: none;
 
       img {
-        width: 32px;
-        height: 32px;
-        display: block;
         transition: transform 0.3s ease;
       }
 
