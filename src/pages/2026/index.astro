@@ -101,9 +101,6 @@ const eventDescription =
     <section class="news">
       <div class="section-header">
         <h2 class="section-title">{t("news.title")}</h2>
-        <a href={`/2026/news?hl=${lang}`} class="view-all">
-          {t("button.viewAll")} →
-        </a>
       </div>
       <div class="news-list">
         {
@@ -117,6 +114,16 @@ const eventDescription =
             />
           ))
         }
+      </div>
+      <div class="news-actions">
+        <!-- スクリーンリーダー等のリンク一覧で意味不明にならないようにaria-labelではニュースの一覧ページへのリンクであることを明示 -->
+        <a
+          href={`/2026/news?hl=${lang}`}
+          class="view-all"
+          aria-label={t("news.viewAllAriaLabel")}
+        >
+          {t("button.viewAll")} →
+        </a>
       </div>
     </section>
 
@@ -303,9 +310,6 @@ const eventDescription =
   }
   .section-header {
     margin-block-end: 4rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
   }
 
   .section-title {
@@ -324,6 +328,12 @@ const eventDescription =
 
   .view-all:hover {
     color: var(--color-text-primary);
+  }
+
+  .news-actions {
+    display: flex;
+    justify-content: center;
+    margin-block-start: 2rem;
   }
 
   .schedule {
@@ -384,15 +394,6 @@ const eventDescription =
 
   .calendar-link:hover {
     color: var(--color-text-primary);
-  }
-
-  .news-list {
-    max-height: 80vh;
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    scrollbar-color: var(--color-border-subtle) transparent;
-    scrollbar-width: thin;
-    scrollbar-gutter: stable both-edges;
   }
 
   .sponsors {
