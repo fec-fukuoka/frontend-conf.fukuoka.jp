@@ -1,4 +1,5 @@
 ---
+import { Picture } from "astro:assets";
 import logoImage from "../../assets/Accent_Transparent.webp";
 
 export interface Props {
@@ -25,12 +26,15 @@ const {
 
     <div class="hero__content">
       <!-- Main logo -->
-      <img
-        src={logoImage.src}
+      <Picture
+        src={logoImage}
+        formats={["webp"]}
+        densities={[1, 2]}
         alt="Frontend Conference Fukuoka"
         class="hero__logo"
-        width="320"
-        height="484"
+        width={320}
+        height={484}
+        loading="eager"
         fetchpriority="high"
       />
 
