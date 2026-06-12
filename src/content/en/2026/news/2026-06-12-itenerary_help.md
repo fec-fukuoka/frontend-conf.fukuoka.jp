@@ -26,18 +26,18 @@ If you are coming from afar, you may want to consider staying the night before a
 
 (Note: The schedule below is a draft. Times are subject to change.)
 
-|             | Room A          | Room B | Room C |
-| ----------- | --------------- | ------ | ------ |
-| 10:00-10:40 | Registration    |    -   |    -   |
-| 10:40-10:50 | Opening         |    -   |    -   |
-| 11:00-12:00 | Speaker 1       | Speaker 2 | Speaker 3 |
-| 12:10-13:10 | ...             |   ...  |   ...  |
-| 13:20-14:20 | ...             |   ...  |   ...  |
-| 14:30-15:30 | ...             |   ...  |   ...  |
-| 15:40-16:40 | ...             |   ...  |   ...  |
-| 16:50-17:50 | ...             |   ...  |   ...  |
-| 18:00-18:10 | Closing         |    -   |    -   |
-| 18:20-20:30 | After-party (separate building) | - | - |
+|             | Room A                          | Room B    | Room C    |
+| ----------- | ------------------------------- | --------- | --------- |
+| 10:00-10:40 | Registration                    | -         | -         |
+| 10:40-10:50 | Opening                         | -         | -         |
+| 11:00-12:00 | Speaker 1                       | Speaker 2 | Speaker 3 |
+| 12:10-13:10 | ...                             | ...       | ...       |
+| 13:20-14:20 | ...                             | ...       | ...       |
+| 14:30-15:30 | ...                             | ...       | ...       |
+| 15:40-16:40 | ...                             | ...       | ...       |
+| 16:50-17:50 | ...                             | ...       | ...       |
+| 18:00-18:10 | Closing                         | -         | -         |
+| 18:20-20:30 | After-party (separate building) | -         | -         |
 
 There is no dedicated lunch break. Light meals and drinks will be available at the venue, so please feel free to enjoy them at any time, while being considerate of those around you.
 
