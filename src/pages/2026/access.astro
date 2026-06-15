@@ -13,7 +13,6 @@ if (!event) {
 }
 
 const eventVenue = lang === "ja" ? event.venue : event.venueEn;
-const venueDetails = lang === "ja" ? site.venueDetails : site.venueDetailsEn;
 const address = lang === "ja" ? site.address : site.addressEn;
 const jrStation =
   lang === "ja" ? site.access.jr.station : site.access.jr.stationEn;
@@ -27,7 +26,6 @@ const busStop = lang === "ja" ? site.access.bus.stop : site.access.bus.stopEn;
     <section class="access-section">
       <h2>{t("access.venue")}</h2>
       <p class="venue-name">{eventVenue}</p>
-      <p class="venue-details">{venueDetails}</p>
       <p class="venue-address">{address}</p>
     </section>
 

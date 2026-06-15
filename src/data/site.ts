@@ -11,8 +11,6 @@ export const site = {
   dateEn: "September 12, 2026 (Sat)",
   venue: "九州産業大学 12号館",
   venueEn: "Kyushu Sangyo University, Building 12",
-  venueDetails: "情報科学部棟",
-  venueDetailsEn: "Information Science Building",
   address: "福岡県福岡市東区松香台2-3-1",
   addressEn: "2-3-1 Matsukadai, Higashi-ku, Fukuoka City, Fukuoka",
   access: {
