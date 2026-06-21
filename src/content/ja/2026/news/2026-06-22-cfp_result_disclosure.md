@@ -13,7 +13,7 @@ draft: false
 
 まず、「**未来のフロントエンドと徹底的に向き合う**」というテーマかつ全てのセッションで 45~60分（AMA 含む）という、かなりハードでレベルの高い条件の中、熱量ある真摯な姿勢のプロポーザルがたくさん提出されたこと自体がとても喜ばしいです。
 
-2019年以来 7年ぶりの開催となった今年は、合計で実に [60](https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/issues?q=is%3Aissue%20state%3Aopen%20label%3A2026-proposal%3Ageneral) ものプロポーザルが提出されており、私たち運営委員会想の定を超える数の応募をいただきました。
+2019年以来 7年ぶりの開催となった今年は、合計で実に [60](https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/issues?q=is%3Aissue%20state%3Aopen%20label%3A2026-proposal%3Ageneral) ものプロポーザルが提出されており、私たち運営委員会の想定を超える数の応募をいただきました。
 
 FECF 2026 に興味を寄せいていただき、時間を割いてプロポーザルを練り上げていただいた皆様に、心から感謝申し上げます。
 
