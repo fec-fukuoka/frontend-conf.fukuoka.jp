@@ -204,6 +204,11 @@
 
   /* Typography. */
   --font-san-serif-fallback: arial, helvetica, sans-serif;
+  /* Monospace fallback for code faces (Cartograph/Cascadia are licensed and
+     may not load) — keeps code rendering monospace, never proportional. */
+  --font-mono-fallback:
+    ui-monospace, "SF Mono", "Cascadia Code", "JetBrains Mono", menlo, consolas,
+    "Liberation Mono", monospace;
   --font-fallback-cartograph: "Fallback for Cartograph?";
   --font-fallback-cascadia: "Fallback for Cascadia?";
   --font-fallback-alegreya: "Fallback for Alegreya?";

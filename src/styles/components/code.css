@@ -1,0 +1,102 @@
+/*
+----------------------------------------------------------------------------
+Code blocks and inline code.
+
+Shiki is configured with `theme: "css-variables"` (see astro.config.mjs), so
+every highlighted token reads its colour from an `--astro-code-*` custom
+property. We map those to the conference design tokens here, turning the
+default github-dark output into an on-brand terminal panel.
+
+The block mirrors the `.note` callout grammar (rounded corner + start rule +
+recessed surface) but takes the system's own code colours — a violet-to-red
+start rule built from `--color-code-light` / `--color-code-dark`.
+----------------------------------------------------------------------------
+*/
+
+html {
+  /* Panel chrome. */
+  --astro-code-background: color-mix(
+    in oklch,
+    var(--color-conf-dark),
+    black 22%
+  );
+  --astro-code-foreground: color-mix(
+    in oklch,
+    var(--color-conf-light),
+    transparent 8%
+  );
+
+  /* Syntax tokens, derived from the brand hue tokens so any real code block
+     looks like it belongs to the conference, not to github-dark. */
+  --astro-code-token-comment: var(--color-text-tertiary);
+  --astro-code-token-keyword: var(--color-red-2);
+  --astro-code-token-string: var(--color-green-2);
+  --astro-code-token-string-expression: var(--color-green-1);
+  --astro-code-token-function: var(--color-blue-2);
+  --astro-code-token-constant: var(--color-orange-2);
+  --astro-code-token-parameter: var(--color-violet-2);
+  --astro-code-token-punctuation: color-mix(
+    in oklch,
+    var(--color-conf-light),
+    transparent 38%
+  );
+  --astro-code-token-link: var(--color-blue-1);
+}
+
+/*
+----------------------------------------------------------------------------
+Block code (Shiki output).
+----------------------------------------------------------------------------
+*/
+pre.astro-code {
+  margin-block: var(--gutter-m);
+  padding-block: var(--gap-s);
+  padding-inline: var(--gap-m);
+
+  /* Violet-to-red start rule painted as a 3px background bar. Using a
+     background (not a border) keeps it pinned while the panel scrolls and lets
+     the rounded corners clip it cleanly. The inline `background-color` Shiki
+     sets stays intact — we only add the image layer. */
+  background-image: linear-gradient(
+    180deg,
+    var(--color-code-light),
+    var(--color-code-dark)
+  );
+  background-repeat: no-repeat;
+  background-size: 3px 100%;
+  background-position: left center;
+
+  overflow-x: auto;
+  font-size: var(--font-size-s);
+  line-height: 1.7;
+  tab-size: 2;
+}
+
+pre.astro-code,
+pre.astro-code code {
+  font-family: var(--base-font-family-code);
+  font-optical-sizing: auto;
+  color: var(--astro-code-foreground);
+}
+
+/* Keyboard users can scroll a focused panel — make that state visible. */
+pre.astro-code:focus-visible {
+  outline: var(--border-width-m) solid var(--color-focus);
+  outline-offset: var(--border-width-s);
+}
+
+/*
+----------------------------------------------------------------------------
+Inline code (e.g. `@fec-admin`, dates, paths in prose).
+----------------------------------------------------------------------------
+*/
+:not(pre) > code {
+  padding: 0.1em 0.4em;
+  border: var(--border-width-s) solid var(--color-border-subtle);
+  border-radius: 0.35em;
+  background: var(--color-surface-elevated);
+  font-family: var(--base-font-family-code);
+  font-size: 0.9em;
+  color: var(--color-code-light);
+  overflow-wrap: anywhere;
+}

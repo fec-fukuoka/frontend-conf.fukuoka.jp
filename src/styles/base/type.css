@@ -16,6 +16,10 @@ html {
     var(--font-family-cartograph), var(--font-san-serif-fallback);
   --base-font-family-cascadia:
     var(--font-family-cascadia), var(--font-san-serif-fallback);
+  /* Code: prefer the licensed coding faces, fall back to real monospace. */
+  --base-font-family-code:
+    var(--font-family-cascadia), var(--font-family-cartograph),
+    var(--font-mono-fallback);
   --base-font-family-alegreya:
     var(--font-family-alegreya), var(--font-fallback-alegreya), serif;
   --base-font-size: 100%;
