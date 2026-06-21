@@ -21,10 +21,10 @@ FECF 2026 に興味を寄せいていただき、時間を割いてプロポー�
 
 FECF 2026 にて採択させていただいた公募プロポーザルを以下の通りお知らせいたします。
 
-- <img src="https://github.com/ssssota.png" alt="" aria-hidden="true" width="35" style="display: inline-block; vertical-align: middle; border-radius: 50%; margin: 0.3rem 0.5rem;" />[ssssota さん](https://frontend-conf.fukuoka.jp/2026/speakers/kosakin)　・ フロントエンドUIフレームワークのこれまでとこれから
-- <img src="https://github.com/karintou8710.png" alt="" aria-hidden="true" width="35" style="display: inline-block; vertical-align: middle; border-radius: 50%; margin: 0.3rem 0.5rem;" />[コサキン さん](https://frontend-conf.fukuoka.jp/2026/speakers/ssssota)　・ Webで実用的な縦書きエディタは可能か？──現在地と普及に向けて
-- <img src="https://github.com/sosukesuzuki.png" alt="" aria-hidden="true" width="35" style="display: inline-block; vertical-align: middle; border-radius: 50%; margin: 0.3rem 0.5rem;" />[Sosuke Suzuki さん](https://frontend-conf.fukuoka.jp/2026/speakers/kosakin)　・ なぜJavaScriptは異常なほど速いのか？
-- <img src="https://github.com/ts020.png" alt="" aria-hidden="true" width="35" style="display: inline-block; vertical-align: middle; border-radius: 50%; margin: 0.3rem 0.5rem;" />[菅原 孝則 さん](https://frontend-conf.fukuoka.jp/2026/speakers/kosakin)　・ 速さを追い求めたらHTMLになった - Studioレンダリングエンジン刷新の2年半 -
+- <img src="https://github.com/ssssota.png" alt="" aria-hidden="true" width="35" style="display: inline-block; vertical-align: middle; border-radius: 50%; margin: 0.3rem 0.5rem;" />[ssssota さん](https://frontend-conf.fukuoka.jp/2026/speakers/tomikawa-sotaro)　・ フロントエンドUIフレームワークのこれまでとこれから
+- <img src="https://github.com/karintou8710.png" alt="" aria-hidden="true" width="35" style="display: inline-block; vertical-align: middle; border-radius: 50%; margin: 0.3rem 0.5rem;" />[コサキン さん](https://frontend-conf.fukuoka.jp/2026/speakers/kosakin)　・ Webで実用的な縦書きエディタは可能か？──現在地と普及に向けて
+- <img src="https://github.com/sosukesuzuki.png" alt="" aria-hidden="true" width="35" style="display: inline-block; vertical-align: middle; border-radius: 50%; margin: 0.3rem 0.5rem;" />[Sosuke Suzuki さん](https://frontend-conf.fukuoka.jp/2026/speakers/sosuke-suzuki)　・ なぜJavaScriptは異常なほど速いのか？
+- <img src="https://github.com/ts020.png" alt="" aria-hidden="true" width="35" style="display: inline-block; vertical-align: middle; border-radius: 50%; margin: 0.3rem 0.5rem;" />[菅原 孝則 さん](https://frontend-conf.fukuoka.jp/2026/speakers/takanori-sugawara)　・ 速さを追い求めたらHTMLになった - Studioレンダリングエンジン刷新の2年半 -
 
 公募枠上記4名とゲスト枠13名、スポンサー枠の1名を加えて、合計18名からトークいただく予定です。
 
