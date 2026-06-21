@@ -11,7 +11,7 @@ draft: false
 
 We're pleased to announce the results of the open Call for Proposals for Frontend Conference Fukuoka 2026, along with a disclosure of our selection process.
 
-To begin with, under the demanding, high-bar conditions of our theme — "**Engaging deeply with the future of frontend**" — and sessions of 45–60 minutes each (including AMA), we're simply delighted that so many passionate, earnest proposals were submitted.
+To begin with, under the demanding, high-bar conditions of our theme — "**Deeply Exploring the Future of Frontend**" — and sessions of 45–60 minutes each (including AMA), we're simply delighted that so many passionate, earnest proposals were submitted.
 
 Held for the first time in seven years since 2019, this year saw a remarkable [60](https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/issues?q=is%3Aissue%20state%3Aopen%20label%3A2026-proposal%3Ageneral) proposals submitted in total — more than our organizing committee had anticipated.
 
