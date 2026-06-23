@@ -56,6 +56,9 @@ const sponsorsByTier = {
   bronze: sponsorsData
     .filter((s) => s.tier === "bronze")
     .map((s) => ({ ...s, resolvedLogo: getSponsorImage(s.logo) })),
+  food: sponsorsData
+    .filter((s) => s.tier === "food")
+    .map((s) => ({ ...s, resolvedLogo: getSponsorImage(s.logo) })),
   community: sponsorsData
     .filter((s) => s.tier === "community")
     .map((s) => ({ ...s, resolvedLogo: getSponsorImage(s.logo) })),
@@ -64,6 +67,9 @@ const sponsorsByTier = {
     .map((s) => ({ ...s, resolvedLogo: getSponsorImage(s.logo) })),
   venue: sponsorsData
     .filter((s) => s.tier === "venue")
+    .map((s) => ({ ...s, resolvedLogo: getSponsorImage(s.logo) })),
+  specialThanks: sponsorsData
+    .filter((s) => s.tier === "special-thanks")
     .map((s) => ({ ...s, resolvedLogo: getSponsorImage(s.logo) })),
 };
 
@@ -194,7 +200,6 @@ const eventDescription =
                   />
                 </a>
               ))}
-              s
             </div>
           </div>
         )
@@ -205,6 +210,29 @@ const eventDescription =
             <h3 class="sponsors__tier-title">Bronze Sponsors</h3>
             <div class="sponsors__grid sponsors__grid--bronze">
               {sponsorsByTier.bronze.map((sponsor) => (
+                <a
+                  href={sponsor.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="sponsors__item"
+                >
+                  <Image
+                    src={sponsor.resolvedLogo}
+                    alt={sponsor.name}
+                    class="sponsors__logo"
+                  />
+                </a>
+              ))}
+            </div>
+          </div>
+        )
+      }
+      {
+        sponsorsByTier.food.length > 0 && (
+          <div class="sponsors__section">
+            <h3 class="sponsors__tier-title">Food Sponsors</h3>
+            <div class="sponsors__grid sponsors__grid--food">
+              {sponsorsByTier.food.map((sponsor) => (
                 <a
                   href={sponsor.url}
                   target="_blank"
@@ -291,9 +319,73 @@ const eventDescription =
           </div>
         )
       }
+      {
+        sponsorsByTier.specialThanks.length > 0 && (
+          <div class="sponsors__section">
+            <h3 class="sponsors__tier-title">Special Thanks</h3>
+            <div class="sponsors__grid sponsors__grid--special-thanks">
+              {sponsorsByTier.specialThanks.map((sponsor) => (
+                <a
+                  href={sponsor.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="sponsors__item"
+                >
+                  <Image
+                    src={sponsor.resolvedLogo}
+                    alt={sponsor.name}
+                    class="sponsors__logo"
+                  />
+                </a>
+              ))}
+            </div>
+          </div>
+        )
+      }
       <p class="sponsor-info">
         {t("sponsors.recruiting")}
       </p>
+    </section>
+
+    <section class="organizers">
+      <h2 class="section-title organizers-title">{t("organizers.title")}</h2>
+      <div class="organizers__grid">
+        {
+          [
+            "012xx",
+            "alt9800",
+            "apple-yagi",
+            "FukeKazki",
+            "hoshi11",
+            "magcho",
+            "puku0x",
+            "sakupi01",
+            "seike460",
+            "take-cantik",
+            "WataruNishimura",
+            "yud0uhu",
+            "yusukehirao",
+          ].map((id) => (
+            <a
+              href={`https://github.com/${id}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="organizers__member"
+            >
+              <img
+                src={`https://github.com/${id}.png?size=120`}
+                alt={id}
+                class="organizers__avatar"
+                width="120"
+                height="120"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="organizers__id">@{id}</span>
+            </a>
+          ))
+        }
+      </div>
     </section>
   </div>
 </PageLayout>
@@ -404,7 +496,7 @@ const eventDescription =
   .sponsors {
     container-type: inline-size;
     container-name: sponsors;
-    padding: 4rem 0;
+    padding-block: 4rem;
   }
 
   .sponsors__section {
@@ -420,7 +512,8 @@ const eventDescription =
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--color-text-tertiary);
-    margin: 0 0 2rem 0;
+    margin: 0;
+    margin-block-end: 2rem;
     text-align: center;
   }
 
@@ -429,58 +522,45 @@ const eventDescription =
     container-name: sponsor-grid;
     display: grid;
     gap: 1.5rem;
-    align-items: center;
-    justify-items: center;
+    place-items: center;
+  }
+  .sponsors__grid--platinum,
+  .sponsors__grid--supporter,
+  .sponsors__grid--venue,
+  .sponsors__grid--special-thanks {
+    grid-template-columns: repeat(1, 1fr);
   }
 
-  /* Platinum sponsors - largest */
-  .sponsors__grid--platinum {
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
-  }
-
-  /* Gold sponsors */
   .sponsors__grid--gold {
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  /* Silver sponsors */
-  .sponsors__grid--silver {
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
-  }
-
-  /* Bronze sponsors */
+  .sponsors__grid--silver,
   .sponsors__grid--bronze {
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+    grid-template-columns: repeat(3, 1fr);
   }
 
-  /* Community sponsors - smallest */
+  .sponsors__grid--food {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
   .sponsors__grid--community {
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 120px), 1fr));
-  }
-
-  /* supporter sponsors - smallest */
-  .sponsors__grid--supporter {
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 120px), 1fr));
-  }
-
-  /* venue sponsors - smallest */
-  .sponsors__grid--venue {
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 120px), 1fr));
+    grid-template-columns: repeat(5, 1fr);
   }
 
   @layer components {
     .sponsors__item {
-      width: 100%;
+      inline-size: 100%;
       aspect-ratio: 3 / 2;
       display: flex;
-      align-items: center;
+      place-items: center;
       justify-content: center;
       background-color: white;
       border: 1px solid var(--color-border-subtle);
       border-radius: 8px;
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       text-decoration: none;
-      overflow: hidden;
+      overflow: clip;
     }
 
     .sponsors__item:hover {
@@ -490,7 +570,7 @@ const eventDescription =
     }
 
     .sponsors__logo {
-      width: 60%;
+      inline-size: 75%;
       aspect-ratio: 1 / 1;
       object-fit: contain;
     }
@@ -500,29 +580,33 @@ const eventDescription =
       opacity: 0.95;
     }
 
-    @container sponsor-grid (min-width: 768px) {
+    /* @container sponsor-grid (min-width: 768px) {
       .sponsors__grid--platinum {
+        grid-template-columns: repeat(1, 1fr);
+      }
+
+      .sponsors__grid--gold {
         grid-template-columns: repeat(2, 1fr);
       }
 
-      .sponsors__grid--gold {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
       .sponsors__grid--silver {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(3, 1fr);
       }
 
       .sponsors__grid--bronze {
         grid-template-columns: repeat(4, 1fr);
       }
 
+      .sponsors__grid--food {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
       .sponsors__grid--community {
         grid-template-columns: repeat(5, 1fr);
       }
-    }
+    } */
 
-    @container sponsor-grid (min-width: 1200px) {
+    /* @container sponsor-grid (min-width: 1200px) {
       .sponsors__grid--platinum {
         grid-template-columns: repeat(3, 1fr);
       }
@@ -539,10 +623,14 @@ const eventDescription =
         grid-template-columns: repeat(6, 1fr);
       }
 
+      .sponsors__grid--food {
+        grid-template-columns: repeat(6, 1fr);
+      }
+
       .sponsors__grid--community {
         grid-template-columns: repeat(6, 1fr);
       }
-    }
+    } */
   }
 
   .schedule-loading {
@@ -568,6 +656,62 @@ const eventDescription =
 
   :global(.schedule-item--upcoming) strong {
     font-weight: 600;
+  }
+
+  .organizers {
+    margin-block-start: 8rem;
+    padding-block: 4rem;
+  }
+
+  .organizers-title {
+    margin-block-end: 3rem;
+    text-align: center;
+  }
+
+  .organizers__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 100px), 1fr));
+    gap: 0.5rem;
+    place-items: center;
+    margin-inline: auto;
+  }
+
+  .organizers__member {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+  }
+
+  .organizers__member:hover {
+    transform: translateY(-2px);
+  }
+
+  .organizers__avatar {
+    inline-size: 50px;
+    block-size: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--color-border-subtle);
+    transition: border-color 0.3s ease;
+  }
+
+  .organizers__member:hover .organizers__avatar {
+    border-color: var(--color-border-hover);
+  }
+
+  .organizers__id {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    transition: color 0.3s ease;
+    text-align: center;
+    word-break: break-all;
+  }
+
+  .organizers__member:hover .organizers__id {
+    color: var(--color-text-primary);
   }
 </style>
 
