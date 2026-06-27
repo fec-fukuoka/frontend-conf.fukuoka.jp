@@ -6,7 +6,7 @@ import PageLayout from "../../layouts/PageLayout.astro";
 import NewsCard from "../../components/cards/NewsCard.astro";
 import { getEventByYear } from "../../data/events";
 import { getLangFromRequest, useTranslations } from "../../i18n/utils";
-import sponsorsData from "../../data/sponsors.json";
+import supportersData from "../../data/supporters.json";
 
 const lang = getLangFromRequest(Astro.request, Astro.url);
 const t = useTranslations(lang);
@@ -44,34 +44,53 @@ function getSponsorImage(logo: string): ImageMetadata {
 
 // Sponsors by tier with resolved images
 const sponsorsByTier = {
-  platinum: sponsorsData
+  platinum: supportersData.sponsors
     .filter((s) => s.tier === "platinum")
     .map((s) => ({ ...s, resolvedLogo: getSponsorImage(s.logo) })),
-  gold: sponsorsData
+  gold: supportersData.sponsors
     .filter((s) => s.tier === "gold")
     .map((s) => ({ ...s, resolvedLogo: getSponsorImage(s.logo) })),
-  silver: sponsorsData
+  silver: supportersData.sponsors
     .filter((s) => s.tier === "silver")
     .map((s) => ({ ...s, resolvedLogo: getSponsorImage(s.logo) })),
-  bronze: sponsorsData
+  bronze: supportersData.sponsors
     .filter((s) => s.tier === "bronze")
     .map((s) => ({ ...s, resolvedLogo: getSponsorImage(s.logo) })),
-  food: sponsorsData
+  food: supportersData.sponsors
     .filter((s) => s.tier === "food")
     .map((s) => ({ ...s, resolvedLogo: getSponsorImage(s.logo) })),
-  community: sponsorsData
+  community: supportersData.sponsors
     .filter((s) => s.tier === "community")
     .map((s) => ({ ...s, resolvedLogo: getSponsorImage(s.logo) })),
-  supporter: sponsorsData
+  supporter: supportersData.sponsors
     .filter((s) => s.tier === "supporter")
     .map((s) => ({ ...s, resolvedLogo: getSponsorImage(s.logo) })),
-  venue: sponsorsData
+  venue: supportersData.sponsors
     .filter((s) => s.tier === "venue")
     .map((s) => ({ ...s, resolvedLogo: getSponsorImage(s.logo) })),
-  specialThanks: sponsorsData
+  specialThanks: supportersData.sponsors
     .filter((s) => s.tier === "special-thanks")
     .map((s) => ({ ...s, resolvedLogo: getSponsorImage(s.logo) })),
 };
+
+// Load individual sponsor images from src/assets
+const individualImages = import.meta.glob<{ default: ImageMetadata }>(
+  "../../assets/images/individual/*.{png,jpg,jpeg,svg,webp}",
+  { eager: true }
+);
+
+// Individual sponsors with resolved images
+const individualSponsors = supportersData.individuals.map((s) => {
+  const key = `../../assets/images/individual/${s.image}`;
+  const image = individualImages[key]?.default;
+  if (!image) {
+    throw new Error(`Individual sponsor image not found: ${s.image}`);
+  }
+  return { ...s, resolvedImage: image };
+});
+
+// Organizers (GitHub usernames)
+const organizers = supportersData.organizers;
 
 // Event information based on language
 const eventTitle = lang === "ja" ? event.title : event.titleEn;
@@ -342,6 +361,38 @@ const eventDescription =
           </div>
         )
       }
+      {
+        individualSponsors.length > 0 && (
+          <div class="sponsors__section">
+            <h3 class="sponsors__tier-title">Individual Sponsors</h3>
+            <div class="individual-sponsors__grid">
+              {individualSponsors.map((sponsor) => {
+                const Wrapper = sponsor.url ? "a" : "div";
+                const linkProps = sponsor.url
+                  ? {
+                      href: sponsor.url,
+                      target: "_blank",
+                      rel: "noopener noreferrer",
+                    }
+                  : {};
+                return (
+                  <Wrapper class="individual-sponsors__member" {...linkProps}>
+                    <Image
+                      src={sponsor.resolvedImage}
+                      alt={sponsor.name}
+                      width={160}
+                      class="individual-sponsors__avatar"
+                    />
+                    <span class="individual-sponsors__name">
+                      {sponsor.name}
+                    </span>
+                  </Wrapper>
+                );
+              })}
+            </div>
+          </div>
+        )
+      }
       <p class="sponsor-info">
         {t("sponsors.recruiting")}
       </p>
@@ -351,21 +402,7 @@ const eventDescription =
       <h2 class="section-title organizers-title">{t("organizers.title")}</h2>
       <div class="organizers__grid">
         {
-          [
-            "012xx",
-            "alt9800",
-            "apple-yagi",
-            "FukeKazki",
-            "hoshi11",
-            "magcho",
-            "puku0x",
-            "sakupi01",
-            "seike460",
-            "take-cantik",
-            "WataruNishimura",
-            "yud0uhu",
-            "yusukehirao",
-          ].map((id) => (
+          organizers.map((id) => (
             <a
               href={`https://github.com/${id}`}
               target="_blank"
@@ -631,6 +668,53 @@ const eventDescription =
         grid-template-columns: repeat(6, 1fr);
       }
     } */
+  }
+
+  .individual-sponsors__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 120px), 1fr));
+    gap: 1.5rem;
+    place-items: start center;
+    margin-inline: auto;
+  }
+
+  .individual-sponsors__member {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+  }
+
+  a.individual-sponsors__member:hover {
+    transform: translateY(-2px);
+  }
+
+  .individual-sponsors__avatar {
+    inline-size: 80px;
+    block-size: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: white;
+    border: 2px solid var(--color-border-subtle);
+    transition: border-color 0.3s ease;
+  }
+
+  .individual-sponsors__member:hover .individual-sponsors__avatar {
+    border-color: var(--color-border-hover);
+  }
+
+  .individual-sponsors__name {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    text-align: center;
+    word-break: break-word;
+    transition: color 0.3s ease;
+  }
+
+  a.individual-sponsors__member:hover .individual-sponsors__name {
+    color: var(--color-text-primary);
   }
 
   .schedule-loading {
