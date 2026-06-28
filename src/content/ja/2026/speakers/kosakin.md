@@ -11,12 +11,12 @@ endTime: "00:00"
 bio: |
   サイボウズ株式会社 フロントエンド職能
   リッチテキストエディタ (RTE) に興味を持ち２年程
-  
+
   - 非公式で Zenn の WYSIWYG エディタ開発
   - RTE の[記事発信](https://zenn.dev/karintou)
   - OSS 貢献 ( Tiptap, Blink )
   - [rich_text_editor_study](https://web-study.connpass.com/event/391357/) での登壇
-  
+
   最近は縦書きエディタを触り始め、WYSIWYG で記事公開まで可能な「[縦筆Web](https://tatefude.com/)」をリリース
 twitter: "kosakin8710"
 github: "karintou8710"
