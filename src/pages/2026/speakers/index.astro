@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import PageLayout from "../../../layouts/PageLayout.astro";
 import { getLangFromRequest, useTranslations } from "../../../i18n/utils";
+import CategoryTag from "../../../components/CategoryTag.astro";
 
 const lang = getLangFromRequest(Astro.request, Astro.url);
 const t = useTranslations(lang);
@@ -28,6 +29,7 @@ const sortedSpeakers = speakers.sort((a, b) => {
     <div class="speakers-grid">
       {
         sortedSpeakers.map((speaker, index) => (
+          <article>
           <a
             href={`/2026/speakers/${speaker.id.replace(/^.*\//, "").replace(".md", "")}?hl=${lang}`}
             class="speaker-card"
@@ -43,16 +45,19 @@ const sortedSpeakers = speakers.sort((a, b) => {
                   loading={index < 4 ? "eager" : "lazy"}
                   decoding="async"
                 />
+                <div class="filter-overlay"></div>
               </div>
             )}
             <div class="speaker-card__content">
               <h2 class="speaker-card__name">{speaker.data.name}</h2>
               <p class="speaker-card__title">{speaker.data.sessionTitle}</p>
-              <span class="speaker-card__category">
-                {speaker.data.sessionCategory}
-              </span>
+              <CategoryTag
+                class="speaker-card__category"
+                category={speaker.data.sessionCategory}
+              />
             </div>
           </a>
+          </article>
         ))
       }
     </div>
@@ -73,7 +78,7 @@ const sortedSpeakers = speakers.sort((a, b) => {
       container-name: speakers;
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
-      gap: 2rem;
+      gap: 1rem;
       padding-inline: 2rem;
       max-width: max(80vw, 350px);
       margin-inline: auto;
@@ -85,47 +90,80 @@ const sortedSpeakers = speakers.sort((a, b) => {
     .speaker-card {
       container-type: inline-size;
       container-name: card;
-      background: var(--color-surface-base);
-      border: 1px solid var(--color-border-subtle);
-      border-radius: 8px;
-      padding: 1.5rem;
+      border: none;
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      text-decoration: none;
-      color: inherit;
-      display: block;
-      position: relative;
-      overflow: hidden;
+      display: grid;
+      gap: 1.5rem;
+      block-size: 100%;
     }
 
-    .speaker-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: var(--color-surface-base);
-      opacity: 0;
-      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      z-index: 0;
+    .speakers-grid > article {
+      display: grid;
     }
 
-    .speaker-card:hover {
-      transform: translateY(-2px);
-      border-color: var(--color-border-hover);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    .speakers-grid > article:nth-child(4n) {
+      .filter-overlay {
+        background: var(--color-conf-pink);
+      }
+      .speaker-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 5px 5px var(--color-conf-red);
+        .filter-overlay {
+          opacity: 1;
+        }
+      }
     }
 
-    .speaker-card:hover::before {
-      opacity: 1;
+    .speakers-grid > article:nth-child(4n+1) {
+      .filter-overlay {
+        background: var(--color-conf-pink);
+      }
+      .speaker-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 5px 5px var(--color-conf-orange);
+        .filter-overlay {
+          opacity: 1;
+        }
+      }
+    }
+    .speakers-grid > article:nth-child(4n+2) {
+      .filter-overlay {
+        background: var(--color-conf-pink);
+      }
+      .speaker-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 5px 5px var(--color-conf-cyan);
+        .filter-overlay {
+          opacity: 1;
+        }
+      }
+    }
+    .speakers-grid > article:nth-child(4n+3) {
+      .filter-overlay {
+        background: var(--color-conf-pink);
+      }
+      .speaker-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 5px 5px var(--color-conf-blue);
+        .filter-overlay {
+          opacity: 1;
+        }
+      }
     }
 
     .speaker-card__image-wrapper {
-      width: 100%;
-      aspect-ratio: 1;
-      border-radius: 6px;
-      overflow: hidden;
-      margin-block-end: 1rem;
-      background: var(--color-surface-elevated);
       position: relative;
-      z-index: 1;
+      isolation: isolate;
+      overflow: hidden;
+    }
+
+    .filter-overlay {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      mix-blend-mode: screen;
+      pointer-events: none;
+      transition: opacity 150ms cubic-bezier(0.6, 0, 0.4, 1);
     }
 
     .speaker-card__image {
@@ -142,9 +180,7 @@ const sortedSpeakers = speakers.sort((a, b) => {
     .speaker-card__content {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
-      position: relative;
-      z-index: 1;
+      gap: 0.3rem;
     }
 
     .speaker-card__name {
@@ -157,15 +193,7 @@ const sortedSpeakers = speakers.sort((a, b) => {
     }
 
     .speaker-card__category {
-      display: inline-flex;
-      align-items: center;
-      padding: 0.25rem 0.875rem;
-      width: fit-content;
-      background: var(--color-surface-elevated);
-      color: var(--color-text-secondary);
-      border: 1px solid var(--color-border-subtle);
-      border-radius: 100px;
-      margin-block-start: 0.75rem;
+      margin-block-start: 0.5rem;
     }
 
     @container card (min-width: 400px) {

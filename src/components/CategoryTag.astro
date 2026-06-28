@@ -1,0 +1,31 @@
+---
+import { getSessionCategoryColor } from "../data/session-category-colors";
+
+interface Props {
+  category: string;
+  class?: string;
+}
+
+const { category, class: className } = Astro.props;
+---
+
+<span
+  class:list={["category-tag", className]}
+  style={`--tag-color:${getSessionCategoryColor(category)}`}
+>
+  {category}
+</span>
+
+<style>
+  .category-tag {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    padding: 0.4rem 0.85rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--tag-color, var(--color-text-secondary));
+    border: 1px solid var(--tag-color, var(--color-text-secondary));
+  }
+</style>
