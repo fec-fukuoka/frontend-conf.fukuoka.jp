@@ -5,9 +5,9 @@ image: "https://avatars.githubusercontent.com/u/2622837?v=4"
 sessionTitle: "Webプラットフォームで議論されているセキュリティ課題 / Security issues being discussed on Web Platforms"
 sessionCategory: "ECMAScript/Web API"
 language: "ja"
-track: "N/A"
-startTime: "00:00"
-endTime: "00:00"
+track: "track-b"
+startTime: "13:20"
+endTime: "14:20"
 bio: |
   Deno/ECMAScript contributor. WebDev at pixiv.
 twitter: "petamoriken"

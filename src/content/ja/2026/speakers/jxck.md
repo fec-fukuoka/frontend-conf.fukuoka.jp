@@ -5,9 +5,9 @@ image: "https://avatars.githubusercontent.com/u/322289?v=4"
 sessionTitle: "Web エコシステムとサイバースペース地政学 / Web Ecosystem & Cyber Space Geopolitics"
 sessionCategory: "Other / その他"
 language: "ja"
-track: "N/A"
-startTime: "00:00"
-endTime: "00:00"
+track: "track-a"
+startTime: "16:50"
+endTime: "17:50"
 bio: |
   Web developer in Japan.
 twitter: ""

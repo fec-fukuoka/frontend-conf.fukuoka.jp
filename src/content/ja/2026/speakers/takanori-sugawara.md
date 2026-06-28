@@ -5,9 +5,9 @@ image: "https://avatars.githubusercontent.com/u/728384?v=4"
 sessionTitle: "速さを追い求めたらHTMLになった  - Studioレンダリングエンジン刷新の2年半 -"
 sessionCategory: "Web Standards"
 language: "ja"
-track: "N/A"
-startTime: "00:00"
-endTime: "00:00"
+track: "track-c"
+startTime: "16:50"
+endTime: "17:50"
 bio: |
   Studioでエンジニアとして開発に従事。
   直近2年半は、Studioのレンダリングエンジン刷新プロジェクト「HRC（Healthy Rendering Composer）」を担当。

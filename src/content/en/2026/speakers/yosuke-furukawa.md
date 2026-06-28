@@ -5,9 +5,9 @@ image: "https://avatars.githubusercontent.com/u/555645?v=4"
 sessionTitle: "Webの地図"
 sessionCategory: "Web Standards"
 language: "ja"
-track: "N/A"
-startTime: "00:00"
-endTime: "00:00"
+track: "track-a"
+startTime: "14:30"
+endTime: "15:30"
 bio: |
   一般社団法人 Japan Node.js Association 代表理事
 twitter: "yosuke_furukawa"

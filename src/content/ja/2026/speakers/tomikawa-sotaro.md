@@ -5,9 +5,9 @@ image: "https://avatars.githubusercontent.com/u/15074382?v=4"
 sessionTitle: "フロントエンドUIフレームワークのこれまでとこれから"
 sessionCategory: "FE Ecosystem/Tooling"
 language: "ja"
-track: "N/A"
-startTime: "00:00"
-endTime: "00:00"
+track: "track-c"
+startTime: "13:20"
+endTime: "14:20"
 bio: |
   株式会社ZOZO フロントエンドテックリード
   雑多にOSSを生やしている

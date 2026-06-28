@@ -5,9 +5,9 @@ image: "https://avatars.githubusercontent.com/u/58652743?v=4"
 sessionTitle: "杜甫々が語るフロントエンド開発技術の歴史と今後"
 sessionCategory: "Web Standards"
 language: "ja"
-track: "N/A"
-startTime: "00:00"
-endTime: "00:00"
+track: "track-a"
+startTime: "11:00"
+endTime: "12:00"
 bio: |
   Webに関する技術情報を公開する「とほほのWWW入門」というサイトを約30年ほど運営しています。
 twitter: ""

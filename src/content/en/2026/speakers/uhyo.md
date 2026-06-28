@@ -5,9 +5,9 @@ image: "https://avatars.githubusercontent.com/u/748348?v=4"
 sessionTitle: "Reactの設計論 / Architecturing a React Application"
 sessionCategory: "FE Ecosystem/Tooling"
 language: "ja"
-track: "N/A"
-startTime: "00:00"
-endTime: "00:00"
+track: "track-b"
+startTime: "11:00"
+endTime: "12:00"
 bio: |
   株式会社カオナビ　フロントエンドエキスパート。TypeScript、React、Web標準が得意。
 twitter: "uhyo_"
