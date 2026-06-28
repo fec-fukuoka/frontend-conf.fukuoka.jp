@@ -30,33 +30,33 @@ const sortedSpeakers = speakers.sort((a, b) => {
       {
         sortedSpeakers.map((speaker, index) => (
           <article>
-          <a
-            href={`/2026/speakers/${speaker.id.replace(/^.*\//, "").replace(".md", "")}?hl=${lang}`}
-            class="speaker-card"
-          >
-            {speaker.data.image && (
-              <div class="speaker-card__image-wrapper">
-                <img
-                  src={speaker.data.image}
-                  alt={speaker.data.name}
-                  class="speaker-card__image"
-                  width="400"
-                  height="400"
-                  loading={index < 4 ? "eager" : "lazy"}
-                  decoding="async"
+            <a
+              href={`/2026/speakers/${speaker.id.replace(/^.*\//, "").replace(".md", "")}?hl=${lang}`}
+              class="speaker-card"
+            >
+              {speaker.data.image && (
+                <div class="speaker-card__image-wrapper">
+                  <img
+                    src={speaker.data.image}
+                    alt={speaker.data.name}
+                    class="speaker-card__image"
+                    width="400"
+                    height="400"
+                    loading={index < 4 ? "eager" : "lazy"}
+                    decoding="async"
+                  />
+                  <div class="filter-overlay" />
+                </div>
+              )}
+              <div class="speaker-card__content">
+                <h2 class="speaker-card__name">{speaker.data.name}</h2>
+                <p class="speaker-card__title">{speaker.data.sessionTitle}</p>
+                <CategoryTag
+                  class="speaker-card__category"
+                  category={speaker.data.sessionCategory}
                 />
-                <div class="filter-overlay"></div>
               </div>
-            )}
-            <div class="speaker-card__content">
-              <h2 class="speaker-card__name">{speaker.data.name}</h2>
-              <p class="speaker-card__title">{speaker.data.sessionTitle}</p>
-              <CategoryTag
-                class="speaker-card__category"
-                category={speaker.data.sessionCategory}
-              />
-            </div>
-          </a>
+            </a>
           </article>
         ))
       }
@@ -114,7 +114,7 @@ const sortedSpeakers = speakers.sort((a, b) => {
       }
     }
 
-    .speakers-grid > article:nth-child(4n+1) {
+    .speakers-grid > article:nth-child(4n + 1) {
       .filter-overlay {
         background: var(--color-conf-pink);
       }
@@ -126,7 +126,7 @@ const sortedSpeakers = speakers.sort((a, b) => {
         }
       }
     }
-    .speakers-grid > article:nth-child(4n+2) {
+    .speakers-grid > article:nth-child(4n + 2) {
       .filter-overlay {
         background: var(--color-conf-pink);
       }
@@ -138,7 +138,7 @@ const sortedSpeakers = speakers.sort((a, b) => {
         }
       }
     }
-    .speakers-grid > article:nth-child(4n+3) {
+    .speakers-grid > article:nth-child(4n + 3) {
       .filter-overlay {
         background: var(--color-conf-pink);
       }

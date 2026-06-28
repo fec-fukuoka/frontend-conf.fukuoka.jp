@@ -36,81 +36,81 @@ function parseInlineMarkdown(text: string): string {
   description={speaker.data.bio}
   lang={speaker.data.locale}
 >
-    <article class="container speaker-detail">
-      <section class="session-info">
-        <h1>{speaker.data.sessionTitle}</h1>
-        <div class="session-meta">
-          <CategoryTag category={speaker.data.sessionCategory} />
-          <span class="track">
-            Track: {speaker.data.track.split("-")[1]?.toUpperCase()}
-          </span>
-          <span class="time">
-            {speaker.data.startTime} - {speaker.data.endTime}
-          </span>
-          <span class="language">
-            {t("label.language")}:
-            {speaker.data.language}
-          </span>
+  <article class="container speaker-detail">
+    <section class="session-info">
+      <h1>{speaker.data.sessionTitle}</h1>
+      <div class="session-meta">
+        <CategoryTag category={speaker.data.sessionCategory} />
+        <span class="track">
+          Track: {speaker.data.track.split("-")[1]?.toUpperCase()}
+        </span>
+        <span class="time">
+          {speaker.data.startTime} - {speaker.data.endTime}
+        </span>
+        <span class="language">
+          {t("label.language")}:
+          {speaker.data.language}
+        </span>
+      </div>
+      <div class="session-description">
+        <Content />
+      </div>
+    </section>
+    <header class="speaker-header">
+      {
+        speaker.data.image && (
+          <img
+            src={speaker.data.image}
+            alt={speaker.data.name}
+            class="speaker-avatar"
+            width="400"
+            height="400"
+            loading="lazy"
+            decoding="async"
+          />
+        )
+      }
+      <div class="speaker-meta">
+        <h2>{speaker.data.name}</h2>
+        <p class="bio" set:html={parseInlineMarkdown(speaker.data.bio)} />
+        <div class="social-links">
+          {
+            speaker.data.twitter && (
+              <a
+                href={`https://x.com/${speaker.data.twitter}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Twitter
+              </a>
+            )
+          }
+          {
+            speaker.data.github && (
+              <a
+                href={`https://github.com/${speaker.data.github}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                GitHub
+              </a>
+            )
+          }
+          {
+            speaker.data.website && (
+              <a
+                href={speaker.data.website}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Website
+              </a>
+            )
+          }
         </div>
-        <div class="session-description">
-          <Content />
-        </div>
-      </section>
-      <header class="speaker-header">
-        {
-          speaker.data.image && (
-            <img
-              src={speaker.data.image}
-              alt={speaker.data.name}
-              class="speaker-avatar"
-              width="400"
-              height="400"
-              loading="lazy"
-              decoding="async"
-            />
-          )
-        }
-        <div class="speaker-meta">
-          <h2>{speaker.data.name}</h2>
-          <p class="bio" set:html={parseInlineMarkdown(speaker.data.bio)} />
-          <div class="social-links">
-            {
-              speaker.data.twitter && (
-                <a
-                  href={`https://x.com/${speaker.data.twitter}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Twitter
-                </a>
-              )
-            }
-            {
-              speaker.data.github && (
-                <a
-                  href={`https://github.com/${speaker.data.github}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  GitHub
-                </a>
-              )
-            }
-            {
-              speaker.data.website && (
-                <a
-                  href={speaker.data.website}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Website
-                </a>
-              )
-            }
-          </div>
-        </div>
-      </header>
-    </article>
+      </div>
+    </header>
+  </article>
 </PageLayout>
 
 <style>
