@@ -2,7 +2,7 @@
 name: "杜甫々"
 nameEn: "Tohoho"
 image: "https://avatars.githubusercontent.com/u/58652743?v=4"
-sessionTitle: "TBD"
+sessionTitle: "杜甫々が語るフロントエンド開発技術の歴史と今後"
 sessionCategory: "Web Standards"
 language: "ja"
 track: "N/A"
@@ -18,4 +18,4 @@ year: 2026
 draft: false
 ---
 
-TBD
+「とほほのWWW入門」というサイトを通じてHTML、CSS、JavaScript、フレームワークなどのフロントエンド開発技術に長年付き合ってきたなか、これまでの歴史と、今後の動向について思うことなどをざっくばらんに話してみたいと思います。
