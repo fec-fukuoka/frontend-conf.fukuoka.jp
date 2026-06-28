@@ -60,7 +60,7 @@ const tracks = [
   {
     id: "track-a",
     name: "Track A",
-    room: "Horizon Technology",
+    room: "Room A",
     color: "var(--color-conf-cyan)",
     timeline: buildTimeline(
       speakers.filter((s) => s.data.track === "track-a").sort(byStartTime)
@@ -69,7 +69,7 @@ const tracks = [
   {
     id: "track-b",
     name: "Track B",
-    room: "Chot, Inc.",
+    room: "Room B",
     color: "var(--color-conf-orange)",
     timeline: buildTimeline(
       speakers.filter((s) => s.data.track === "track-b").sort(byStartTime)
@@ -78,13 +78,18 @@ const tracks = [
   {
     id: "track-c",
     name: "Track C",
-    room: "FEC Fukuoka",
+    room: "Room C",
     color: "var(--color-conf-pink)",
     timeline: buildTimeline(
       speakers.filter((s) => s.data.track === "track-c").sort(byStartTime)
     ),
   },
 ];
+
+const requestedTrackId = Astro.url.searchParams.get("tab");
+const activeTrackId = tracks.some((track) => track.id === requestedTrackId)
+  ? requestedTrackId
+  : tracks[0]?.id;
 
 // --- Grid view: rows of time slots across all tracks ---
 const trackOrder = tracks.map((track) => track.id);
@@ -195,14 +200,14 @@ const gridRows: GridRow[] = [
       <div class="tt-list" data-view-panel="list">
         <div class="tt-tabs" role="tablist" aria-labelledby="tt-heading">
           {
-            tracks.map((track, i) => (
+            tracks.map((track) => (
               <button
                 type="button"
                 role="tab"
                 id={`tab-${track.id}`}
                 aria-controls={`panel-${track.id}`}
-                aria-selected={i === 0 ? "true" : "false"}
-                tabindex={i === 0 ? 0 : -1}
+                aria-selected={track.id === activeTrackId ? "true" : "false"}
+                tabindex={track.id === activeTrackId ? 0 : -1}
                 class="tt-tab"
                 style={`--track-color:${track.color}`}
               >
@@ -214,14 +219,14 @@ const gridRows: GridRow[] = [
         </div>
 
         {
-          tracks.map((track, i) => (
+          tracks.map((track) => (
             <div
               role="tabpanel"
               id={`panel-${track.id}`}
               aria-labelledby={`tab-${track.id}`}
               class="tt-panel"
               tabindex="0"
-              hidden={i !== 0}
+              hidden={track.id !== activeTrackId}
               style={`--track-color:${track.color}`}
             >
               <ol class="tt-timeline">
@@ -446,14 +451,17 @@ const gridRows: GridRow[] = [
 
   .tt-tab {
     display: flex;
+    flex: 1 1 0;
     flex-direction: column;
+    align-items: center;
     gap: 0.15rem;
-    padding: 0.6rem 1.25rem;
+    min-inline-size: 0;
+    padding: 0.6rem 0.5rem;
     background: transparent;
     border: 1px solid var(--color-border-subtle);
     color: var(--color-text-secondary);
     cursor: pointer;
-    text-align: start;
+    text-align: center;
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
@@ -624,6 +632,7 @@ const gridRows: GridRow[] = [
   .tt-grid__head {
     padding: 0.75rem 0.9rem;
     color: var(--track-color, var(--color-text-primary));
+    text-align: center;
   }
 
   .tt-grid__head-name {

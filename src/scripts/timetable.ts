@@ -1,5 +1,4 @@
-document.querySelectorAll<HTMLElement>(".tt").forEach((root) => {
-  // --- Tabs (track switcher) ---
+function initTabs(root: HTMLElement): void {
   const tabs = Array.from(
     root.querySelectorAll<HTMLButtonElement>('[role="tab"]')
   );
@@ -15,6 +14,12 @@ document.querySelectorAll<HTMLElement>(".tt").forEach((root) => {
       panels[i].hidden = !selected;
     });
     if (focus) tabs[index].focus();
+    const trackId = tabs[index]?.id.replace(/^tab-/, "");
+    if (trackId) {
+      const url = new URL(window.location.href);
+      url.searchParams.set("tab", trackId);
+      history.replaceState(history.state, "", `${url.pathname}${url.search}`);
+    }
   };
 
   tabs.forEach((tab, i) => {
@@ -33,8 +38,9 @@ document.querySelectorAll<HTMLElement>(".tt").forEach((root) => {
       }
     });
   });
+}
 
-  // --- View switcher (list / grid) ---
+function initViewSwitcher(root: HTMLElement): void {
   const viewButtons = Array.from(
     root.querySelectorAll<HTMLButtonElement>(".tt-view-btn")
   );
@@ -53,4 +59,16 @@ document.querySelectorAll<HTMLElement>(".tt").forEach((root) => {
       });
     });
   });
-});
+}
+
+function init(): void {
+  document.querySelectorAll<HTMLElement>(".tt").forEach((root) => {
+    if (root.dataset.ttInitialized === "true") return;
+    root.dataset.ttInitialized = "true";
+
+    initTabs(root);
+    initViewSwitcher(root);
+  });
+}
+
+document.addEventListener("astro:page-load", init);
