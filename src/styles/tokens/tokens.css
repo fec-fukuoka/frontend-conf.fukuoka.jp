@@ -35,10 +35,10 @@
   --color-conf-dark: #161616; /* Base dark background */
   --color-conf-light: #fafafa; /* Base light text/background */
   --color-conf-red: #fd2a39;
-  --color-conf-blue: #214cac; 
-  --color-conf-cyan: #61DCD4; 
-  --color-conf-orange: #FE604B;
-  --color-conf-pink: #ED33DE;
+  --color-conf-blue: #214cac;
+  --color-conf-cyan: #61dcd4;
+  --color-conf-orange: #fe604b;
+  --color-conf-pink: #ed33de;
 
   /* Colors. */
   --selected-color: oklch(0% 0 var(--hue-selected, 0));
