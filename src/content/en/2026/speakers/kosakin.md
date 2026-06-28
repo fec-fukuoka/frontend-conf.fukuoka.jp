@@ -5,9 +5,9 @@ image: "https://avatars.githubusercontent.com/u/80200187?v=4"
 sessionTitle: "Webで実用的な縦書きエディタは可能か？──現在地と普及に向けて"
 sessionCategory: "Other / その他"
 language: "ja"
-track: "N/A"
-startTime: "00:00"
-endTime: "00:00"
+track: "track-c"
+startTime: "15:40"
+endTime: "16:40"
 bio: |
   サイボウズ株式会社 フロントエンド職能
   リッチテキストエディタ (RTE) に興味を持ち２年程

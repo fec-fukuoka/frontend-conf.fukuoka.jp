@@ -5,9 +5,9 @@ image: "https://avatars.githubusercontent.com/u/39471?v=4"
 sessionTitle: "AI Agent時代のリアーキテクチャ戦略と実践"
 sessionCategory: "Architecture"
 language: "ja"
-track: "N/A"
-startTime: "00:00"
-endTime: "00:00"
+track: "track-c"
+startTime: "14:30"
+endTime: "15:30"
 bio: |
   Software engineer at Ubie Inc.
 twitter: "hokaccha"

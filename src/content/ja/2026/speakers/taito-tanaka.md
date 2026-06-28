@@ -5,9 +5,9 @@ image: "https://avatars.githubusercontent.com/u/70618595?v=4"
 sessionTitle: "日経電子版を支えていく Kasane Design System"
 sessionCategory: "Design Engineering"
 language: "ja"
-track: "N/A"
-startTime: "00:00"
-endTime: "00:00"
+track: "track-c"
+startTime: "11:00"
+endTime: "12:00"
 bio: |
   株式会社 日本経済新聞社 所属 / 日経電子版 Web の開発を担当 / Web アクセシビリティが好き
 twitter: ""

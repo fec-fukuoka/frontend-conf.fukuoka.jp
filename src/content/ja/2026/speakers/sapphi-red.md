@@ -5,9 +5,9 @@ image: "https://avatars.githubusercontent.com/u/49056869?v=4"
 sessionTitle: "ツールチェーンから見た新JS仕様の難所"
 sessionCategory: "FE Ecosystem/Tooling"
 language: "ja"
-track: "N/A"
-startTime: "00:00"
-endTime: "00:00"
+track: "track-b"
+startTime: "15:40"
+endTime: "16:40"
 bio: |
   Vite core team member.
 twitter: "sapphi_red_ja"

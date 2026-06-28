@@ -1,175 +1,781 @@
 ---
 import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 import PageLayout from "../../layouts/PageLayout.astro";
 import { getLangFromRequest, useTranslations } from "../../i18n/utils";
+import CategoryTag from "../../components/CategoryTag.astro";
 
 const lang = getLangFromRequest(Astro.request, Astro.url);
 const t = useTranslations(lang);
+
+type Speaker = CollectionEntry<"speakers">;
 
 // Get speakers for the detected language
 const speakers = await getCollection("speakers", ({ data }) => {
   return data.locale === lang && data.year === 2026 && !data.draft;
 });
 
-// Sort by track and time
-const trackA = speakers
-  .filter((s) => s.data.track === "track-a")
-  .sort((a, b) => a.data.startTime.localeCompare(b.data.startTime));
+const byStartTime = (a: Speaker, b: Speaker) =>
+  a.data.startTime.localeCompare(b.data.startTime);
 
-const trackB = speakers
-  .filter((s) => s.data.track === "track-b")
-  .sort((a, b) => a.data.startTime.localeCompare(b.data.startTime));
+// Common slots shared across all tracks (not tied to a speaker entry)
+type CommonSlot = { startTime: string; endTime: string; title: string };
+const commonSlots: CommonSlot[] = [
+  { startTime: "10:00", endTime: "10:40", title: t("timetable.venueOpen") },
+  { startTime: "10:40", endTime: "10:50", title: t("timetable.opening") },
+  { startTime: "18:00", endTime: "18:10", title: t("timetable.closing") },
+  { startTime: "18:20", endTime: "20:30", title: t("timetable.networking") },
+];
 
-const trackC = speakers
-  .filter((s) => s.data.track === "track-c")
-  .sort((a, b) => a.data.startTime.localeCompare(b.data.startTime));
+type TimelineItem =
+  | { kind: "common"; startTime: string; endTime: string; slot: CommonSlot }
+  | { kind: "session"; startTime: string; endTime: string; speaker: Speaker };
 
-const sponsor = speakers
-  .filter((s) => s.data.track === "sponsor")
-  .sort((a, b) => a.data.startTime.localeCompare(b.data.startTime));
+function buildTimeline(sessions: Speaker[]): TimelineItem[] {
+  const items: TimelineItem[] = [
+    ...commonSlots.map(
+      (slot): TimelineItem => ({
+        kind: "common",
+        startTime: slot.startTime,
+        endTime: slot.endTime,
+        slot,
+      })
+    ),
+    ...sessions.map(
+      (speaker): TimelineItem => ({
+        kind: "session",
+        startTime: speaker.data.startTime,
+        endTime: speaker.data.endTime,
+        speaker,
+      })
+    ),
+  ];
+  return items.sort((a, b) => a.startTime.localeCompare(b.startTime));
+}
+
+const speakerSlug = (speaker: Speaker) =>
+  speaker.id.replace(/^.*\//, "").replace(".md", "");
+
+const tracks = [
+  {
+    id: "track-a",
+    name: "Track A",
+    room: "Horizon Technology",
+    color: "var(--color-conf-cyan)",
+    timeline: buildTimeline(
+      speakers.filter((s) => s.data.track === "track-a").sort(byStartTime)
+    ),
+  },
+  {
+    id: "track-b",
+    name: "Track B",
+    room: "Chot, Inc.",
+    color: "var(--color-conf-orange)",
+    timeline: buildTimeline(
+      speakers.filter((s) => s.data.track === "track-b").sort(byStartTime)
+    ),
+  },
+  {
+    id: "track-c",
+    name: "Track C",
+    room: "FEC Fukuoka",
+    color: "var(--color-conf-pink)",
+    timeline: buildTimeline(
+      speakers.filter((s) => s.data.track === "track-c").sort(byStartTime)
+    ),
+  },
+];
+
+// --- Grid view: rows of time slots across all tracks ---
+const trackOrder = tracks.map((track) => track.id);
+
+const sessionStartTimes = [
+  ...new Set(
+    speakers
+      .filter((s) => trackOrder.includes(s.data.track))
+      .map((s) => s.data.startTime)
+  ),
+].sort((a, b) => a.localeCompare(b));
+
+type GridRow =
+  | { kind: "common"; startTime: string; endTime: string; title: string }
+  | {
+      kind: "sessions";
+      startTime: string;
+      endTime: string;
+      cells: (Speaker | null)[];
+    };
+
+const sessionRows: GridRow[] = sessionStartTimes.map((start) => {
+  const cells = trackOrder.map(
+    (id) =>
+      speakers.find((s) => s.data.track === id && s.data.startTime === start) ??
+      null
+  );
+  const endTime =
+    cells.find((c): c is Speaker => c !== null)?.data.endTime ?? "";
+  return { kind: "sessions", startTime: start, endTime, cells };
+});
+
+const gridRows: GridRow[] = [
+  ...commonSlots.map(
+    (slot): GridRow => ({
+      kind: "common",
+      startTime: slot.startTime,
+      endTime: slot.endTime,
+      title: slot.title,
+    })
+  ),
+  ...sessionRows,
+].sort((a, b) => a.startTime.localeCompare(b.startTime));
 ---
 
-<PageLayout title={t("timetable.title")} lang={lang}>
+<PageLayout
+  title={t("timetable.title")}
+  description={t("timetable.description")}
+  lang={lang}
+>
   <div class="container">
-    <h1>{t("timetable.title")}</h1>
-    <p class="description">TBD</p>
+    <h1 id="tt-heading" class="page-title">{t("timetable.title")}</h1>
 
-    <div class="timetable">
-      <div class="track">
-        <h2>Track A</h2>
-        <div class="sessions">
-          {
-            trackA.map((speaker) => (
-              <article class="session">
-                <div class="session-time">
-                  {speaker.data.startTime} - {speaker.data.endTime}
-                </div>
-                <div class="session-content">
-                  <h3>
-                    <a
-                      href={`/2026/speakers/${speaker.id.replace(/^.*\//, "").replace(".md", "")}?hl=${lang}`}
-                    >
-                      {speaker.data.sessionTitle}
-                    </a>
-                  </h3>
-                  <p class="speaker-name">{speaker.data.name}</p>
-                  <div class="session-meta">
-                    <span class="category">{speaker.data.sessionCategory}</span>
-                    <span class="language">
-                      {t("label.language")}: {speaker.data.language}
-                    </span>
-                  </div>
-                </div>
-              </article>
-            ))
-          }
+    <div class="tt">
+      <div class="tt-toolbar">
+        <div class="tt-views" role="group" aria-label="表示の切り替え">
+          <button
+            type="button"
+            class="tt-view-btn"
+            data-view="list"
+            aria-pressed="true"
+            aria-label="リスト表示"
+          >
+            <svg viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <line x1="2" y1="4" x2="16" y2="4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+              <line x1="2" y1="9" x2="16" y2="9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+              <line x1="2" y1="14" x2="16" y2="14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            class="tt-view-btn"
+            data-view="grid"
+            aria-pressed="false"
+            aria-label="グリッド表示"
+          >
+            <svg viewBox="0 0 18 18" fill="currentColor" aria-hidden="true">
+              <rect x="2" y="2" width="5.5" height="5.5" rx="1" />
+              <rect x="10.5" y="2" width="5.5" height="5.5" rx="1" />
+              <rect x="2" y="10.5" width="5.5" height="5.5" rx="1" />
+              <rect x="10.5" y="10.5" width="5.5" height="5.5" rx="1" />
+            </svg>
+          </button>
         </div>
       </div>
 
-      <div class="track">
-        <h2>Track B</h2>
-        <div class="sessions">
+      <div class="tt-list" data-view-panel="list">
+        <div class="tt-tabs" role="tablist" aria-labelledby="tt-heading">
           {
-            trackB.map((speaker) => (
-              <article class="session">
-                <div class="session-time">
-                  {speaker.data.startTime} - {speaker.data.endTime}
-                </div>
-                <div class="session-content">
-                  <h3>
-                    <a
-                      href={`/2026/speakers/${speaker.id.replace(/^.*\//, "").replace(".md", "")}?hl=${lang}`}
-                    >
-                      {speaker.data.sessionTitle}
-                    </a>
-                  </h3>
-                  <p class="speaker-name">{speaker.data.name}</p>
-                  <div class="session-meta">
-                    <span class="category">{speaker.data.sessionCategory}</span>
-                    <span class="language">
-                      {t("label.language")}: {speaker.data.language}
-                    </span>
-                  </div>
-                </div>
-              </article>
+            tracks.map((track, i) => (
+              <button
+                type="button"
+                role="tab"
+                id={`tab-${track.id}`}
+                aria-controls={`panel-${track.id}`}
+                aria-selected={i === 0 ? "true" : "false"}
+                tabindex={i === 0 ? 0 : -1}
+                class="tt-tab"
+                style={`--track-color:${track.color}`}
+              >
+                <span class="tt-tab__name">{track.name}</span>
+                <span class="tt-tab__room">{track.room}</span>
+              </button>
             ))
           }
         </div>
-      </div>
 
-      <div class="track">
-        <h2>Track C</h2>
-        <div class="sessions">
-          {
-            trackC.map((speaker) => (
-              <article class="session">
-                <div class="session-time">
-                  {speaker.data.startTime} - {speaker.data.endTime}
-                </div>
-                <div class="session-content">
-                  <h3>
-                    <a
-                      href={`/2026/speakers/${speaker.id.replace(/^.*\//, "").replace(".md", "")}?hl=${lang}`}
-                    >
-                      {speaker.data.sessionTitle}
-                    </a>
-                  </h3>
-                  <p class="speaker-name">{speaker.data.name}</p>
-                  <div class="session-meta">
-                    <span class="category">{speaker.data.sessionCategory}</span>
-                    <span class="language">
-                      {t("label.language")}: {speaker.data.language}
-                    </span>
-                  </div>
-                </div>
-              </article>
-            ))
-          }
-        </div>
-      </div>
-
-      {
-        sponsor.length > 0 && (
-          <div class="track">
-            <h2>Sponsor Sessions</h2>
-            <div class="sessions">
-              {sponsor.map((speaker) => (
-                <article class="session">
-                  <div class="session-time">
-                    {speaker.data.startTime} - {speaker.data.endTime}
-                  </div>
-                  <div class="session-content">
-                    <h3>
-                      <a
-                        href={`/2026/speakers/${speaker.id.replace(/^.*\//, "").replace(".md", "")}?hl=${lang}`}
-                      >
-                        {speaker.data.sessionTitle}
-                      </a>
-                    </h3>
-                    <p class="speaker-name">{speaker.data.name}</p>
-                    <div class="session-meta">
-                      <span class="category">
-                        {speaker.data.sessionCategory}
-                      </span>
-                      <span class="language">
-                        {t("label.language")}: {speaker.data.language}
-                      </span>
-                    </div>
-                  </div>
-                </article>
-              ))}
+        {
+          tracks.map((track, i) => (
+            <div
+              role="tabpanel"
+              id={`panel-${track.id}`}
+              aria-labelledby={`tab-${track.id}`}
+              class="tt-panel"
+              tabindex="0"
+              hidden={i !== 0}
+              style={`--track-color:${track.color}`}
+            >
+              <ol class="tt-timeline">
+                {track.timeline.map((item) => (
+                  <li class="tt-item">
+                    {item.kind === "common" ? (
+                      <article class="tt-row tt-row--common">
+                        <div class="tt-time">
+                          {item.startTime} – {item.endTime}
+                        </div>
+                        <div class="tt-body">
+                          <h3 class="tt-common-title">{item.slot.title}</h3>
+                        </div>
+                      </article>
+                    ) : (
+                      <article class="tt-row tt-row--session">
+                        <div class="tt-time">
+                          {item.startTime} – {item.endTime}
+                        </div>
+                        <div class="tt-body">
+                          <h3 class="tt-title">
+                            <a
+                              href={`/2026/speakers/${speakerSlug(item.speaker)}?hl=${lang}`}
+                            >
+                              {item.speaker.data.sessionTitle}
+                            </a>
+                          </h3>
+                          <CategoryTag
+                            category={item.speaker.data.sessionCategory}
+                          />
+                          <a
+                            class="tt-speaker"
+                            href={`/2026/speakers/${speakerSlug(item.speaker)}?hl=${lang}`}
+                          >
+                            {item.speaker.data.image && (
+                              <div class="tt-speaker__image-wrapper">
+                                <img
+                                  src={item.speaker.data.image}
+                                  alt={item.speaker.data.name}
+                                  class="tt-speaker__img"
+                                  width="56"
+                                  height="56"
+                                  loading="lazy"
+                                  decoding="async"
+                                />
+                                <div class="filter-overlay" />
+                              </div>
+                            )}
+                            <span class="tt-speaker__name">
+                              {item.speaker.data.name}
+                            </span>
+                          </a>
+                        </div>
+                      </article>
+                    )}
+                  </li>
+                ))}
+              </ol>
             </div>
+          ))
+        }
+      </div>
+
+      <div class="tt-grid-wrap" data-view-panel="grid" hidden>
+        <div class="tt-grid" role="table" aria-label={t("timetable.title")}>
+          <div class="tt-grid__row" role="row">
+            <span class="tt-grid__corner" role="columnheader">
+              <span class="tt-sr-only">{t("label.time")}</span>
+            </span>
+            {
+              tracks.map((track) => (
+                <span
+                  class="tt-grid__head"
+                  role="columnheader"
+                  style={`--track-color:${track.color}`}
+                >
+                  <span class="tt-grid__head-name">{track.name}</span>
+                  <span class="tt-grid__head-room">{track.room}</span>
+                </span>
+              ))
+            }
           </div>
-        )
-      }
+          {
+            gridRows.map((row) => (
+              <div class="tt-grid__row" role="row">
+                <span class="tt-grid__time" role="rowheader">
+                  {row.startTime} – {row.endTime}
+                </span>
+                {row.kind === "common" ? (
+                  <span class="tt-grid__common" role="cell">
+                    {row.title}
+                  </span>
+                ) : (
+                  row.cells.map((cell, idx) => (
+                    <span
+                      class="tt-grid__cell"
+                      role="cell"
+                      style={`--track-color:${tracks[idx].color}`}
+                    >
+                      {cell ? (
+                        <a
+                          class="tt-gcell"
+                          href={`/2026/speakers/${speakerSlug(cell)}?hl=${lang}`}
+                        >
+                          <span class="tt-gcell__title">
+                            {cell.data.sessionTitle}
+                          </span>
+                          <span class="tt-gcell__meta">
+                            <CategoryTag category={cell.data.sessionCategory} />
+                            <span class="tt-gcell__speaker">
+                              {cell.data.image && (
+                                <img
+                                  class="tt-gcell__avatar"
+                                  src={cell.data.image}
+                                  alt={cell.data.name}
+                                  width="36"
+                                  height="36"
+                                  loading="lazy"
+                                  decoding="async"
+                                />
+                              )}
+                              {cell.data.name}
+                            </span>
+                          </span>
+                        </a>
+                      ) : (
+                        <span class="tt-gcell--empty" aria-hidden="true">
+                          —
+                        </span>
+                      )}
+                    </span>
+                  ))
+                )}
+              </div>
+            ))
+          }
+        </div>
+      </div>
     </div>
   </div>
 </PageLayout>
+
+<script>
+  document.querySelectorAll<HTMLElement>(".tt").forEach((root) => {
+    // --- Tabs (track switcher) ---
+    const tabs = Array.from(
+      root.querySelectorAll<HTMLButtonElement>('[role="tab"]')
+    );
+    const panels = Array.from(
+      root.querySelectorAll<HTMLElement>('[role="tabpanel"]')
+    );
+
+    const activate = (index: number, focus = false) => {
+      tabs.forEach((tab, i) => {
+        const selected = i === index;
+        tab.setAttribute("aria-selected", String(selected));
+        tab.tabIndex = selected ? 0 : -1;
+        panels[i].hidden = !selected;
+      });
+      if (focus) tabs[index].focus();
+    };
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener("click", () => activate(i));
+      tab.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
+          event.preventDefault();
+          const dir = event.key === "ArrowRight" ? 1 : -1;
+          activate((i + dir + tabs.length) % tabs.length, true);
+        } else if (event.key === "Home") {
+          event.preventDefault();
+          activate(0, true);
+        } else if (event.key === "End") {
+          event.preventDefault();
+          activate(tabs.length - 1, true);
+        }
+      });
+    });
+
+    // --- View switcher (list / grid) ---
+    const viewButtons = Array.from(
+      root.querySelectorAll<HTMLButtonElement>(".tt-view-btn")
+    );
+    const viewPanels = Array.from(
+      root.querySelectorAll<HTMLElement>("[data-view-panel]")
+    );
+
+    viewButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const view = button.dataset.view;
+        viewButtons.forEach((b) =>
+          b.setAttribute("aria-pressed", String(b === button))
+        );
+        viewPanels.forEach((panel) => {
+          panel.hidden = panel.dataset.viewPanel !== view;
+        });
+      });
+    });
+  });
+</script>
 
 <style>
   .container {
     display: grid;
     grid-template-columns: subgrid;
-    grid-column: 2 / 3;
+    grid-column: 1 / -1;
+  }
+
+  .page-title {
+    grid-column: 1 / -1;
+    inline-size: 100%;
+    max-inline-size: min(900px, 92vw);
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+
+  .tt {
+    grid-column: 1 / -1;
+    inline-size: 100%;
+    max-inline-size: min(900px, 92vw);
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+
+  /* View switcher toolbar */
+  .tt-toolbar {
+    display: flex;
+    justify-content: flex-end;
+    margin-block-end: 1rem;
+  }
+
+  .tt-views {
+    display: inline-flex;
+    gap: 0.25rem;
+  }
+
+  .tt-view-btn {
+    display: inline-grid;
+    place-items: center;
+    inline-size: 40px;
+    block-size: 36px;
+    background: transparent;
+    border: 1px solid var(--color-border-subtle);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .tt-view-btn svg {
+    inline-size: 18px;
+    block-size: 18px;
+  }
+
+  .tt-view-btn:hover {
+    color: var(--color-text-primary);
+    border-color: var(--color-text-secondary);
+  }
+
+  .tt-view-btn[aria-pressed="true"] {
+    background: var(--color-text-primary);
+    border-color: var(--color-text-primary);
+    color: #000;
+  }
+
+  .tt-view-btn:focus-visible {
+    outline: 2px solid var(--color-conf-cyan);
+    outline-offset: 2px;
+  }
+
+  /* Tabs */
+  .tt-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-block-end: 2rem;
+    padding-block-end: 1rem;
+    border-block-end: 1px solid var(--color-border-subtle);
+  }
+
+  .tt-tab {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 0.6rem 1.25rem;
+    background: transparent;
+    border: 1px solid var(--color-border-subtle);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    text-align: start;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .tt-tab__name {
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .tt-tab__room {
+    font-size: 0.8rem;
+  }
+
+  .tt-tab:hover {
+    color: var(--color-text-primary);
+    border-color: var(--track-color);
+  }
+
+  .tt-tab[aria-selected="true"] {
+    color: #000;
+    background: var(--track-color);
+    border-color: var(--track-color);
+  }
+
+  .tt-tab:focus-visible {
+    outline: 2px solid var(--track-color);
+    outline-offset: 2px;
+  }
+
+  .tt-panel:focus-visible {
+    outline: 2px solid var(--track-color);
+    outline-offset: 4px;
+  }
+
+  /* Timeline (list view) */
+  .tt-timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .tt-row {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 0.75rem 2rem;
+    padding-block: 1.75rem;
+    border-block-start: 1px solid var(--color-border-subtle);
+  }
+
+  .tt-item:first-child .tt-row {
+    border-block-start: none;
+  }
+
+  .tt-time {
+    color: var(--color-text-tertiary);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    padding-block-start: 0.25rem;
+  }
+
+  .tt-body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    min-inline-size: 0;
+  }
+
+  .tt-title {
+    margin: 0;
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    line-height: 1.25;
+  }
+
+  .tt-title a {
+    color: var(--color-text-primary);
+    text-decoration: none;
+  }
+
+  .tt-common-title {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+  }
+
+  .tt-row--common {
+    opacity: 0.8;
+  }
+
+  .tt-speaker {
+    display: inline-flex;
+    align-items: end;
+    gap: 0.75rem;
+    color: var(--color-text-secondary);
+    &:hover {
+      .filter-overlay {
+        opacity: 0.5;
+      }
+    }
+  }
+
+  .tt-speaker__image-wrapper {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  .filter-overlay {
+    background: var(--color-conf-pink);
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    mix-blend-mode: screen;
+    pointer-events: none;
+    transition: opacity 150ms cubic-bezier(0.6, 0, 0.4, 1);
+  }
+
+  .tt-speaker__name {
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+
+  /* Grid view (matrix: time × tracks).
+     CSS Grid で組むことで、各セルが行内で自動 stretch し中身がセルに
+     フィットする。role 属性でテーブルのセマンティクスを保つ。グローバルの
+     [class*="grid"] が display:grid を当てるが、ここでは活かしつつ
+     各セルの display は明示する。 */
+  .tt-grid-wrap {
+    display: block;
+    overflow-x: auto;
+  }
+
+  /* display:block above (needed to undo [class*="grid"]) would override the
+     [hidden] attribute, so restore display:none when hidden. */
+  .tt-grid-wrap[hidden] {
+    display: none;
+  }
+
+  .tt-grid {
+    display: grid;
+    grid-template-columns: 110px repeat(3, minmax(0, 1fr));
+    min-inline-size: 820px;
+    border-block-start: 1px solid var(--color-border-subtle);
+    border-inline-start: 1px solid var(--color-border-subtle);
+  }
+
+  /* rows are transparent so their cells participate in the parent grid */
+  .tt-grid__row {
+    display: contents;
+  }
+
+  .tt-grid__corner,
+  .tt-grid__head,
+  .tt-grid__time,
+  .tt-grid__common,
+  .tt-grid__cell {
+    border-block-end: 1px solid var(--color-border-subtle);
+    border-inline-end: 1px solid var(--color-border-subtle);
+  }
+
+  .tt-grid__corner,
+  .tt-grid__head,
+  .tt-grid__time,
+  .tt-grid__common {
+    display: block;
+  }
+
+  .tt-grid__head {
+    padding: 0.75rem 0.9rem;
+    color: var(--track-color, var(--color-text-primary));
+  }
+
+  .tt-grid__head-name {
+    display: block;
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+
+  .tt-grid__head-room {
+    display: block;
+    margin-block-start: 0.15rem;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--color-text-secondary);
+  }
+
+  .tt-grid__time {
+    padding: 0.9rem;
+    color: var(--color-text-tertiary);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .tt-grid__common {
+    grid-column: 2 / -1;
+    padding: 0.9rem;
+    color: var(--color-text-secondary);
+    background: color-mix(in oklch, var(--color-text-primary), transparent 96%);
+  }
+
+  /* the cell stretches to row height (grid default); the link fills it */
+  .tt-grid__cell {
+    display: flex;
+  }
+
+  .tt-gcell {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    box-sizing: border-box;
+    padding: 0.9rem;
+    border-inline-start: 3px solid var(--track-color);
+    text-decoration: none;
+    transition: background 0.2s ease;
+  }
+
+  .tt-gcell__meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+
+  .tt-gcell:hover {
+    background: color-mix(in oklch, var(--track-color), transparent 90%);
+  }
+
+  .tt-gcell:focus-visible {
+    outline: 2px solid var(--track-color);
+    outline-offset: -2px;
+  }
+
+  .tt-gcell__title {
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--color-text-primary);
+  }
+
+  .tt-gcell__speaker {
+    display: flex;
+    align-items: end;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+  }
+
+  .tt-gcell__avatar {
+    inline-size: 36px;
+    block-size: 36px;
+    flex-shrink: 0;
+    object-fit: cover;
+  }
+
+  .tt-gcell--empty {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    padding: 0.9rem;
+    color: var(--color-text-tertiary);
+    opacity: 0.4;
+  }
+
+  /* Visually hidden but available to assistive tech */
+  .tt-sr-only {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (max-width: 640px) {
+    .tt-row {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+
+    .tt-time {
+      padding-block-start: 0;
+    }
   }
 </style>

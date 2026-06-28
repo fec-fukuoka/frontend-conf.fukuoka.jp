@@ -5,9 +5,9 @@ image: "https://avatars.githubusercontent.com/u/14838850?v=4"
 sessionTitle: "なぜJavaScriptは異常なほど速いのか？"
 sessionCategory: "ECMAScript/Web API"
 language: "ja"
-track: "N/A"
-startTime: "00:00"
-endTime: "00:00"
+track: "track-a"
+startTime: "12:10"
+endTime: "13:10"
 bio: |
   WebKit Reviewer
 twitter: "__sosukesuzuki"
