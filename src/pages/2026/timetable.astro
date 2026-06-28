@@ -247,16 +247,18 @@ const gridRows: GridRow[] = [
                           {item.startTime} – {item.endTime}
                         </div>
                         <div class="tt-body">
-                          <h3 class="tt-title">
-                            <a
-                              href={`/2026/speakers/${speakerSlug(item.speaker)}?hl=${lang}`}
-                            >
-                              {item.speaker.data.sessionTitle}
-                            </a>
-                          </h3>
-                          <CategoryTag
-                            category={item.speaker.data.sessionCategory}
-                          />
+                          <div class="tt-body__content">
+                            <h3 class="tt-title">
+                              <a
+                                href={`/2026/speakers/${speakerSlug(item.speaker)}?hl=${lang}`}
+                              >
+                                {item.speaker.data.sessionTitle}
+                              </a>
+                            </h3>
+                            <CategoryTag
+                              category={item.speaker.data.sessionCategory}
+                            />
+                          </div>
                           <a
                             class="tt-speaker"
                             href={`/2026/speakers/${speakerSlug(item.speaker)}?hl=${lang}`}
@@ -444,7 +446,6 @@ const gridRows: GridRow[] = [
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin-block-end: 2rem;
     padding-block-end: 1rem;
     border-block-end: 1px solid var(--color-border-subtle);
   }
@@ -518,15 +519,20 @@ const gridRows: GridRow[] = [
     color: var(--color-text-tertiary);
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
-    padding-block-start: 0.25rem;
+    gap: 0.75rem;
   }
 
   .tt-body {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.75rem;
+    gap: 5rem;
     min-inline-size: 0;
+  }
+
+  .tt-body__content {
+    display: grid;
+    gap: 0.75rem;
   }
 
   .tt-title {
@@ -745,10 +751,6 @@ const gridRows: GridRow[] = [
     .tt-row {
       grid-template-columns: 1fr;
       gap: 0.5rem;
-    }
-
-    .tt-time {
-      padding-block-start: 0;
     }
   }
 </style>

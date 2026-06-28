@@ -18,7 +18,6 @@
       /* Set explicit max-width for article content. */
       width: 100%;
       max-width: var(--article-max-width);
-      margin: 1rem auto 3rem;
     }
   }
 }
