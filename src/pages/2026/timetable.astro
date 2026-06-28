@@ -60,7 +60,7 @@ const tracks = [
   {
     id: "track-a",
     name: "Track A",
-    room: "Room A",
+    room: "Horizon Technology",
     color: "var(--color-conf-cyan)",
     timeline: buildTimeline(
       speakers.filter((s) => s.data.track === "track-a").sort(byStartTime)
@@ -69,7 +69,7 @@ const tracks = [
   {
     id: "track-b",
     name: "Track B",
-    room: "Room B",
+    room: "Chot, Inc.",
     color: "var(--color-conf-orange)",
     timeline: buildTimeline(
       speakers.filter((s) => s.data.track === "track-b").sort(byStartTime)
@@ -78,7 +78,7 @@ const tracks = [
   {
     id: "track-c",
     name: "Track C",
-    room: "Room C",
+    room: "FEC Fukuoka",
     color: "var(--color-conf-pink)",
     timeline: buildTimeline(
       speakers.filter((s) => s.data.track === "track-c").sort(byStartTime)
@@ -452,17 +452,14 @@ const gridRows: GridRow[] = [
 
   .tt-tab {
     display: flex;
-    flex: 1 1 0;
     flex-direction: column;
-    align-items: center;
     gap: 0.15rem;
-    min-inline-size: 0;
-    padding: 0.6rem 0.5rem;
+    padding: 0.6rem 1.25rem;
     background: transparent;
     border: 1px solid var(--color-border-subtle);
     color: var(--color-text-secondary);
     cursor: pointer;
-    text-align: center;
+    text-align: start;
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
