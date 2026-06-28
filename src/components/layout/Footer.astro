@@ -7,7 +7,7 @@ const t = useTranslations(lang);
 const currentYear = new Date().getFullYear();
 ---
 
-<footer>
+<footer class="gradient-orb">
   <div class="container">
     <div class="footer-content">
       <div class="footer-section">
@@ -76,6 +76,24 @@ const currentYear = new Date().getFullYear();
     grid-area: footer;
     padding: 3rem 0;
     margin-block-start: 4rem;
+  }
+
+  .gradient-orb {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .gradient-orb::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: url("../../assets/gradient.webp");
+    background-size: cover;
+    background-position: center;
+    opacity: 0.4;
+    filter: blur(80px);
+    pointer-events: none;
   }
 
   .footer-content {

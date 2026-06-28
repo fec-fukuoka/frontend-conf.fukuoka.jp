@@ -2,6 +2,7 @@
 import { getCollection, render } from "astro:content";
 import PageLayout from "../../../layouts/PageLayout.astro";
 import { getLangFromRequest, useTranslations } from "../../../i18n/utils";
+import CategoryTag from "../../../components/CategoryTag.astro";
 
 const lang = getLangFromRequest(Astro.request, Astro.url);
 const t = useTranslations(lang);
@@ -35,13 +36,14 @@ function parseInlineMarkdown(text: string): string {
   description={speaker.data.bio}
   lang={speaker.data.locale}
 >
-  <div class="container">
-    <article class="speaker-detail">
+    <article class="container speaker-detail">
       <section class="session-info">
         <h1>{speaker.data.sessionTitle}</h1>
         <div class="session-meta">
-          <span class="category">Category: {speaker.data.sessionCategory}</span>
-          <span class="track">Track: {speaker.data.track}</span>
+          <CategoryTag category={speaker.data.sessionCategory} />
+          <span class="track">
+            Track: {speaker.data.track.split("-")[1]?.toUpperCase()}
+          </span>
           <span class="time">
             {speaker.data.startTime} - {speaker.data.endTime}
           </span>
@@ -109,7 +111,6 @@ function parseInlineMarkdown(text: string): string {
         </div>
       </header>
     </article>
-  </div>
 </PageLayout>
 
 <style>
@@ -130,12 +131,10 @@ function parseInlineMarkdown(text: string): string {
       gap: var(--space-m-l, 1.5rem);
       margin-block-end: var(--space-l-xl, 3rem);
       padding: var(--space-m-l, 1.5rem);
-      border-radius: 0.5rem;
-      background: var(--color-surface-base);
-      border: 1px solid var(--color-border-subtle);
-      transition:
-        background-color 0.3s,
-        border-color 0.3s;
+
+      h2 {
+        filter: drop-shadow(-2px -2px var(--color-conf-red));
+      }
     }
 
     .session-meta {
@@ -154,14 +153,7 @@ function parseInlineMarkdown(text: string): string {
       border-radius: 50%;
       border: 3px solid var(--color-border-default);
       justify-self: center;
-      transition:
-        transform 0.3s ease,
-        border-color 0.3s;
-    }
-
-    .speaker-avatar:hover {
-      transform: scale(1.05);
-      border-color: var(--color-border-hover);
+      filter: drop-shadow(-2px -2px var(--color-conf-red));
     }
 
     .speaker-meta {
