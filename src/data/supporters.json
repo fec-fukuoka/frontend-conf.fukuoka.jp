@@ -14,7 +14,7 @@
       "name": "ホライズンテクノロジー株式会社",
       "nameEn": "Horizon Technology Inc.",
       "tier": "platinum",
-      "logo": "horizon_technology.png",
+      "logo": "horizon_technology.webp",
       "url": "https://www.horizon-cg.com/",
       "description": "ホライズンテクノロジー株式会社"
     },
@@ -113,7 +113,7 @@
       "name": "チームラボ株式会社",
       "nameEn": "teamLab Inc.",
       "tier": "gold",
-      "logo": "teamLab.png",
+      "logo": "teamLab.webp",
       "url": "https://www.team-lab.com/",
       "description": "チームラボ株式会社"
     },
@@ -167,7 +167,7 @@
       "name": "九州産業大学",
       "nameEn": "Kyushu Sangyo University",
       "tier": "venue",
-      "logo": "kyusyu-sangyo-university.png",
+      "logo": "kyusyu-sangyo-university.webp",
       "url": "https://www.kyusan-u.ac.jp/",
       "description": "九州産業大学"
     }
@@ -175,12 +175,12 @@
   "individuals": [
     {
       "name": "大賀 愛一郎",
-      "image": "oga_aiichiro(大賀 愛一郎).png",
+      "image": "oga_aiichiro(大賀 愛一郎).webp",
       "url": "https://x.com/oga_aiichiro"
     },
     {
       "name": "岡本 宗大",
-      "image": "岡本 宗大.png",
+      "image": "岡本 宗大.webp",
       "url": ""
     },
     {
@@ -190,7 +190,7 @@
     },
     {
       "name": "ogyan",
-      "image": "ogyan.png",
+      "image": "ogyan.webp",
       "url": ""
     },
     {
@@ -200,7 +200,7 @@
     },
     {
       "name": "Yoshimura",
-      "image": "Yoshimura.png",
+      "image": "Yoshimura.webp",
       "url": ""
     }
   ],
