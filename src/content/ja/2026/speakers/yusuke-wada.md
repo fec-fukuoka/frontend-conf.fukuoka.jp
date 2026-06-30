@@ -5,9 +5,9 @@ image: "https://avatars.githubusercontent.com/u/10682?v=4"
 sessionTitle: "AI時代のWebフレームワークはどこへ行く？"
 sessionCategory: "Server-side JS"
 language: "ja"
-track: "N/A"
-startTime: "00:00"
-endTime: "00:00"
+track: "track-b"
+startTime: "14:30"
+endTime: "15:30"
 bio: |
   Creator of Hono. Developer Advocate at Cloudflare.
 twitter: "yusukebe"
