@@ -154,6 +154,15 @@
       "description": "日本経済新聞社"
     },
     {
+      "id": "m3",
+      "name": "エムスリー株式会社",
+      "nameEn": "M3 Inc.",
+      "tier": "food",
+      "logo": "m3.webp",
+      "url": "https://corporate.m3.com/",
+      "description": "エムスリー株式会社"
+    },
+    {
       "id": "w3c-japan",
       "name": "W3C Japan",
       "nameEn": "W3C Japan",
