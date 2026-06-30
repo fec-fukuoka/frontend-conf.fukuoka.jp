@@ -1,6 +1,6 @@
 ---
 name: "lacolaco"
-nameEn: "Suguru Inatomi"
+nameEn: "lacolaco"
 image: "https://avatars.githubusercontent.com/u/1529180?v=4"
 sessionTitle: "なぜテストを書くか？"
 sessionCategory: "Testing"
@@ -13,7 +13,7 @@ bio: |
 twitter: "laco2net"
 github: "lacolaco"
 website: "https://lacolaco.net"
-locale: "ja"
+locale: "en"
 year: 2026
 draft: false
 ---
