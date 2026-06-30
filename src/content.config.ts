@@ -28,7 +28,7 @@ const speakers = defineCollection({
 });
 
 const news = defineCollection({
-  loader: glob({ pattern: "**/news/**/*.md", base: "./src/content" }),
+  loader: glob({ pattern: "**/news/**/*.{md,mdx}", base: "./src/content" }),
   schema: z.object({
     title: z.string(),
     pubDate: z.coerce.date(),

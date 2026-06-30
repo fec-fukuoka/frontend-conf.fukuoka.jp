@@ -1,12 +1,13 @@
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import netlify from "@astrojs/netlify";
+import mdx from "@astrojs/mdx";
 
 export default defineConfig({
   site: "https://frontend-conf.fukuoka.jp",
   output: "server",
   adapter: netlify(),
-  integrations: [sitemap()],
+  integrations: [sitemap(), mdx()],
   markdown: {
     shikiConfig: {
       // Drive token colours from CSS custom properties so code blocks inherit

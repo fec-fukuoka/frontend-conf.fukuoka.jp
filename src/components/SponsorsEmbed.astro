@@ -1,0 +1,262 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import supportersData from "../data/supporters.json";
+
+// Load sponsor images from src/assets
+const sponsorImages = import.meta.glob<{ default: ImageMetadata }>(
+  "../assets/images/sponsors/*.{png,jpg,jpeg,svg,webp}",
+  { eager: true }
+);
+
+function getSponsorImage(logo: string): ImageMetadata {
+  const key = `../assets/images/sponsors/${logo}`;
+  const image = sponsorImages[key]?.default;
+  if (!image) {
+    throw new Error(`Sponsor image not found: ${logo}`);
+  }
+  return image;
+}
+
+// Ordered tiers; each entry renders only when it has sponsors.
+const TIERS: { key: string; label: string; modifier: string }[] = [
+  { key: "platinum", label: "Platinum Sponsors", modifier: "platinum" },
+  { key: "gold", label: "Gold Sponsors", modifier: "gold" },
+  { key: "silver", label: "Silver Sponsors", modifier: "silver" },
+  { key: "bronze", label: "Bronze Sponsors", modifier: "bronze" },
+  { key: "food", label: "Food Sponsors", modifier: "food" },
+  { key: "community", label: "Community Sponsors", modifier: "community" },
+  { key: "supporter", label: "Special Supporter", modifier: "supporter" },
+  { key: "venue", label: "Venue Partner", modifier: "venue" },
+  {
+    key: "special-thanks",
+    label: "Special Thanks",
+    modifier: "special-thanks",
+  },
+];
+
+const tiers = TIERS.map((tier) => ({
+  ...tier,
+  sponsors: supportersData.sponsors
+    .filter((s) => s.tier === tier.key)
+    .map((s) => ({ ...s, resolvedLogo: getSponsorImage(s.logo) })),
+})).filter((tier) => tier.sponsors.length > 0);
+
+// Load individual sponsor images from src/assets
+const individualImages = import.meta.glob<{ default: ImageMetadata }>(
+  "../assets/images/individual/*.{png,jpg,jpeg,svg,webp}",
+  { eager: true }
+);
+
+const individualSponsors = supportersData.individuals.map((s) => {
+  const key = `../assets/images/individual/${s.image}`;
+  const image = individualImages[key]?.default;
+  if (!image) {
+    throw new Error(`Individual sponsor image not found: ${s.image}`);
+  }
+  return { ...s, resolvedImage: image };
+});
+---
+
+{
+  tiers.map((tier) => (
+    <div class="sponsors__section">
+      <h3 class="sponsors__tier-title">{tier.label}</h3>
+      <div class={`sponsors__grid sponsors__grid--${tier.modifier}`}>
+        {tier.sponsors.map((sponsor) => (
+          <a
+            href={sponsor.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="sponsors__item"
+          >
+            <Image
+              src={sponsor.resolvedLogo}
+              alt={sponsor.name}
+              class="sponsors__logo"
+            />
+          </a>
+        ))}
+      </div>
+    </div>
+  ))
+}
+{
+  individualSponsors.length > 0 && (
+    <div class="sponsors__section">
+      <h3 class="sponsors__tier-title">Individual Sponsors</h3>
+      <div class="individual-sponsors__grid">
+        {individualSponsors.map((sponsor) => {
+          const Wrapper = sponsor.url ? "a" : "div";
+          const linkProps = sponsor.url
+            ? {
+                href: sponsor.url,
+                target: "_blank",
+                rel: "noopener noreferrer",
+              }
+            : {};
+          return (
+            <Wrapper class="individual-sponsors__member" {...linkProps}>
+              <Image
+                src={sponsor.resolvedImage}
+                alt={sponsor.name}
+                width={160}
+                class="individual-sponsors__avatar"
+              />
+              <span class="individual-sponsors__name">{sponsor.name}</span>
+            </Wrapper>
+          );
+        })}
+      </div>
+    </div>
+  )
+}
+
+<style>
+  .sponsors__section {
+    margin-block: 2rem;
+  }
+
+  .sponsors__section:last-child {
+    margin-block-end: 0;
+  }
+
+  .sponsors__tier-title {
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+    margin: 0;
+    margin-block-end: 2rem;
+    text-align: center;
+  }
+
+  .sponsors__grid {
+    display: grid;
+    gap: 1.5rem;
+    place-items: center;
+  }
+  .sponsors__grid--platinum,
+  .sponsors__grid--supporter,
+  .sponsors__grid--venue,
+  .sponsors__grid--special-thanks {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .sponsors__grid--gold {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sponsors__grid--silver,
+  .sponsors__grid--bronze {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .sponsors__grid--food {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .sponsors__grid--community {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  @layer components {
+    .sponsors__item {
+      inline-size: 100%;
+      /* Cap the card so single-column tiers (platinum / supporter / venue)
+         don't stretch a logo to the full content width. */
+      max-inline-size: 280px;
+      aspect-ratio: 3 / 2;
+      display: flex;
+      place-items: center;
+      justify-content: center;
+      background-color: white;
+      border: 1px solid var(--color-border-subtle);
+      border-radius: 8px;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      text-decoration: none;
+      overflow: clip;
+    }
+
+    /* Gentle size hierarchy between tiers. */
+    .sponsors__grid--platinum .sponsors__item {
+      max-inline-size: 320px;
+    }
+    .sponsors__grid--gold .sponsors__item {
+      max-inline-size: 300px;
+    }
+    .sponsors__grid--supporter .sponsors__item,
+    .sponsors__grid--venue .sponsors__item,
+    .sponsors__grid--special-thanks .sponsors__item {
+      max-inline-size: 240px;
+    }
+
+    .sponsors__item:hover {
+      transform: translateY(-2px);
+      border-color: var(--color-border-hover);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    }
+
+    .sponsors__logo {
+      /* Fit to the card while preserving each logo's native aspect ratio,
+         instead of forcing a square that balloons round/wide marks. */
+      max-inline-size: 72%;
+      max-block-size: 60%;
+      inline-size: auto;
+      block-size: auto;
+      object-fit: contain;
+    }
+
+    .sponsors__item:hover .sponsors__logo {
+      filter: brightness(110%);
+      opacity: 0.95;
+    }
+  }
+
+  .individual-sponsors__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 120px), 1fr));
+    gap: 1.5rem;
+    place-items: start center;
+    margin-inline: auto;
+  }
+
+  .individual-sponsors__member {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+  }
+
+  a.individual-sponsors__member:hover {
+    transform: translateY(-2px);
+  }
+
+  .individual-sponsors__avatar {
+    inline-size: 80px;
+    block-size: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: white;
+    border: 2px solid var(--color-border-subtle);
+    transition: border-color 0.3s ease;
+  }
+
+  .individual-sponsors__member:hover .individual-sponsors__avatar {
+    border-color: var(--color-border-hover);
+  }
+
+  .individual-sponsors__name {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    text-align: center;
+    word-break: break-word;
+    transition: color 0.3s ease;
+  }
+
+  a.individual-sponsors__member:hover .individual-sponsors__name {
+    color: var(--color-text-primary);
+  }
+</style>
