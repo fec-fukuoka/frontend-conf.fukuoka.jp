@@ -2,7 +2,7 @@
 name: "ゆうてん"
 nameEn: "YusukeHirao"
 image: "https://avatars.githubusercontent.com/u/953956?v=4"
-sessionTitle: "TBD / HTML関連予定"
+sessionTitle: "歴史から紐解くデザインとマークアップの話"
 sessionCategory: "Other / その他"
 language: "ja"
 track: "track-c"
