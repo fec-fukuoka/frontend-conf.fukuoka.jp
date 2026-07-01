@@ -5,9 +5,9 @@ image: "https://avatars.githubusercontent.com/u/953956?v=4"
 sessionTitle: "歴史から紐解くデザインとマークアップの話"
 sessionCategory: "Other / その他"
 language: "ja"
-track: "track-c"
-startTime: "12:10"
-endTime: "13:10"
+track: "N/A"
+startTime: "00:00"
+endTime: "00:00"
 bio: |
   ウェブアクセシビリティ専門家。[Markuplint](https://markuplint.dev/)開発者。HTMLのプロ。
 twitter: "cloud10designs"
@@ -18,7 +18,6 @@ year: 2026
 draft: false
 ---
 
-## 予定
-
-- HTMLの未来
-- AI時代のセマンティック・ウェブ
+AIがデザインをつくりAIがマークアップをし、AIがHTMLも視覚情報も読む時代になってしまいました。
+自分が作り続けるにしても、AIに作らせるにしても、デザインやマークアップという営みついて一度改めて考えてみる時間を作ってもいいのかもしれません。
+「どうしてマークアップが必要なんだっけ？」というのがわかると、自分でマークアップするとき、AIにマークアップさせるときのヒントになるかもしれません。
