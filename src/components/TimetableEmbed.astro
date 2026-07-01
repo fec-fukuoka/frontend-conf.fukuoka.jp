@@ -63,8 +63,8 @@ const speakerSlug = (speaker: Speaker) =>
 const tracks = [
   {
     id: "track-a",
-    name: "Track A",
-    room: "Horizon Technology",
+    name: "Room A",
+    track: "Horizon Technology",
     color: "var(--color-conf-cyan)",
     timeline: buildTimeline(
       speakers.filter((s) => s.data.track === "track-a").sort(byStartTime)
@@ -72,8 +72,8 @@ const tracks = [
   },
   {
     id: "track-b",
-    name: "Track B",
-    room: "Chot, Inc.",
+    name: "Room B",
+    track: "Chot, Inc.",
     color: "var(--color-conf-orange)",
     timeline: buildTimeline(
       speakers.filter((s) => s.data.track === "track-b").sort(byStartTime)
@@ -81,8 +81,8 @@ const tracks = [
   },
   {
     id: "track-c",
-    name: "Track C",
-    room: "FEC Fukuoka",
+    name: "Room C",
+    track: "FEC Fukuoka",
     color: "var(--color-conf-pink)",
     timeline: buildTimeline(
       speakers.filter((s) => s.data.track === "track-c").sort(byStartTime)
@@ -208,7 +208,7 @@ const gridRows: GridRow[] = [
             style={`--track-color:${track.color}`}
           >
             <span class="tt-tab__name">{track.name}</span>
-            <span class="tt-tab__room">{track.room}</span>
+            <span class="tt-tab__room">{track.track}</span>
           </button>
         ))
       }
@@ -302,7 +302,7 @@ const gridRows: GridRow[] = [
               style={`--track-color:${track.color}`}
             >
               <span class="tt-grid__head-name">{track.name}</span>
-              <span class="tt-grid__head-room">{track.room}</span>
+              <span class="tt-grid__head-room">{track.track}</span>
             </span>
           ))
         }

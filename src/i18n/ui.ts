@@ -35,7 +35,7 @@ export const ui = {
     "sponsors.title": "スポンサー",
     "sponsors.description": "ご協賛いただいている企業・団体の皆さま",
     "sponsors.recruiting": "スポンサー募集は終了しました。",
-    "organizers.title": "運営チーム",
+    "organizers.title": "運営委員会メンバー",
     "access.title": "アクセス",
     "access.venue": "会場",
     "access.detailsLater": "詳細は後日発表します",
