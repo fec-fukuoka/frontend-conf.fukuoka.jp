@@ -26,6 +26,7 @@ const TIERS: { key: string; label: string; modifier: string }[] = [
   { key: "bronze", label: "Bronze Sponsors", modifier: "bronze" },
   { key: "food", label: "Food Sponsors", modifier: "food" },
   { key: "community", label: "Community Sponsors", modifier: "community" },
+  { key: "media", label: "Media Supporter", modifier: "media" },
   { key: "supporter", label: "Special Supporter", modifier: "supporter" },
   { key: "venue", label: "Venue Partner", modifier: "venue" },
   {
@@ -137,6 +138,7 @@ const individualSponsors = supportersData.individuals.map((s) => {
     place-items: center;
   }
   .sponsors__grid--platinum,
+  .sponsors__grid--media,
   .sponsors__grid--supporter,
   .sponsors__grid--venue,
   .sponsors__grid--special-thanks {
@@ -185,6 +187,7 @@ const individualSponsors = supportersData.individuals.map((s) => {
     .sponsors__grid--gold .sponsors__item {
       max-inline-size: 300px;
     }
+    .sponsors__grid--media .sponsors__item,
     .sponsors__grid--supporter .sponsors__item,
     .sponsors__grid--venue .sponsors__item,
     .sponsors__grid--special-thanks .sponsors__item {

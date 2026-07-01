@@ -163,6 +163,15 @@
       "description": "エムスリー株式会社"
     },
     {
+      "id": "findy",
+      "name": "ファインディ株式会社",
+      "nameEn": "Findy Inc.",
+      "tier": "media",
+      "logo": "findy.png",
+      "url": "https://findy.co.jp/",
+      "description": "ファインディ株式会社"
+    },
+    {
       "id": "w3c-japan",
       "name": "W3C Japan",
       "nameEn": "W3C Japan",
