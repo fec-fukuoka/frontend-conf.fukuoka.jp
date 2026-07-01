@@ -23,7 +23,7 @@ export const site = {
       stopEn: "Nishi-Tetsu Bus Kyusan University South Exit",
     },
   },
-  ticketUrl: "https://example.com/tickets", // TODO
+  ticketUrl: "https://fec-fukuoka-2026.peatix.com",
   social: {
     twitter: "https://x.com/fec_fukuoka",
     github: "https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp",

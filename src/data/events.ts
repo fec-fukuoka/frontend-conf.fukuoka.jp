@@ -28,7 +28,7 @@ export const events: Event[] = [
     dateEn: "September 12, 2026 (Sat)",
     venue: "九州産業大学 12号館",
     venueEn: "Kyushu Sangyo University, Building 12",
-    ticketUrl: "https://example.com/tickets",
+    ticketUrl: "https://fec-fukuoka-2026.peatix.com",
     pathJa: "/ja/2026/",
     pathEn: "/en/2026/",
   },

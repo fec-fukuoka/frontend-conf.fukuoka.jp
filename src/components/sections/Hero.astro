@@ -8,14 +8,18 @@ export interface Props {
   venue?: string;
   ctaText?: string;
   ctaHref?: string;
+  ctaAriaLabel?: string;
+  ctaNote?: string;
 }
 
 const {
   year = "2026",
   date = "Coming Soon",
   venue = "Fukuoka, Japan",
-  // ctaText = "Get Tickets",
-  // ctaHref = "#tickets",
+  ctaText = "Get Tickets",
+  ctaHref = "#tickets",
+  ctaAriaLabel,
+  ctaNote,
 } = Astro.props;
 ---
 
@@ -58,9 +62,14 @@ const {
         </div>
       </div>
 
-      <!-- TODO: CTA Button -->
-      <!-- <div class="hero__cta">
-        <a href={ctaHref} class="hero__button">
+      <div class="hero__cta">
+        <a
+          href={ctaHref}
+          class="hero__button"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={ctaAriaLabel ?? ctaText}
+        >
           <span class="hero__button-text">{ctaText}</span>
           <svg
             class="hero__button-arrow"
@@ -69,6 +78,7 @@ const {
             viewBox="0 0 20 20"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
           >
             <path
               d="M4 10H16M16 10L11 5M16 10L11 15"
@@ -78,7 +88,8 @@ const {
               stroke-linejoin="round"></path>
           </svg>
         </a>
-      </div> -->
+        {ctaNote && <span class="hero__ticket-note">{ctaNote}</span>}
+      </div>
     </div>
 
     <div class="hero__vertical-text">
@@ -233,63 +244,109 @@ const {
 
     /* CTA section */
     .hero__cta {
+      display: grid;
+      justify-items: center;
+      gap: 1rem;
       animation: fade-in-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.8s backwards;
     }
 
-    /* Button - refined interaction */
+    /* Primary ticket button - the hero's focal action */
     .hero__button {
       display: inline-flex;
       align-items: center;
       gap: 0.75rem;
-      padding: 1rem 2rem;
-      background: var(--color-accent-red-subtle);
-      color: var(--color-text-primary);
+      padding: 1.125rem 2.375rem;
+      background: var(--color-conf-red);
+      color: var(--color-conf-light);
+      /*
+        700 weight at 1.1875rem (19px) keeps the label in WCAG large-text
+        territory, so white-on-brand-red clears AA (3:1) without altering
+        the exact conference red.
+      */
+      font-weight: 700;
+      font-size: 1.1875rem;
+      letter-spacing: 0.02em;
       text-decoration: none;
-      letter-spacing: 0.01em;
       border-radius: 100px;
-      border: 1px solid var(--color-accent-red-border);
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 10px 34px -8px
+        color-mix(in oklch, var(--color-conf-red), transparent 35%);
+      transition:
+        transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        background-color 0.3s ease;
       position: relative;
-      overflow: hidden;
     }
 
-    .hero__button::before {
+    /*
+      Signature: concentric ripple rings echoing the "F." logo's
+      circular topography. They start at the button edge (transparent
+      centre never covers the label) and radiate outward on hover.
+    */
+    .hero__button::before,
+    .hero__button::after {
       content: "";
       position: absolute;
       inset: 0;
-      background: var(--color-accent-red-hover);
+      border-radius: inherit;
+      border: 1.5px solid var(--color-conf-red);
       opacity: 0;
-      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      z-index: -1;
+      pointer-events: none;
     }
 
-    .hero__button:hover {
+    .hero__button:hover,
+    .hero__button:focus-visible {
+      text-decoration: none;
+      border-block-end: none;
       transform: translateY(-2px);
-      border-color: color-mix(in oklch, var(--color-conf-red), transparent 50%);
-      box-shadow: 0 8px 32px var(--color-accent-red-hover);
+      background: color-mix(in oklch, var(--color-conf-red), white 8%);
+      box-shadow: 0 16px 48px -10px
+        color-mix(in oklch, var(--color-conf-red), transparent 20%);
     }
 
-    .hero__button:hover::before {
-      opacity: 1;
+    .hero__button:hover::before,
+    .hero__button:hover::after {
+      animation: ticket-ripple 1.8s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+    }
+
+    .hero__button:hover::after {
+      animation-delay: 0.6s;
+    }
+
+    @keyframes ticket-ripple {
+      from {
+        opacity: 0.5;
+        transform: scale(1);
+      }
+      to {
+        opacity: 0;
+        transform: scale(1.55);
+      }
     }
 
     .hero__button:active {
       transform: translateY(0);
     }
 
-    .hero__button-text {
-      position: relative;
-      z-index: 1;
+    .hero__button:focus-visible {
+      outline: 2px solid var(--color-conf-light);
+      outline-offset: 3px;
     }
 
     .hero__button-arrow {
-      position: relative;
-      z-index: 1;
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .hero__button:hover .hero__button-arrow {
+    .hero__button:hover .hero__button-arrow,
+    .hero__button:focus-visible .hero__button-arrow {
       transform: translateX(4px);
+    }
+
+    /* Destination caption - names where the link goes */
+    .hero__ticket-note {
+      font-size: 0.8125rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-tertiary);
     }
 
     /* Vertical text decoration */
@@ -368,6 +425,11 @@ const {
 
       .hero__button:hover {
         transform: none;
+      }
+
+      .hero__button:hover::before,
+      .hero__button:hover::after {
+        animation: none;
       }
     }
   }
