@@ -5,9 +5,9 @@ image: "https://avatars.githubusercontent.com/u/953956?v=4"
 sessionTitle: "歴史から紐解くデザインとマークアップの話"
 sessionCategory: "Other / その他"
 language: "ja"
-track: "N/A"
-startTime: "00:00"
-endTime: "00:00"
+track: "track-c"
+startTime: "12:10"
+endTime: "13:10"
 bio: |
   ウェブアクセシビリティ専門家。[Markuplint](https://markuplint.dev/)開発者。HTMLのプロ。
 twitter: "cloud10designs"
