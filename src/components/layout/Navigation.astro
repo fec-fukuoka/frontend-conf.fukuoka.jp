@@ -108,9 +108,7 @@ const t = useTranslations(lang);
   @layer components {
     .stuck-top {
       grid-area: nav;
-      container-type: scroll-state; /* when scroll-state available */
-      container-type: inline-size; /* when only inline-size available */
-      container-type: inline-size scroll-state; /* when both available */
+      container-type: inline-size;
       position: sticky;
       z-index: 1000;
       top: 20px;
@@ -139,6 +137,21 @@ const t = useTranslations(lang);
       margin-inline: 0;
 
       @container scroll-state(stuck: top) {
+        background: color-mix(
+          in oklch,
+          var(--color-base-darkest),
+          transparent 10%
+        );
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        border-radius: 100px;
+        -webkit-backdrop-filter: blur(2px);
+        backdrop-filter: blur(2px);
+        border: 1px solid #ffffff14;
+      }
+    }
+
+    @supports not (container-type: scroll-state) {
+      .nav {
         background: color-mix(
           in oklch,
           var(--color-base-darkest),
