@@ -108,7 +108,8 @@ const t = useTranslations(lang);
   @layer components {
     .stuck-top {
       grid-area: nav;
-      container-type: inline-size;
+      container-type: inline-size; /* when only inline-size available */
+      container-type: inline-size scroll-state; /* when scroll-state available */
       position: sticky;
       z-index: 1000;
       top: 20px;
