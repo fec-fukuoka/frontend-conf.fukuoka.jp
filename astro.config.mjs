@@ -1,4 +1,4 @@
-import { defineConfig } from "astro/config";
+import { defineConfig, envField } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import netlify from "@astrojs/netlify";
 import mdx from "@astrojs/mdx";
@@ -21,5 +21,16 @@ export default defineConfig({
   prefetch: {
     prefetchAll: true,
     defaultStrategy: "viewport",
+  },
+  env: {
+    schema: {
+      // GitHub API の認証用トークン（サブイベント取得）。未設定なら未認証で
+      // アクセスする（60 req/h/IP）。本番では Netlify の環境変数に設定する。
+      SUB_EVENTS_GITHUB_TOKEN: envField.string({
+        context: "server",
+        access: "secret",
+        optional: true,
+      }),
+    },
   },
 });
