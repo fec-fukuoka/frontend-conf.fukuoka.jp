@@ -61,8 +61,14 @@ function parseJstDateTime(value: string): string | undefined {
   const match = DATE_TIME_PATTERN.exec(value);
   if (!match) return undefined;
   const iso = `${match[1]}T${match[2]}:00+09:00`;
-  // V8 は ISO 形式の範囲外の日付（2026-02-30 等）を Invalid Date にする
-  if (Number.isNaN(new Date(iso).getTime())) return undefined;
+  const date = new Date(iso);
+  if (Number.isNaN(date.getTime())) return undefined;
+  // V8 は 2026-02-30 のような存在しない日付をロールオーバーして受理するため、
+  // UTC+9h の壁時計時刻に戻して入力と一致するか検証する
+  const wallClock = new Date(date.getTime() + 9 * 60 * 60 * 1000)
+    .toISOString()
+    .slice(0, 16);
+  if (wallClock !== `${match[1]}T${match[2]}`) return undefined;
   return iso;
 }
 
