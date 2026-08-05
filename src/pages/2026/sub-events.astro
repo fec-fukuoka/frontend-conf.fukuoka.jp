@@ -49,6 +49,13 @@ const ended = events.filter((event) => new Date(event.endsAt).getTime() < now);
         >
           {t("subEvents.submit")}
         </a>
+        <a
+          href="/2026/sub-events.ics"
+          data-astro-prefetch="false"
+          class="sub-events__ics"
+        >
+          {t("subEvents.subscribeIcs")}
+        </a>
       </div>
 
       {
