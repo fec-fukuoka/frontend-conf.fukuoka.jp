@@ -28,7 +28,11 @@ const TIERS: { key: string; label: string; modifier: string }[] = [
   { key: "community", label: "Community Sponsors", modifier: "community" },
   { key: "media", label: "Media Supporter", modifier: "media" },
   { key: "supporter", label: "Special Supporter", modifier: "supporter" },
-  { key: "venue", label: "Venue Partner", modifier: "venue" },
+  {
+    key: "venue",
+    label: "Venue & Network Sponsor",
+    modifier: "venue",
+  },
   {
     key: "special-thanks",
     label: "Special Thanks",
@@ -140,12 +144,12 @@ const individualSponsors = supportersData.individuals.map((s) => {
   .sponsors__grid--platinum,
   .sponsors__grid--media,
   .sponsors__grid--supporter,
-  .sponsors__grid--venue,
   .sponsors__grid--special-thanks {
     grid-template-columns: repeat(1, 1fr);
   }
 
-  .sponsors__grid--gold {
+  .sponsors__grid--gold,
+  .sponsors__grid--venue {
     grid-template-columns: repeat(2, 1fr);
   }
 

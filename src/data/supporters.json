@@ -188,6 +188,15 @@
       "logo": "kyusyu-sangyo-university.webp",
       "url": "https://www.kyusan-u.ac.jp/",
       "description": "九州産業大学"
+    },
+    {
+      "id": "allied-telesis",
+      "name": "アライドテレシス株式会社",
+      "nameEn": "Allied Telesis K.K.",
+      "tier": "venue",
+      "logo": "allied-telesis.jpg",
+      "url": "https://www.allied-telesis.co.jp/",
+      "description": "アライドテレシス株式会社"
     }
   ],
   "individuals": [
