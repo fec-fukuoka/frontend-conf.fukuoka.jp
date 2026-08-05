@@ -1,0 +1,169 @@
+---
+import SubEventCard from "../../components/cards/SubEventCard.astro";
+import { getLangFromRequest, useTranslations } from "../../i18n/utils";
+import PageLayout from "../../layouts/PageLayout.astro";
+import { SUB_EVENT_SUBMIT_URL } from "../../lib/sub-events/constants";
+import type { SubEvent } from "../../lib/sub-events/types";
+
+const lang = getLangFromRequest(Astro.request, Astro.url);
+const t = useTranslations(lang);
+
+// 自サイトの /api/sub-events を経由して CDN キャッシュを共有する
+// （GitHub API への到達をページ表示ごとではなく最大5分に1回に抑える）
+let events: SubEvent[] = [];
+let loadFailed = false;
+try {
+  const response = await fetch(new URL("/api/sub-events", Astro.url.origin));
+  if (!response.ok) {
+    throw new Error(`/api/sub-events responded ${response.status}`);
+  }
+  events = (await response.json()) as SubEvent[];
+} catch (error) {
+  console.error("[sub-events] failed to fetch /api/sub-events:", error);
+  loadFailed = true;
+}
+
+const now = Date.now();
+const upcoming = events.filter(
+  (event) => new Date(event.endsAt).getTime() >= now
+);
+const ended = events.filter((event) => new Date(event.endsAt).getTime() < now);
+---
+
+<PageLayout
+  title={t("subEvents.title")}
+  description={t("subEvents.description")}
+  lang={lang}
+>
+  <div class="container">
+    <h1 class="page-title">{t("subEvents.title")}</h1>
+    <div class="sub-events">
+      <p class="sub-events__intro">{t("subEvents.intro")}</p>
+      <div class="sub-events__actions">
+        <a
+          href={SUB_EVENT_SUBMIT_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="sub-events__submit"
+          aria-label={t("subEvents.submitAria")}
+        >
+          {t("subEvents.submit")}
+        </a>
+      </div>
+
+      {
+        loadFailed && (
+          <p class="sub-events__message">{t("subEvents.loadError")}</p>
+        )
+      }
+      {
+        !loadFailed && events.length === 0 && (
+          <p class="sub-events__message">{t("subEvents.empty")}</p>
+        )
+      }
+
+      {
+        upcoming.length > 0 && (
+          <section class="sub-events__section">
+            <h2 class="sub-events__heading">{t("subEvents.upcoming")}</h2>
+            <div class="sub-events__list">
+              {upcoming.map((event) => (
+                <SubEventCard event={event} lang={lang} />
+              ))}
+            </div>
+          </section>
+        )
+      }
+      {
+        ended.length > 0 && (
+          <section class="sub-events__section sub-events__section--ended">
+            <h2 class="sub-events__heading">{t("subEvents.ended")}</h2>
+            <div class="sub-events__list">
+              {ended.map((event) => (
+                <SubEventCard event={event} lang={lang} />
+              ))}
+            </div>
+          </section>
+        )
+      }
+    </div>
+  </div>
+</PageLayout>
+
+<style>
+  .container {
+    display: grid;
+    grid-template-columns: subgrid;
+    grid-column: 1 / -1;
+  }
+
+  .page-title,
+  .sub-events {
+    grid-column: 1 / -1;
+    inline-size: 100%;
+    max-inline-size: min(900px, 92vw);
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+
+  .sub-events {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-block-end: 4rem;
+  }
+
+  .sub-events__intro {
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  .sub-events__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 2rem;
+  }
+
+  @layer components {
+    .sub-events__submit {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: var(--color-conf-red);
+      color: white;
+      text-decoration: none;
+      border-block-end: none;
+      font-weight: 600;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 5px 5px var(--color-conf-blue);
+      }
+    }
+  }
+
+  .sub-events__message {
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  .sub-events__section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .sub-events__heading {
+    margin: 0;
+  }
+
+  .sub-events__list {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .sub-events__section--ended {
+    opacity: 0.7;
+  }
+</style>

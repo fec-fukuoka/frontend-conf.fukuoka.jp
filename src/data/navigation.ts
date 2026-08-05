@@ -12,6 +12,11 @@ export const navigation = [
   { path: "/2026/access", labelKey: "nav.access" as const, external: false },
   { path: "/2026/news", labelKey: "nav.news" as const, external: false },
   {
+    path: "/2026/sub-events",
+    labelKey: "nav.subEvents" as const,
+    external: false,
+  },
+  {
     path: "https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/wiki/CoC",
     labelKey: "nav.coc" as const,
     external: true,

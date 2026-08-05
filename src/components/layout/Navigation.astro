@@ -341,9 +341,10 @@ const t = useTranslations(lang);
 
       /* Menu items radial positioning - Where the magic happens */
       .item {
-        --total-items: 5;
-        --start-angle: 210deg;
-        --angle-range: 120deg;
+        --total-items: 6;
+        /* ボタン間隔30°（弦 ≒ 3.1rem）を維持したまま6項目を収める */
+        --start-angle: 195deg;
+        --angle-range: 150deg;
         --angle: calc(
           var(--start-angle) + (var(--angle-range) / (var(--total-items) - 1)) *
             var(--index)
