@@ -1,0 +1,124 @@
+name: Validate Sub-Event
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    if: contains(join(github.event.issue.labels.*.name, ','), 'sub-event')
+    steps:
+      - name: Generate token
+        id: generate_token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.FEC_BOT_APP_ID }}
+          private_key: ${{ secrets.FEC_BOT_PRIVATE_KEY }}
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.27.0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22.21.1"
+          cache: "pnpm"
+
+      - run: pnpm install --frozen-lockfile
+
+      # サイト掲載時と同じパーサー（src/lib/sub-events/parser.ts）で検証する
+      - name: Validate sub-event content
+        id: validate
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: pnpm exec tsx scripts/validate-sub-event-issue.ts
+
+      - name: Add validation comment
+        uses: actions/github-script@v7
+        env:
+          VALIDATION_RESULT: ${{ steps.validate.outputs.result }}
+        with:
+          github-token: ${{ steps.generate_token.outputs.token }}
+          script: |
+            const result = JSON.parse(process.env.VALIDATION_RESULT);
+            const issue_number = context.issue.number;
+            const marker = '<!-- sub-event-validation-comment -->';
+
+            // Remove previous validation comments
+            const comments = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue_number,
+            });
+            for (const comment of comments.data) {
+              if (comment.body.includes(marker)) {
+                await github.rest.issues.deleteComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: comment.id,
+                });
+              }
+            }
+
+            let commentBody = marker + '\n';
+            if (result.valid) {
+              commentBody += '## ✅ サブイベント登録を受け付けました / Sub-event registration received\n\n';
+              commentBody += '入力内容のチェックを通過しました。この Issue が open かつ `sub-event` ラベル付きの間、[公式サイトのサブイベント一覧](https://frontend-conf.fukuoka.jp/sub-events)に掲載されます（反映まで最大数分かかります）。\n\n';
+              commentBody += 'All checks passed. While this issue stays open and labeled `sub-event`, the event is listed on the [official sub-events page](https://frontend-conf.fukuoka.jp/sub-events). Updates may take a few minutes.\n';
+            } else {
+              commentBody += '## ⚠️ 入力内容に問題があります / Validation failed\n\n';
+              commentBody += 'このままでは公式サイトに掲載されません。以下を修正して Issue 本文を編集すると、自動で再チェックされます。\n\n';
+              commentBody += 'The event will not be listed until the following problems are fixed. Editing the issue body re-runs this check automatically.\n\n';
+              commentBody += '```\n';
+              for (const reason of result.reasons) {
+                // コードフェンス破りを防ぐためバッククォートを除去して 300 文字に切り詰める
+                commentBody += `- ${String(reason).replaceAll('`', "'").slice(0, 300)}\n`;
+              }
+              commentBody += '```\n\n';
+              commentBody += '参考 / Reference: [サブイベント掲載ガイド / Sub-Events Guide](https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/wiki/Sub-Events)\n';
+            }
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue_number,
+              body: commentBody,
+            });
+
+      - name: Update validation labels
+        uses: actions/github-script@v7
+        env:
+          VALIDATION_RESULT: ${{ steps.validate.outputs.result }}
+        with:
+          github-token: ${{ steps.generate_token.outputs.token }}
+          script: |
+            const result = JSON.parse(process.env.VALIDATION_RESULT);
+            const issue_number = context.issue.number;
+            const currentLabels = context.payload.issue.labels.map((l) => l.name);
+
+            if (result.valid) {
+              if (currentLabels.includes('needs-fix')) {
+                try {
+                  await github.rest.issues.removeLabel({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issue_number,
+                    name: 'needs-fix',
+                  });
+                } catch (error) {
+                  // Label might already be removed, ignore
+                }
+              }
+            } else {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue_number,
+                labels: ['needs-fix'],
+              });
+            }
