@@ -66,7 +66,7 @@ export const ui = {
     "subEvents.title": "サブイベント",
     "subEvents.description": "コミュニティ主催の関連イベント一覧",
     "subEvents.intro":
-      "Frontend Conference Fukuoka 2026 に関連して、コミュニティが主催するサブイベントの一覧です。GitHub の登録フォームから、どなたでもイベントを掲載できます。",
+      "Frontend Conference Fukuoka 2026 に関連して、コミュニティが主催するサブイベントの一覧です。GitHub の登録フォームからどなたでも登録でき、運営の承認後に掲載されます。",
     "subEvents.submit": "サブイベントを登録する",
     "subEvents.submitAria":
       "サブイベントを登録する（GitHub・外部サイトが開きます）",
@@ -161,7 +161,7 @@ export const ui = {
     "subEvents.title": "Sub Events",
     "subEvents.description": "Community-hosted related events",
     "subEvents.intro":
-      "Community-hosted sub-events related to Frontend Conference Fukuoka 2026. Anyone can list an event via the GitHub registration form.",
+      "Community-hosted sub-events related to Frontend Conference Fukuoka 2026. Anyone can submit an event via the GitHub registration form; it is listed once approved by the organizers.",
     "subEvents.submit": "Register a Sub Event",
     "subEvents.submitAria":
       "Register a sub event (opens GitHub, external site)",

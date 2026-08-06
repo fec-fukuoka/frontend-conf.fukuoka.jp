@@ -1,4 +1,8 @@
-import { SUB_EVENT_LABEL, SUB_EVENT_REPO } from "./constants";
+import {
+  SUB_EVENT_APPROVED_LABEL,
+  SUB_EVENT_LABEL,
+  SUB_EVENT_REPO,
+} from "./constants";
 import { parseSubEventIssue } from "./parser";
 import type { GitHubIssue, SubEvent } from "./types";
 
@@ -7,7 +11,8 @@ const PER_PAGE = 100;
 const MAX_PAGES = 10;
 
 /**
- * open かつ sub-event ラベル付きの Issue を GitHub REST API から全ページ取得する。
+ * open かつ sub-event / sub-event:approved 両ラベル付きの Issue を
+ * GitHub REST API から全ページ取得する。承認ラベルは運営が手動で付与する（掲載の承認制）。
  * token が無い場合は未認証（60 req/h/IP）でアクセスする。
  */
 export async function fetchSubEventIssues(
@@ -27,7 +32,11 @@ export async function fetchSubEventIssues(
       `https://api.github.com/repos/${SUB_EVENT_REPO.owner}/${SUB_EVENT_REPO.repo}/issues`
     );
     url.searchParams.set("state", "open");
-    url.searchParams.set("labels", SUB_EVENT_LABEL);
+    // labels はカンマ区切りで AND 条件（両方のラベルが付いた Issue のみ）
+    url.searchParams.set(
+      "labels",
+      `${SUB_EVENT_LABEL},${SUB_EVENT_APPROVED_LABEL}`
+    );
     url.searchParams.set("per_page", String(PER_PAGE));
     url.searchParams.set("page", String(page));
 

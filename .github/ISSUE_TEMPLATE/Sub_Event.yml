@@ -18,10 +18,12 @@ body:
         ### サブイベント登録について / About Sub-Event Registration
 
         Frontend Conf Fukuoka に関連するコミュニティ主催イベントの登録、ありがとうございます！
-        この Issue が open かつ `sub-event` ラベル付きの間、イベント情報が[公式サイトのサブイベント一覧](https://frontend-conf.fukuoka.jp/sub-events)に掲載されます（掲載先の年度ページは開始日時の年で決まります）。
+        送信内容は自動チェックのあと運営が確認し、承認（`sub-event:approved` ラベルの付与）されると[公式サイトのサブイベント一覧](https://frontend-conf.fukuoka.jp/sub-events)に掲載されます（掲載先の年度ページは開始日時の年で決まります）。
+        掲載後に Issue 本文を編集すると掲載は一時停止され、運営の再承認後に再掲載されます。
 
         Thank you for registering a community-hosted event related to Frontend Conf Fukuoka!
-        While this issue is open and labeled `sub-event`, the event appears on the [official sub-events page](https://frontend-conf.fukuoka.jp/sub-events) (the edition page is determined by the start date's year).
+        Submissions are automatically validated and then reviewed by the organizers. Once approved (labeled `sub-event:approved`), the event appears on the [official sub-events page](https://frontend-conf.fukuoka.jp/sub-events) (the edition page is determined by the start date's year).
+        Editing the issue body after publication temporarily unlists the event until the organizers re-approve it.
 
         ### 掲載ルール / Publication Rules
 

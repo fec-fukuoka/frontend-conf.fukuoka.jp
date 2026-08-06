@@ -12,6 +12,14 @@
  */
 export const SUB_EVENT_LABEL = "sub-event";
 
+/**
+ * 掲載承認ラベル。バリデーション通過後に運営が手動で付与し、
+ * open かつ SUB_EVENT_LABEL とこのラベルの両方が付いた Issue だけが掲載される。
+ * Issue 本文が編集されると CI（validate-sub-event.yml）が自動で外し、再承認まで掲載を停止する。
+ * ラベル名を変える場合は .github/workflows/validate-sub-event.yml も更新すること。
+ */
+export const SUB_EVENT_APPROVED_LABEL = "sub-event:approved";
+
 export const SUB_EVENT_REPO = {
   owner: "fec-fukuoka",
   repo: "frontend-conf.fukuoka.jp",

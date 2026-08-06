@@ -44,7 +44,7 @@
 
 </div>
 
-登録されたイベントは[公式サイトのサブイベント一覧](https://frontend-conf.fukuoka.jp/sub-events)に掲載されます。
+登録されたイベントは、運営の承認後に[公式サイトのサブイベント一覧](https://frontend-conf.fukuoka.jp/sub-events)に掲載されます。
 詳しくは [Wiki のサブイベントページ](https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/wiki/Sub-Events) をご覧ください。
 
 ## Contact
