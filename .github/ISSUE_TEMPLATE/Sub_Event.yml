@@ -97,6 +97,15 @@ body:
     validations:
       required: true
 
+  - type: input
+    id: image-url
+    attributes:
+      label: 画像URL / Image URL
+      description: イベントの OGP 画像・バナー画像の URL（任意・https のみ）/ URL of the event's OGP or banner image (optional, https only)
+      placeholder: "https://example.com/ogp.png"
+    validations:
+      required: false
+
   - type: dropdown
     id: language
     attributes:

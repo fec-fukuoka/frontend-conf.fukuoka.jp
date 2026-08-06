@@ -83,6 +83,16 @@ function parseHttpUrl(value: string): string | undefined {
   }
 }
 
+/** 画像は https 上のサイトに埋め込むため https のみ許可（mixed content 防止） */
+function parseImageUrl(value: string): string | undefined {
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" ? url.href : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
 /**
  * 同意チェックボックスのセクションを検証する。フォーム上は required だが、
  * Issue 本文は提出後に自由に編集できるため、`- [x]` の存在を毎回確認する。
@@ -151,6 +161,15 @@ export function parseSubEventIssue(issue: GitHubIssue): ParseResult {
     problems.push(`invalid or missing event URL: "${eventUrlRaw ?? ""}"`);
   }
 
+  const imageUrlRaw = fieldValue(sections, "imageUrl");
+  let imageUrl: string | undefined;
+  if (imageUrlRaw !== undefined) {
+    imageUrl = parseImageUrl(imageUrlRaw);
+    if (imageUrl === undefined) {
+      problems.push(`invalid image URL (https only): "${imageUrlRaw}"`);
+    }
+  }
+
   if (!termsAccepted(sections.get("terms"))) {
     problems.push("terms checkboxes are not all checked");
   }
@@ -167,6 +186,7 @@ export function parseSubEventIssue(issue: GitHubIssue): ParseResult {
     venue: fieldValue(sections, "venue")!,
     organizer: fieldValue(sections, "organizer")!,
     eventUrl: eventUrl!,
+    imageUrl,
     language: fieldValue(sections, "language"),
     description: fieldValue(sections, "description")!,
     updatedAt: issue.updated_at,

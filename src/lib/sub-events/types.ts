@@ -11,6 +11,8 @@ export interface SubEvent {
   venue: string;
   organizer: string;
   eventUrl: string;
+  /** OGP・バナー画像の URL（任意、https のみ） */
+  imageUrl?: string;
   language?: string;
   description: string;
   /** issue.updated_at — drives DTSTAMP / LAST-MODIFIED in the ICS feed */

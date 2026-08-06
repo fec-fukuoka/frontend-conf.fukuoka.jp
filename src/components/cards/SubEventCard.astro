@@ -41,6 +41,18 @@ const googleCalendarUrl = buildGoogleCalendarUrl(event);
 
 <article class="sub-event-card">
   <div class="sub-event-card__body">
+    {
+      event.imageUrl && (
+        <img
+          class="sub-event-card__image"
+          src={event.imageUrl}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          referrerpolicy="no-referrer"
+        />
+      )
+    }
     <p class="sub-event-card__datetime">
       <time datetime={event.startsAt}>{startLabel}</time>
       <span aria-hidden="true">–</span>
@@ -120,6 +132,15 @@ const googleCalendarUrl = buildGoogleCalendarUrl(event);
       padding: 1.5rem;
       background: var(--color-surface-base);
       border: 0.5px solid white;
+    }
+
+    .sub-event-card__image {
+      display: block;
+      inline-size: 100%;
+      /* OGP 画像の標準比率 (1200x630) */
+      aspect-ratio: 1.91 / 1;
+      object-fit: cover;
+      border: 1px solid var(--color-border-subtle);
     }
 
     .sub-event-card__datetime {

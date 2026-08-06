@@ -36,6 +36,7 @@ export const FORM_HEADINGS = {
   venue: "会場またはオンライン / Venue or Online",
   organizer: "主催者・コミュニティ名 / Organizer or Community",
   eventUrl: "参加・詳細URL / Registration or Details URL",
+  imageUrl: "画像URL / Image URL",
   language: "主な言語 / Primary Language",
   description: "イベント概要 / Event Description",
   terms: "同意事項 / Terms and Conditions",

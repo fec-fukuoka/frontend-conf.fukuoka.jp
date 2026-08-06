@@ -16,6 +16,7 @@ const VALID_FIELDS: Record<FormFieldKey, string> = {
   venue: "福岡市中央区○○ビル 3F",
   organizer: "Fukuoka Frontend Meetup",
   eventUrl: "https://example.connpass.com/event/000000/",
+  imageUrl: "https://example.com/ogp.png",
   language: "日本語",
   description: "カンファレンス前夜に開催する交流イベントです。",
   terms: CHECKED_TERMS,
@@ -61,6 +62,7 @@ describe("parseSubEventIssue", () => {
         venue: "福岡市中央区○○ビル 3F",
         organizer: "Fukuoka Frontend Meetup",
         eventUrl: "https://example.connpass.com/event/000000/",
+        imageUrl: "https://example.com/ogp.png",
         language: "日本語",
         description: "カンファレンス前夜に開催する交流イベントです。",
         updatedAt: "2026-08-01T03:15:00Z",
@@ -191,6 +193,29 @@ describe("parseSubEventIssue", () => {
       expect(result.event.language).toBe("English");
     }
   });
+
+  it("画像URLが未入力（_No response_）なら undefined になる", () => {
+    const result = parseSubEventIssue(
+      issue({ body: issueBody({ imageUrl: "_No response_" }) })
+    );
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.event.imageUrl).toBeUndefined();
+    }
+  });
+
+  it.each(["http://example.com/ogp.png", "not a url", "javascript:alert(1)"])(
+    "https でない画像URL %j を除外する",
+    (imageUrl) => {
+      const result = parseSubEventIssue(
+        issue({ body: issueBody({ imageUrl }) })
+      );
+      expect(result.ok).toBe(false);
+      if (!result.ok) {
+        expect(result.reasons.join("; ")).toContain("image URL");
+      }
+    }
+  );
 
   it("言語が未選択（_No response_）なら undefined になる", () => {
     const result = parseSubEventIssue(
