@@ -1,0 +1,153 @@
+# NOTE: 各フィールドの label は src/lib/sub-events/constants.ts の FORM_HEADINGS と
+# 完全一致させること（サイト側パーサーが Issue 本文の見出しとして照合する）。
+# 整合性は src/lib/sub-events/template-sync.test.ts で検証される。
+# このフォームは年度非依存。掲載先の年度は開始日時の年で自動的に振り分けられる。
+name: "コミュニティサブイベント登録 / Community Sub-Event Registration"
+description: "Frontend Conf Fukuoka のコミュニティ主催サブイベント登録フォーム / Registration form for community-hosted sub-events of Frontend Conf Fukuoka"
+title: "[SubEvent] Please fill in the event name"
+labels: ["sub-event"]
+body:
+  # ========================================
+  # イントロダクション / Introduction
+  # ========================================
+  - type: markdown
+    attributes:
+      value: |
+        ## 🎪 Frontend Conf Fukuoka コミュニティサブイベント登録
+
+        ### サブイベント登録について / About Sub-Event Registration
+
+        Frontend Conf Fukuoka に関連するコミュニティ主催イベントの登録、ありがとうございます！
+        送信内容は自動チェックのあと運営が確認し、承認（`sub-event:approved` ラベルの付与）されると[公式サイトのサブイベント一覧](https://frontend-conf.fukuoka.jp/sub-events)に掲載されます（掲載先の年度ページは開始日時の年で決まります）。
+        掲載後に Issue 本文を編集すると掲載は一時停止され、運営の再承認後に再掲載されます。
+
+        Thank you for registering a community-hosted event related to Frontend Conf Fukuoka!
+        Submissions are automatically validated and then reviewed by the organizers. Once approved (labeled `sub-event:approved`), the event appears on the [official sub-events page](https://frontend-conf.fukuoka.jp/sub-events) (the edition page is determined by the start date's year).
+        Editing the issue body after publication temporarily unlists the event until the organizers re-approve it.
+
+        ### 掲載ルール / Publication Rules
+
+        See: [サブイベント掲載ガイド / Sub-Events Guide](https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/wiki/Sub-Events)
+
+        ---
+
+  # ========================================
+  # イベント情報 / Event Information
+  # ========================================
+  - type: markdown
+    attributes:
+      value: |
+        ## 📅 イベント情報 / Event Information
+
+  - type: input
+    id: event-name
+    attributes:
+      label: イベント名 / Event Name
+      description: 公式サイトに掲載されるイベント名 / Event name shown on the official website
+      placeholder: "例: FEC Fukuoka 前夜祭 / Example: FEC Fukuoka Eve Party"
+    validations:
+      required: true
+
+  - type: input
+    id: starts-at
+    attributes:
+      label: 開始日時（JST） / Start Date & Time (JST)
+      description: |
+        「YYYY-MM-DD HH:mm」の形式・日本時間（JST）・24時間表記で入力してください
+
+        In "YYYY-MM-DD HH:mm" format, Japan Standard Time (JST), 24-hour clock
+      placeholder: "例 / Example: 2026-09-11 18:30"
+    validations:
+      required: true
+
+  - type: input
+    id: ends-at
+    attributes:
+      label: 終了日時（JST） / End Date & Time (JST)
+      description: |
+        「YYYY-MM-DD HH:mm」の形式・日本時間（JST）・24時間表記で入力してください（日をまたぐ場合は終了日の日付で）
+
+        In "YYYY-MM-DD HH:mm" format, Japan Standard Time (JST), 24-hour clock (use the end date for overnight events)
+      placeholder: "例 / Example: 2026-09-11 21:00"
+    validations:
+      required: true
+
+  - type: input
+    id: venue
+    attributes:
+      label: 会場またはオンライン / Venue or Online
+      description: 会場名・住所、またはオンライン開催の旨 / Venue name and address, or "Online"
+      placeholder: "例: 福岡市中央区○○ビル 3F / Example: Online (Zoom)"
+    validations:
+      required: true
+
+  - type: input
+    id: organizer
+    attributes:
+      label: 主催者・コミュニティ名 / Organizer or Community
+      description: 主催する個人・団体・コミュニティの名前 / Name of the organizing person, group, or community
+      placeholder: "例: Fukuoka Frontend Meetup"
+    validations:
+      required: true
+
+  - type: input
+    id: event-url
+    attributes:
+      label: 参加・詳細URL / Registration or Details URL
+      description: 参加登録ページやイベント詳細ページのURL / URL of the registration or event details page
+      placeholder: "https://example.connpass.com/event/000000/"
+    validations:
+      required: true
+
+  - type: input
+    id: image-url
+    attributes:
+      label: 画像URL / Image URL
+      description: イベントの OGP 画像・バナー画像の URL（任意・https のみ）/ URL of the event's OGP or banner image (optional, https only)
+      placeholder: "https://example.com/ogp.png"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: language
+    attributes:
+      label: 主な言語 / Primary Language
+      description: イベントで主に使用する言語（任意） / Primary language of the event (optional)
+      options:
+        - 日本語
+        - English
+        - 日本語・English
+    validations:
+      required: false
+
+  - type: textarea
+    id: description
+    attributes:
+      label: イベント概要 / Event Description
+      description: |
+        イベントの内容を説明してください（500文字以内推奨）。公式サイトにはプレーンテキストとして掲載されます
+
+        Describe your event (recommended max 500 characters). It is published as plain text on the official website
+    validations:
+      required: true
+
+  # ========================================
+  # 確認事項 / Confirmation
+  # ========================================
+  - type: markdown
+    attributes:
+      value: |
+        ## ✅ 確認事項 / Confirmation
+
+        提出前に以下の項目を確認してください。 / Please confirm the following before submission.
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: 同意事項 / Terms and Conditions
+      description: すべての項目にチェックを入れてください / Please check all items
+      options:
+        - label: "[行動規範（Code of Conduct）](https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/wiki/CoC)を読み、イベント運営においても遵守することに同意します / I have read the Code of Conduct and agree to follow it in operating this event"
+          required: true
+        - label: 入力した内容（イベント名、日時、会場、主催者、概要、URL）が公式ウェブサイトに掲載されることを了承します / I understand that the submitted content (event name, date, venue, organizer, description, URL) will be published on the official website
+          required: true

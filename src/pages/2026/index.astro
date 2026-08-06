@@ -2,10 +2,16 @@
 import { getCollection } from "astro:content";
 import PageLayout from "../../layouts/PageLayout.astro";
 import NewsCard from "../../components/cards/NewsCard.astro";
+import SubEventCard from "../../components/cards/SubEventCard.astro";
 import SponsorsEmbed from "../../components/SponsorsEmbed.astro";
 import { getEventByYear } from "../../data/events";
 import { getLangFromRequest, useTranslations } from "../../i18n/utils";
 import supportersData from "../../data/supporters.json";
+import { SUB_EVENT_SUBMIT_URL } from "../../lib/sub-events/constants";
+import { filterByEditionYear } from "../../lib/sub-events/github";
+import type { SubEvent } from "../../lib/sub-events/types";
+
+const EDITION_YEAR = 2026;
 
 const lang = getLangFromRequest(Astro.request, Astro.url);
 const t = useTranslations(lang);
@@ -27,6 +33,26 @@ const latestNews = newsItems
 
 // Organizers (GitHub usernames)
 const organizers = supportersData.organizers;
+
+// Community sub-events (via cached /api/sub-events, upcoming only, max 3)
+let subEvents: SubEvent[] = [];
+let subEventsFailed = false;
+try {
+  const response = await fetch(new URL("/api/sub-events", Astro.url.origin));
+  if (!response.ok) {
+    throw new Error(`/api/sub-events responded ${response.status}`);
+  }
+  subEvents = filterByEditionYear(
+    (await response.json()) as SubEvent[],
+    EDITION_YEAR
+  );
+} catch (error) {
+  console.error("[sub-events] failed to fetch /api/sub-events:", error);
+  subEventsFailed = true;
+}
+const upcomingSubEvents = subEvents
+  .filter((event) => new Date(event.endsAt).getTime() >= Date.now())
+  .slice(0, 3);
 
 // Event information based on language
 const eventTitle = lang === "ja" ? event.title : event.titleEn;
@@ -82,6 +108,50 @@ const eventDescription =
           href={`/2026/news?hl=${lang}`}
           class="view-all"
           aria-label={t("news.viewAllAriaLabel")}
+        >
+          {t("button.viewAll")} →
+        </a>
+      </div>
+    </section>
+
+    <section class="sub-events-home">
+      <h2 class="section-title">{t("subEvents.title")}</h2>
+      <p class="sub-events-home__intro">{t("subEvents.intro")}</p>
+      <div class="sub-events-home__actions">
+        <a
+          href={SUB_EVENT_SUBMIT_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="sub-events-home__submit"
+          aria-label={t("subEvents.submitAria")}
+        >
+          {t("subEvents.submit")}
+        </a>
+      </div>
+      {
+        subEventsFailed && (
+          <p class="sub-events-home__message">{t("subEvents.loadError")}</p>
+        )
+      }
+      {
+        !subEventsFailed && upcomingSubEvents.length === 0 && (
+          <p class="sub-events-home__message">{t("subEvents.empty")}</p>
+        )
+      }
+      {
+        upcomingSubEvents.length > 0 && (
+          <div class="sub-events-home__list">
+            {upcomingSubEvents.map((event) => (
+              <SubEventCard event={event} lang={lang} />
+            ))}
+          </div>
+        )
+      }
+      <div class="sub-events-home__more">
+        <a
+          href={`/2026/sub-events?hl=${lang}`}
+          class="view-all"
+          aria-label={t("subEvents.viewAllAriaLabel")}
         >
           {t("button.viewAll")} →
         </a>
@@ -217,6 +287,59 @@ const eventDescription =
 
   .calendar-link:hover {
     color: var(--color-text-primary);
+  }
+
+  .sub-events-home {
+    container-type: inline-size;
+    container-name: sub-events-home;
+    margin-block-start: 8rem;
+    padding: 2rem;
+    border: 1px solid var(--color-border-subtle);
+    box-shadow: 8px 8px var(--color-conf-pink);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .sub-events-home__intro,
+  .sub-events-home__message {
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  @layer components {
+    .sub-events-home__submit {
+      display: inline-block;
+      width: fit-content;
+      padding: 0.75rem 1.5rem;
+      background: var(--color-conf-red);
+      color: white;
+      text-decoration: none;
+      border-block-end: none;
+      font-weight: 600;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 5px 5px var(--color-conf-blue);
+      }
+    }
+  }
+
+  .sub-events-home__list {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .sub-events-home__more {
+    display: flex;
+    justify-content: center;
+  }
+
+  @container sub-events-home (min-width: 600px) {
+    .sub-events-home {
+      padding: 3rem;
+    }
   }
 
   .sponsors {

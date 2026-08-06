@@ -1,0 +1,224 @@
+---
+import type { SupportedLang } from "../../i18n/ui";
+import { useTranslations } from "../../i18n/utils";
+import { buildGoogleCalendarUrl } from "../../lib/sub-events/gcal";
+import type { SubEvent } from "../../lib/sub-events/types";
+
+export interface Props {
+  event: SubEvent;
+  lang: SupportedLang;
+}
+
+const { event, lang } = Astro.props;
+const t = useTranslations(lang);
+
+const locale = lang === "ja" ? "ja-JP" : "en-US";
+const dateFormat = new Intl.DateTimeFormat(locale, {
+  timeZone: "Asia/Tokyo",
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+  weekday: "short",
+});
+const timeFormat = new Intl.DateTimeFormat(locale, {
+  timeZone: "Asia/Tokyo",
+  hour: "2-digit",
+  minute: "2-digit",
+  hour12: false,
+});
+
+const starts = new Date(event.startsAt);
+const ends = new Date(event.endsAt);
+// +09:00 固定の ISO 文字列なので先頭10文字がそのまま JST の日付
+const sameDay = event.startsAt.slice(0, 10) === event.endsAt.slice(0, 10);
+const startLabel = `${dateFormat.format(starts)} ${timeFormat.format(starts)}`;
+const endLabel = sameDay
+  ? timeFormat.format(ends)
+  : `${dateFormat.format(ends)} ${timeFormat.format(ends)}`;
+
+const googleCalendarUrl = buildGoogleCalendarUrl(event);
+---
+
+<article class="sub-event-card">
+  <div class="sub-event-card__body">
+    {
+      event.imageUrl && (
+        <img
+          class="sub-event-card__image"
+          src={event.imageUrl}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          referrerpolicy="no-referrer"
+        />
+      )
+    }
+    <p class="sub-event-card__datetime">
+      <time datetime={event.startsAt}>{startLabel}</time>
+      <span aria-hidden="true">–</span>
+      <time datetime={event.endsAt}>{endLabel}</time>
+    </p>
+    <h3 class="sub-event-card__title">{event.name}</h3>
+    <dl class="sub-event-card__meta">
+      <div class="sub-event-card__meta-item">
+        <dt>{t("subEvents.venue")}</dt>
+        <dd>{event.venue}</dd>
+      </div>
+      <div class="sub-event-card__meta-item">
+        <dt>{t("subEvents.organizer")}</dt>
+        <dd>{event.organizer}</dd>
+      </div>
+      {
+        event.language && (
+          <div class="sub-event-card__meta-item">
+            <dt>{t("subEvents.language")}</dt>
+            <dd>{event.language}</dd>
+          </div>
+        )
+      }
+    </dl>
+    <p class="sub-event-card__description">{event.description}</p>
+    <div class="sub-event-card__links">
+      <a
+        href={event.eventUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="sub-event-card__cta"
+      >
+        {t("subEvents.eventLink")}
+      </a>
+      <a
+        href={googleCalendarUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="sub-event-card__sub-link"
+      >
+        {t("subEvents.addToGoogleCalendar")}
+      </a>
+      <a
+        href={event.issueUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="sub-event-card__sub-link"
+      >
+        {t("subEvents.viewIssue")}
+      </a>
+    </div>
+  </div>
+</article>
+
+<style>
+  @layer components {
+    .sub-event-card {
+      container-type: inline-size;
+      container-name: sub-event-card;
+      height: fit-content;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+      &:nth-child(odd):hover {
+        transform: translateY(-2px);
+        box-shadow: -5px -5px var(--color-conf-blue);
+      }
+      &:nth-child(even):hover {
+        transform: translateY(-2px);
+        box-shadow: 5px 5px var(--color-conf-red);
+      }
+    }
+
+    .sub-event-card__body {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      padding: 1.5rem;
+      background: var(--color-surface-base);
+      border: 0.5px solid white;
+    }
+
+    .sub-event-card__image {
+      display: block;
+      inline-size: 100%;
+      /* OGP 画像の標準比率 (1200x630) */
+      aspect-ratio: 1.91 / 1;
+      object-fit: cover;
+      border: 1px solid var(--color-border-subtle);
+    }
+
+    .sub-event-card__datetime {
+      color: var(--color-text-tertiary);
+      margin: 0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .sub-event-card__title {
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--color-text-primary);
+      margin: 0;
+      line-height: 1.3;
+    }
+
+    .sub-event-card__meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      margin: 0;
+    }
+
+    .sub-event-card__meta-item {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .sub-event-card__meta-item dt {
+      color: var(--color-text-tertiary);
+      flex-shrink: 0;
+      min-width: 3.5em;
+    }
+
+    .sub-event-card__meta-item dd {
+      color: var(--color-text-secondary);
+      margin: 0;
+    }
+
+    .sub-event-card__description {
+      color: var(--color-text-secondary);
+      margin: 0;
+      white-space: pre-line;
+      overflow-wrap: anywhere;
+    }
+
+    .sub-event-card__links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .sub-event-card__cta {
+      display: inline-block;
+      padding: 0.5rem 1.25rem;
+      background: var(--color-conf-red);
+      color: white;
+      text-decoration: none;
+      border-block-end: none;
+      font-weight: 600;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+      &:hover {
+        transform: translateY(-1px);
+      }
+    }
+
+    .sub-event-card__sub-link {
+      color: var(--color-text-secondary);
+    }
+
+    @container sub-event-card (min-width: 400px) {
+      .sub-event-card__body {
+        padding: 2rem;
+        gap: 1rem;
+      }
+    }
+  }
+</style>

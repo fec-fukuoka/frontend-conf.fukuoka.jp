@@ -32,6 +32,21 @@
 
 詳しくは [Wiki の CFP ページ](https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/wiki/Call-for-Proposals-Workflow) をご覧ください。
 
+## Community Sub-Events
+
+<div align="center">
+
+<a href="https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/issues/new?template=Sub_Event.yml">
+<img src="https://img.shields.io/badge/SubEvent_登録-ED33DE?style=for-the-badge&logo=github&logoColor=white" alt="サブイベント登録" />
+</a>
+<br/>
+<sub>コミュニティ主催のサブイベント登録はこちら</sub>
+
+</div>
+
+登録されたイベントは、運営の承認後に[公式サイトのサブイベント一覧](https://frontend-conf.fukuoka.jp/sub-events)に掲載されます。
+詳しくは [Wiki のサブイベントページ](https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/wiki/Sub-Events) をご覧ください。
+
 ## Contact
 
 お問い合わせは [Wiki の Contact ページ](https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/wiki/Contact) をご覧ください。
