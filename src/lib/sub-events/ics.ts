@@ -1,4 +1,4 @@
-import { SUB_EVENT_UID_DOMAIN, SUB_EVENT_YEAR } from "./constants";
+import { SUB_EVENT_UID_DOMAIN } from "./constants";
 import type { SubEvent } from "./types";
 
 const CRLF = "\r\n";
@@ -62,10 +62,10 @@ export function buildIcsFeed(events: SubEvent[]): string {
   const lines: string[] = [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
-    `PRODID:-//Frontend Conference Fukuoka//Sub Events ${SUB_EVENT_YEAR}//JA`,
+    "PRODID:-//Frontend Conference Fukuoka//Sub Events//JA",
     "CALSCALE:GREGORIAN",
     "METHOD:PUBLISH",
-    `X-WR-CALNAME:Frontend Conf Fukuoka ${SUB_EVENT_YEAR} Community Sub-Events`,
+    "X-WR-CALNAME:Frontend Conf Fukuoka Community Sub-Events",
     "X-WR-TIMEZONE:Asia/Tokyo",
   ];
 

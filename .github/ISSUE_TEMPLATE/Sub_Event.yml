@@ -1,10 +1,11 @@
 # NOTE: 各フィールドの label は src/lib/sub-events/constants.ts の FORM_HEADINGS と
 # 完全一致させること（サイト側パーサーが Issue 本文の見出しとして照合する）。
 # 整合性は src/lib/sub-events/template-sync.test.ts で検証される。
-name: "コミュニティサブイベント登録 2026 / Community Sub-Event Registration 2026"
-description: "Frontend Conf Fukuoka 2026 のコミュニティ主催サブイベント登録フォーム / Registration form for community-hosted sub-events of Frontend Conf Fukuoka 2026"
+# このフォームは年度非依存。掲載先の年度は開始日時の年で自動的に振り分けられる。
+name: "コミュニティサブイベント登録 / Community Sub-Event Registration"
+description: "Frontend Conf Fukuoka のコミュニティ主催サブイベント登録フォーム / Registration form for community-hosted sub-events of Frontend Conf Fukuoka"
 title: "[SubEvent] Please fill in the event name"
-labels: ["sub-event-2026"]
+labels: ["sub-event"]
 body:
   # ========================================
   # イントロダクション / Introduction
@@ -12,19 +13,19 @@ body:
   - type: markdown
     attributes:
       value: |
-        ## 🎪 Frontend Conf Fukuoka 2026 コミュニティサブイベント登録
+        ## 🎪 Frontend Conf Fukuoka コミュニティサブイベント登録
 
         ### サブイベント登録について / About Sub-Event Registration
 
-        Frontend Conf Fukuoka 2026 に関連するコミュニティ主催イベントの登録、ありがとうございます！
-        この Issue が open かつ `sub-event-2026` ラベル付きの間、イベント情報が[公式サイトのサブイベント一覧](https://frontend-conf.fukuoka.jp/2026/sub-events)に掲載されます。
+        Frontend Conf Fukuoka に関連するコミュニティ主催イベントの登録、ありがとうございます！
+        この Issue が open かつ `sub-event` ラベル付きの間、イベント情報が[公式サイトのサブイベント一覧](https://frontend-conf.fukuoka.jp/sub-events)に掲載されます（掲載先の年度ページは開始日時の年で決まります）。
 
-        Thank you for registering a community-hosted event related to Frontend Conf Fukuoka 2026!
-        While this issue is open and labeled `sub-event-2026`, the event appears on the [official sub-events page](https://frontend-conf.fukuoka.jp/2026/sub-events).
+        Thank you for registering a community-hosted event related to Frontend Conf Fukuoka!
+        While this issue is open and labeled `sub-event`, the event appears on the [official sub-events page](https://frontend-conf.fukuoka.jp/sub-events) (the edition page is determined by the start date's year).
 
         ### 掲載ルール / Publication Rules
 
-        See: [サブイベント掲載ガイド / Sub-Events Guide](https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/wiki/Sub-Events-2026)
+        See: [サブイベント掲載ガイド / Sub-Events Guide](https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/wiki/Sub-Events)
 
         ---
 

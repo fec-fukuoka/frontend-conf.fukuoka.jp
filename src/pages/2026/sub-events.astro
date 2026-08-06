@@ -3,7 +3,11 @@ import SubEventCard from "../../components/cards/SubEventCard.astro";
 import { getLangFromRequest, useTranslations } from "../../i18n/utils";
 import PageLayout from "../../layouts/PageLayout.astro";
 import { SUB_EVENT_SUBMIT_URL } from "../../lib/sub-events/constants";
+import { filterByEditionYear } from "../../lib/sub-events/github";
 import type { SubEvent } from "../../lib/sub-events/types";
+
+// このページが掲載する開催年（ページの配置ディレクトリと揃える）
+const EDITION_YEAR = 2026;
 
 const lang = getLangFromRequest(Astro.request, Astro.url);
 const t = useTranslations(lang);
@@ -17,7 +21,10 @@ try {
   if (!response.ok) {
     throw new Error(`/api/sub-events responded ${response.status}`);
   }
-  events = (await response.json()) as SubEvent[];
+  events = filterByEditionYear(
+    (await response.json()) as SubEvent[],
+    EDITION_YEAR
+  );
 } catch (error) {
   console.error("[sub-events] failed to fetch /api/sub-events:", error);
   loadFailed = true;

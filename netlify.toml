@@ -6,6 +6,19 @@
   from = "/"
   to = "/2026/"
   status = 302
+
+# サブイベントの年度非依存 URL（年度更新時はリダイレクト先を変更する）
+[[redirects]]
+  from = "/sub-events"
+  to = "/2026/sub-events"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/sub-events.ics"
+  to = "/2026/sub-events.ics"
+  status = 302
+  force = true
 [[redirects]]
   from = "/2019/*"
   to = "https://2019.frontend-conf.fukuoka.jp/:splat"

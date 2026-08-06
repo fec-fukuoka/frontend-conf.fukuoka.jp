@@ -67,3 +67,14 @@ export async function loadSubEvents(token?: string): Promise<SubEvent[]> {
   // 同一オフセット(+09:00)の ISO 8601 なので文字列比較で時系列順になる
   return events.sort((a, b) => a.startsAt.localeCompare(b.startsAt));
 }
+
+/**
+ * 指定した開催年（JST での開始日時の年）のイベントだけに絞る。
+ * ラベルは年度非依存（sub-event）なので、各年度のページ・フィードがこれで振り分ける。
+ */
+export function filterByEditionYear(
+  events: SubEvent[],
+  year: number
+): SubEvent[] {
+  return events.filter((event) => event.startsAt.startsWith(`${year}-`));
+}

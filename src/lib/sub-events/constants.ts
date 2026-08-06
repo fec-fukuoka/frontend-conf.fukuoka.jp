@@ -1,29 +1,30 @@
 /**
- * Community sub-events: single source of truth for the yearly settings.
+ * Community sub-events: single source of truth for the settings.
+ *
+ * ラベル・Issue テンプレート・登録 URL は年度に依存しない。どの年度のページに
+ * 掲載するかは、Issue に入力された開始日時の年（EDITION_YEAR）で振り分ける。
  *
  * 年度更新時に変更する箇所:
- * 1. このファイルの SUB_EVENT_YEAR
- * 2. .github/ISSUE_TEMPLATE/Sub_Event_<year>.yml の新設
- * 3. src/pages/<year>/sub-events.astro と sub-events.ics.ts
- * 4. src/data/navigation.ts のパス
+ * 1. src/pages/<year>/sub-events.astro と sub-events.ics.ts を新年度ディレクトリへ
+ *    複製し、それぞれの EDITION_YEAR を更新する
+ * 2. netlify.toml の /sub-events・/sub-events.ics リダイレクト先を新年度に向ける
+ * 3. src/data/navigation.ts のパスを更新する
  */
-export const SUB_EVENT_YEAR = 2026;
-
-export const SUB_EVENT_LABEL = `sub-event-${SUB_EVENT_YEAR}`;
+export const SUB_EVENT_LABEL = "sub-event";
 
 export const SUB_EVENT_REPO = {
   owner: "fec-fukuoka",
   repo: "frontend-conf.fukuoka.jp",
 } as const;
 
-export const SUB_EVENT_TEMPLATE = `Sub_Event_${SUB_EVENT_YEAR}.yml`;
+export const SUB_EVENT_TEMPLATE = "Sub_Event.yml";
 
 export const SUB_EVENT_SUBMIT_URL = `https://github.com/${SUB_EVENT_REPO.owner}/${SUB_EVENT_REPO.repo}/issues/new?template=${SUB_EVENT_TEMPLATE}`;
 
 export const SUB_EVENT_UID_DOMAIN = "frontend-conf.fukuoka.jp";
 
 /**
- * Issue Form (.github/ISSUE_TEMPLATE/Sub_Event_2026.yml) の各フィールド label と
+ * Issue Form (.github/ISSUE_TEMPLATE/Sub_Event.yml) の各フィールド label と
  * 完全一致させること。GitHub は Issue Form の入力を「### <label>」見出し付きの
  * Markdown 本文に直列化するため、この表がフォームとパーサーの対応表になる。
  * 整合性は template-sync.test.ts で検証される。

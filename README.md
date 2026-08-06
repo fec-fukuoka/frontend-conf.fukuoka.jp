@@ -36,7 +36,7 @@
 
 <div align="center">
 
-<a href="https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/issues/new?template=Sub_Event_2026.yml">
+<a href="https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/issues/new?template=Sub_Event.yml">
 <img src="https://img.shields.io/badge/SubEvent_登録-ED33DE?style=for-the-badge&logo=github&logoColor=white" alt="サブイベント登録" />
 </a>
 <br/>
@@ -44,8 +44,8 @@
 
 </div>
 
-登録されたイベントは[公式サイトのサブイベント一覧](https://frontend-conf.fukuoka.jp/2026/sub-events)に掲載されます。
-詳しくは [Wiki のサブイベントページ](https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/wiki/Sub-Events-2026) をご覧ください。
+登録されたイベントは[公式サイトのサブイベント一覧](https://frontend-conf.fukuoka.jp/sub-events)に掲載されます。
+詳しくは [Wiki のサブイベントページ](https://github.com/fec-fukuoka/frontend-conf.fukuoka.jp/wiki/Sub-Events) をご覧ください。
 
 ## Contact
 
