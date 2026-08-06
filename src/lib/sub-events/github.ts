@@ -60,7 +60,7 @@ export async function loadSubEvents(token?: string): Promise<SubEvent[]> {
       events.push(result.event);
     } else {
       console.warn(
-        `[sub-events] skip issue #${result.issueNumber}: ${result.reason}`
+        `[sub-events] skip issue #${result.issueNumber}: ${result.reasons.join("; ")}`
       );
     }
   }

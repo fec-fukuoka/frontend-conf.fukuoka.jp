@@ -30,4 +30,4 @@ export interface GitHubIssue {
 
 export type ParseResult =
   | { ok: true; event: SubEvent }
-  | { ok: false; issueNumber: number; reason: string };
+  | { ok: false; issueNumber: number; reasons: string[] };

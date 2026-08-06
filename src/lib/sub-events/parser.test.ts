@@ -81,7 +81,7 @@ describe("parseSubEventIssue", () => {
     expect(result).toEqual({
       ok: false,
       issueNumber: 42,
-      reason: "issue body is empty",
+      reasons: ["issue body is empty"],
     });
   });
 
@@ -91,7 +91,7 @@ describe("parseSubEventIssue", () => {
     );
     expect(result.ok).toBe(false);
     if (!result.ok) {
-      expect(result.reason).toContain(FORM_HEADINGS.name);
+      expect(result.reasons.join("; ")).toContain(FORM_HEADINGS.name);
     }
   });
 
@@ -106,7 +106,7 @@ describe("parseSubEventIssue", () => {
     const result = parseSubEventIssue(issue({ body: issueBody({ startsAt }) }));
     expect(result.ok).toBe(false);
     if (!result.ok) {
-      expect(result.reason).toContain("start date-time");
+      expect(result.reasons.join("; ")).toContain("start date-time");
     }
   });
 
@@ -123,7 +123,7 @@ describe("parseSubEventIssue", () => {
     );
     expect(result.ok).toBe(false);
     if (!result.ok) {
-      expect(result.reason).toContain("after start");
+      expect(result.reasons.join("; ")).toContain("after start");
     }
   });
 
@@ -147,7 +147,7 @@ describe("parseSubEventIssue", () => {
       );
       expect(result.ok).toBe(false);
       if (!result.ok) {
-        expect(result.reason).toContain("event URL");
+        expect(result.reasons.join("; ")).toContain("event URL");
       }
     }
   );
@@ -212,7 +212,7 @@ describe("parseSubEventIssue", () => {
     );
     expect(result.ok).toBe(false);
     if (!result.ok) {
-      expect(result.reason).toContain("terms");
+      expect(result.reasons.join("; ")).toContain("terms");
     }
   });
 

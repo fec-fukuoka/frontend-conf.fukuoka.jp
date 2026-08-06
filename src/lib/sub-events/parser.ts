@@ -99,13 +99,13 @@ function termsAccepted(section: string | undefined): boolean {
  * `{ ok: false, reason }` を返し、呼び出し側でログに残して除外する。
  */
 export function parseSubEventIssue(issue: GitHubIssue): ParseResult {
-  const fail = (reason: string): ParseResult => ({
+  const fail = (reasons: string[]): ParseResult => ({
     ok: false,
     issueNumber: issue.number,
-    reason,
+    reasons,
   });
 
-  if (!issue.body) return fail("issue body is empty");
+  if (!issue.body) return fail(["issue body is empty"]);
 
   const sections = splitSections(issue.body);
   const problems: string[] = [];
@@ -155,7 +155,7 @@ export function parseSubEventIssue(issue: GitHubIssue): ParseResult {
     problems.push("terms checkboxes are not all checked");
   }
 
-  if (problems.length > 0) return fail(problems.join("; "));
+  if (problems.length > 0) return fail(problems);
 
   const event: SubEvent = {
     issueNumber: issue.number,
