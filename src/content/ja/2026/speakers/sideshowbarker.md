@@ -5,9 +5,9 @@ image: "https://avatars.githubusercontent.com/u/194984?v=4"
 sessionTitle: "How browser engines get made: Your questions answered"
 sessionCategory: "Browsers"
 language: "en"
-track: "N/A"
-startTime: "00:00"
-endTime: "00:00"
+track: "track-a"
+startTime: "13:20"
+endTime: "14:20"
 bio: |
   [Nu Html checker](https://github.com/validator/validator) (W3C validator) maintainer｜WebKit/Ladybird/Firefox/FOSS contributor｜Opera Software alumnus｜W3C staff
 twitter: ""
