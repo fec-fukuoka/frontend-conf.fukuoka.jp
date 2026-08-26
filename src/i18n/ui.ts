@@ -48,6 +48,8 @@ export const ui = {
     "access.bus": "バス",
     "access.jr": "JR",
     "access.byCar": "お車でお越しの方",
+    "access.byCar.notice":
+      "会場に駐車場のご用意はありません。当日は大学の駐車場もご利用いただけませんので、公共交通機関をご利用ください。",
     "access.map": "地図",
     "access.mapLater": "地図は後日公開します",
     "access.jr.walkingTime": "徒歩7-8分",
@@ -143,6 +145,8 @@ export const ui = {
     "access.bus": "Bus",
     "access.jr": "JR",
     "access.byCar": "By Car",
+    "access.byCar.notice":
+      "No parking is available at the venue, and the university parking lots cannot be used on the day of the event. Please use public transportation.",
     "access.map": "Map",
     "access.mapLater": "Map will be published later",
     "access.jr.walkingTime": "7-8 minute walk",
