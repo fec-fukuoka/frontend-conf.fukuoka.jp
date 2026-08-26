@@ -109,6 +109,15 @@
       "description": "株式会社ディーゼロ"
     },
     {
+      "id": "dwango",
+      "name": "株式会社ドワンゴ",
+      "nameEn": "DWANGO Co., Ltd.",
+      "tier": "bronze",
+      "logo": "dwango.png",
+      "url": "https://dwango.co.jp/",
+      "description": "株式会社ドワンゴ"
+    },
+    {
       "id": "teamlab",
       "name": "チームラボ株式会社",
       "nameEn": "teamLab Inc.",
