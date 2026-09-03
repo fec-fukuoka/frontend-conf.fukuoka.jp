@@ -2,7 +2,7 @@
 name: "Ryosuke Niwa"
 nameEn: "Ryosuke Niwa"
 image: "https://avatars.githubusercontent.com/u/285965?v=4"
-sessionTitle: "Web Components in 2026"
+sessionTitle: "ウェブコンポーネントの進化"
 sessionCategory: "Other / その他"
 language: "ja"
 track: "track-a"
