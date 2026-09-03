@@ -11,7 +11,7 @@ endTime: "16:40"
 bio: |
   A software engineer in Apple's WebKit team
 twitter: "rniwa_dev"
-github: "rniwa_dev"
+github: "rniwa"
 website: "https://rniwa.com/"
 locale: "ja"
 year: 2026
