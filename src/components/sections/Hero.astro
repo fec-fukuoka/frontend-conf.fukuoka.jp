@@ -16,8 +16,8 @@ const {
   year = "2026",
   date = "Coming Soon",
   venue = "Fukuoka, Japan",
-  ctaText = "Get Tickets",
-  ctaHref = "#tickets",
+  ctaText,
+  ctaHref,
   ctaAriaLabel,
   ctaNote,
 } = Astro.props;
@@ -62,34 +62,39 @@ const {
         </div>
       </div>
 
-      <div class="hero__cta">
-        <a
-          href={ctaHref}
-          class="hero__button"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={ctaAriaLabel ?? ctaText}
-        >
-          <span class="hero__button-text">{ctaText}</span>
-          <svg
-            class="hero__button-arrow"
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
+      {
+        ctaText && ctaHref && (
+          <div class="hero__cta">
+            <a
+              href={ctaHref}
+              class="hero__button"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={ctaAriaLabel ?? ctaText}
           >
-            <path
-              d="M4 10H16M16 10L11 5M16 10L11 15"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"></path>
-          </svg>
-        </a>
-        {ctaNote && <span class="hero__ticket-note">{ctaNote}</span>}
-      </div>
+              <span class="hero__button-text">{ctaText}</span>
+              <svg
+                class="hero__button-arrow"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path
+                  d="M4 10H16M16 10L11 5M16 10L11 15"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </a>
+            {ctaNote && <span class="hero__ticket-note">{ctaNote}</span>}
+          </div>
+        )
+      }
     </div>
 
     <div class="hero__vertical-text">

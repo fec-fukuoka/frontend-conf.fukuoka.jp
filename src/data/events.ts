@@ -19,7 +19,7 @@ export interface Event {
 export const events: Event[] = [
   {
     year: 2026,
-    status: "upcoming",
+    status: "past",
     title: "FEC Fukuoka 2026",
     titleEn: "FEC Fukuoka 2026",
     description: "フロントエンドカンファレンス福岡 2026 公式ウェブサイト",

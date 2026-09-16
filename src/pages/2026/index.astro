@@ -67,23 +67,27 @@ const eventDescription =
   isHome={true}
 >
   <div class="container">
-    <section class="schedule">
-      <h2 class="section-title">{t("schedule.title")}</h2>
-      <p class="schedule-note">{t("schedule.note")}</p>
-      <ul class="schedule-list" id="schedule-list" data-lang={lang}>
-        <li class="schedule-item schedule-loading">
-          {lang === "ja" ? "読み込み中..." : "Loading..."}
-        </li>
-      </ul>
-      <a
-        href="https://calendar.google.com/calendar/u/0?cid=NjA0MTRlMzgwMmYyMjY3NWQ2YmU3MzhjMjExYTNkNWUzYmMwMjQ3ZGNlNTNiMjA1MDBkNjRlOWY2MzEzNjY0YkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="calendar-link"
-      >
-        🗓️ {t("schedule.addToCalendar")}
-      </a>
-    </section>
+    {
+      event.status === "upcoming" && (
+        <section class="schedule">
+          <h2 class="section-title">{t("schedule.title")}</h2>
+          <p class="schedule-note">{t("schedule.note")}</p>
+          <ul class="schedule-list" id="schedule-list" data-lang={lang}>
+            <li class="schedule-item schedule-loading">
+              {lang === "ja" ? "読み込み中..." : "Loading..."}
+            </li>
+          </ul>
+          <a
+            href="https://calendar.google.com/calendar/u/0?cid=NjA0MTRlMzgwMmYyMjY3NWQ2YmU3MzhjMjExYTNkNWUzYmMwMjQ3ZGNlNTNiMjA1MDBkNjRlOWY2MzEzNjY0YkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="calendar-link"
+          >
+            🗓️ {t("schedule.addToCalendar")}
+          </a>
+        </section>
+      )
+    }
 
     <section class="news">
       <div class="section-header">
